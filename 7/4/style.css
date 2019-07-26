@@ -17,6 +17,7 @@
   header, main, aside, footer {
     background: #000;
     color: #fff;
+    padding: 15px 10px;
   }
   header {
     grid-area: head;
@@ -30,10 +31,7 @@
   footer {
    grid-area:  foot;
   }
-  p {
-    margin: 15px 10px;
-  }
-  
+   
 @media screen and (max-width: 1024px) {  
   .konti {
     grid-template-areas: "head head"
