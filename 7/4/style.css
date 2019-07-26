@@ -1,0 +1,44 @@
+@charset "utf-8";
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .konti {
+    display: grid;
+    grid-template-areas: "head head"
+                                    "main sidebar"
+                                    "foot  foot";
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+    margin: 15px 10px;
+ }
+  header, main, aside, footer {
+    background: #000;
+    color: #fff;
+  }
+  header {
+    grid-area: head;
+  }
+  main {
+    grid-area: main; 
+  }
+  aside {
+    grid-area:  sidebar;
+  }
+  footer {
+   grid-area:  foot;
+  }
+  p {
+    margin: 15px 10px;
+  }
+  
+@media screen and (max-width: 1024px) {  
+  .konti {
+    grid-template-areas: "head head"
+                                     "main main"
+                                     "sidebar sidebar"
+                                     "foot  foot";
+            }
+}
