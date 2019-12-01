@@ -1,0 +1,29 @@
+.cs {
+  position: absolute;
+  left: 0; /*50%;*/
+  top: 0; /*50%;*/
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  background: #f00;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  animation: cs 3s linear infinite;
+}
+
+@keyframes cs {
+  /*0% { background: #f00; border-radius: 50%; }*/
+  50% { 
+    background: #f3a618; 
+    border-radius: 0; 
+    width: 140px; 
+    height: 140px
+  }
+  100% { 
+    background: #f00; 
+    border-radius: 50%; 
+    width: 100px;
+    height: 100px;
+  }
+}
