@@ -9,23 +9,28 @@ nav {
   width: 300px;
   height: 200px;
 
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 nav li {
   list-style: none;
+  line-height: 1.8;
   /* transform: translateX(-2em);
   transition: transform 10s ease-in; */
   opacity: 0;
   transform: translateX(0);
   animation: listu 1s linear;
-  animation-fill-mode: both;
+  animation-fill-mode: both; /* т'ва е*/
 
 }
-body.loaded nav li {
+a {
+  text-decoration: none;
+  color: #000;
+}
+/* body.loaded nav li {
   opacity: 1;
   transform: translateX(0);
-}
+} */
 /* nav li:nth-child(1) { transition-delay: 1s; }
 nav li:nth-child(2) { transition-delay: 2s; }
 nav li:nth-child(3) { transition-delay: 3s; }
@@ -45,13 +50,13 @@ nav li:nth-child(2) {
   animation-delay: 2s; 
   /* opacity: 1; */
 }*/
-nav li:nth-child(1) { animation-delay: 1s; }
-nav li:nth-child(2) { animation-delay: 2s; }
-nav li:nth-child(3) { animation-delay: 3s; }
-nav li:nth-child(4) { animation-delay: 4s; }
-nav li:nth-child(5) { animation-delay: 5s; }
-nav li:nth-child(6) { animation-delay: 6s; }
-nav li:nth-child(7) { animation-delay: 7s; }
+nav li:nth-child(1) { animation-delay: 0.5s; }
+nav li:nth-child(2) { animation-delay: 1s; }
+nav li:nth-child(3) { animation-delay: 1.5s; }
+nav li:nth-child(4) { animation-delay: 2s; }
+nav li:nth-child(5) { animation-delay: 2.5s; }
+nav li:nth-child(6) { animation-delay: 3s; }
+nav li:nth-child(7) { animation-delay: 3.5s; }
 
 
 @keyframes listu { 
