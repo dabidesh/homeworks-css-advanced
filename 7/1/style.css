@@ -4,14 +4,14 @@
     margin: 0;
     box-sizing: border-box;
   }
-  body {
+  main {
     display: grid;
     grid-template-columns: 31% 31% 31%;
     grid-gap: 50px 1.75%; 
     margin-left: 1.75%;
     margin-top: 50px;
   }
-  div {
+  main div {
     background: #000;
     color: #fff;
     height: 100px;
