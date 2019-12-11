@@ -1,2 +1,2 @@
-# Домашни работи от курса „CSS Advanced“
+# Домашни работи от курса „CSS Advanced“ и екстри
 ## homeworks-css-advanced

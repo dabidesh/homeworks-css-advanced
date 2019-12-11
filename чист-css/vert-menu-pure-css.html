@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8" />
+<title>Checkbox Hack</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type=checkbox] {
+   position: absolute;
+   top: -9999px;
+   left: -9999px;
+}
+label {
+  -webkit-appearance: push-button;
+  -moz-appearance: button;
+  display: inline-block;  /*-block*/
+  cursor: pointer;
+  border: none;
+}
+
+/* Default State */
+ul.submenu {
+  display: none;
+}
+
+/* Toggled State */
+input[type=checkbox]:checked ~ ul.submenu {
+   display: block;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<ul>
+  <li><a href="#" >Лист 1</a></li>
+  <li><a href="#" >Лист 2</a></li>
+  <li><a href="#" >Лист 3</a>
+    <label for="toggle-1">+</label>
+    <input type="checkbox" id="toggle-1">
+    <ul class="submenu">
+        <li><a href="#" >Лист 3.1</a></li>
+        <li><a href="#" >Лист 3.2</a></li>
+        <li><a href="#" >Лист 3.3</a></li>
+    </ul>
+  </li>
+  <li><a href="#" >Лист 4</a></li>
+  <li><a href="#" >Лист 5</a></li> 
+</ul>
+
+
+
+  
+</body>
+</html>
