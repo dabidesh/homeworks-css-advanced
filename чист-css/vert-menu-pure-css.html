@@ -33,7 +33,9 @@ ul.submenu {
 input[type=checkbox]:checked ~ ul.submenu {
    display: block;
 }
-
+input[type=checkbox]:checked ~ label {
+   background-color: green;
+}
 </style>
 
 </head>
@@ -44,8 +46,8 @@ input[type=checkbox]:checked ~ ul.submenu {
   <li><a href="#" >Лист 1</a></li>
   <li><a href="#" >Лист 2</a></li>
   <li><a href="#" >Лист 3</a>
+    <input type="checkbox" id="toggle-1" />
     <label for="toggle-1">+</label>
-    <input type="checkbox" id="toggle-1">
     <ul class="submenu">
         <li><a href="#" >Лист 3.1</a></li>
         <li><a href="#" >Лист 3.2</a></li>
