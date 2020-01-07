@@ -1,0 +1,43 @@
+nav {
+  position: absolute;
+  left: 0; 
+  top: 0; 
+  bottom: 0;
+  right: 0;
+  margin: auto;
+
+  width: 300px;
+  height: 200px;
+
+  /* border: 1px solid red; */
+}
+
+nav li {
+  list-style: none;
+  line-height: 1.8;
+  /* transform: translateX(-2em);
+  transition: transform 10s ease-in; */
+  opacity: 0;
+  transform: translateY(0);
+  animation: listu 1s linear;
+  animation-fill-mode: both; /* т'ва е*/
+
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+nav li:nth-child(1) { animation-delay: 0.5s; }
+nav li:nth-child(2) { animation-delay: 1s; }
+nav li:nth-child(3) { animation-delay: 1.5s; }
+nav li:nth-child(4) { animation-delay: 2s; }
+nav li:nth-child(5) { animation-delay: 2.5s; }
+nav li:nth-child(6) { animation-delay: 3s; }
+nav li:nth-child(7) { animation-delay: 3.5s; }
+
+@keyframes listu { 
+  0% { transform: translateY(-20em); opacity: 0;}
+  75% { transform: translateY(0); opacity: 0.5;}
+  100% { opacity: 1;}
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="utf-8">
+    <title>Играта „живот“ js-dos api</title>
+    <style>
+      .dosbox-container { width: 800px; height: 500px; }
+
+      .dosbox-start { font-size: 35px !important; }
+      
+      button { width: 400px; font-size: 30px; }
+    </style>
+  </head>
+  <body>
+    <div id="dosbox"></div>
+    <br/>
+    <br/>
+    <button onclick="dosbox.requestFullScreen();">Цял екран</button> <span>Работи, след като се зареди играта!</span>
+    <br/>
+    <br/>
+    <button onclick="window.location.reload();">Презареди</button>
+    
+    <script src="./js-dos-api/js-dos-api-cyr.js"></script>
+    <script>
+      var dosbox = new Dosbox({
+        id: "dosbox",
+        onload: function (dosbox) {
+          dosbox.run("life.zip", "./life.bat");
+        },
+        onrun: function (dosbox, app) {
+          console.log("App '" + app + "' е пуснат");
+        }
+      });
+    </script>
+    
+<h1>Играта „Живот“ (клавиши)</h1>
+    
+<p>Бърз старт: +...+, caps lock, F9.</p>
+    
+<ul>
+<li>6: s-- (стъпка)</li>
+<li>5: s++</li>
+<li>num lock: област за въвеждане</li>
+<li>caps lock: случайно котило</li>
+<li>+,-: разш., свиване на областта (+: лек бъг)</li>
+<li>стрелки, шпация: въвеждане на единична клетка</li>
+<li>F9: старт</li>
+<li>F10: едно поколение, стоп</li>
+<li>F3: избрани организми</li>
+<li>F4: слага организми</li>
+<li>F2: слага организми огледално (и технически данни)</li>
+<li>*: технически данни</li>
+<li>Shift, ins. del: чисти областта</li>
+<li>Ctrl: TimeSpeed-- (по-бавно)</li>
+<li>Tab: TimeSpeed++</li>
+<li>?CLLeft,CLRight: превъртане на избрани организми</li>
+<li>?: запис</li>
+<li>?: зареждане</li>
+<li>9: горе</li>
+<li>0: долу</li>
+<li>=: дясно</li>
+<li>-: ляво</li>
+<li>q-u, a-j, z-m: гамата</li>
+</ul>
+
+<p>Изтеглете за да играете офлайн: <a href="./life.zip">life.zip</a>. Разархивирайте и стартирайте с <strong>life.bat</strong>.</p>
+
+<p>С помощта на библиотеката <a href="https://js-dos.com/" >js-dos</a> и програмата <a href="https://www.dosbox.com/" >dosbox</a>.</p>
+    
+  </body>
+</html>
