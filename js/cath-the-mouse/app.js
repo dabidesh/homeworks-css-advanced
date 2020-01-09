@@ -1,4 +1,5 @@
 var windowRazmeri = new Array(0, 0);
+var interv = 0;
 windowRazmeri = daiWinInnerWH();
 
 window.onload = function () {
@@ -6,6 +7,11 @@ window.onload = function () {
     addEvent('click', img, catchMouse)
     addEvent('mouseover', img, chaseMouse)
     chaseMouse();
+
+    //добавя текст
+    interval_txt0 = getElementById0('nMouse');
+    itxt = ('innerText' in interval_txt0) ? 'innerText' : 'textContent';
+    interval_txt0[itxt] = Number(interv) + ' мишки';  //после само с това
 }
 
 
@@ -21,6 +27,8 @@ function chaseMouse() {
 }
 function catchMouse() {
     alert("Congratulations, You catch the mouse Jerry!");
+    interv++
+    interval_txt0[itxt] = Number(interv) + ' мишки';
 }
 
 function addEvent(event, elem, func) {
