@@ -1,9 +1,16 @@
 var windowRazmeri = new Array(0, 0);
 var interv = 0;
+var chase = 0;
 windowRazmeri = daiWinInnerWH();
+
+var widthMouse = 200
+var heightMouse = 200
+
+var img, elChaseId, interval_txt0, itxt;
 
 window.onload = function () {
     var img = document.getElementById("imageId")
+
     addEvent('click', img, catchMouse)
     addEvent('mouseover', img, chaseMouse)
     chaseMouse();
@@ -11,7 +18,10 @@ window.onload = function () {
     //добавя текст
     interval_txt0 = getElementById0('nMouse');
     itxt = ('innerText' in interval_txt0) ? 'innerText' : 'textContent';
-    interval_txt0[itxt] = Number(interv) + ' мишки';  //после само с това
+    interval_txt0[itxt] = Number(interv) + ' мишлета';  //после само с това
+
+    elChaseId = getElementById0('nChase');
+    elChaseId['innerText'] = Number(chase)
 }
 
 
@@ -21,14 +31,35 @@ function chaseMouse() {
     //style = window.getComputedStyle(img);
     //posi = style.getPropertyValue('position');
     img.style.position = "absolute";
-    img.style.left = (Math.random() * (windowRazmeri[0]-100)) + "px";
-    img.style.top = (Math.random() * (windowRazmeri[1]-100)) + "px";
-    //alert((Math.random() * 300) + "px")
+    img.style.left = (Math.random() * (windowRazmeri[0] - widthMouse)) + "px";
+    img.style.top = (Math.random() * (windowRazmeri[1] - heightMouse)) + "px";
+
+    elChaseId = getElementById0('nChase');
+    elChaseId['innerText'] = Number(chase++)
+
 }
 function catchMouse() {
-    alert("Congratulations, You catch the mouse Jerry!");
+    //alert("Congratulations, You catch the mouse Jerry!");
     interv++
-    interval_txt0[itxt] = Number(interv) + ' мишки';
+    interval_txt0[itxt] = Number(interv) + ' мишлета';
+
+    chaseMouse()
+
+    elChaseId = getElementById0('nChase');
+    elChaseId['innerText'] = Number(chase--)
+}
+function incMouse() {
+    //img = document.getElementById('imageId');
+    widthMouse = widthMouse + 100
+    heightMouse = heightMouse + 100
+    img.style.width = widthMouse + "px"
+    img.style.height = heightMouse + "px"
+}
+function decMouse() {
+    widthMouse = widthMouse - 50
+    heightMouse = heightMouse - 50
+    img.style.width = widthMouse + "px"
+    img.style.height = heightMouse + "px"
 }
 
 function addEvent(event, elem, func) {
