@@ -11,10 +11,13 @@
     box-sizing: border-box;
    }
   #imageId {
-    border: 1px solid green;
+    /*border: 1px solid green;*/
     width: 200px;
     height: 200px;
+
+    z-index: -1;
   }
+
   #nMouse {
     font-size: 30px;
     color: green;
@@ -29,9 +32,10 @@
 </head>
 
 <body>
+  <h1>Гѐпи Джери!</h1>
   <div id="nMouse"></div>
   <div><span id="nChase" ></span> избягвания</div>
-  <button onclick="incMouse()" >Уголеми мишлето!</button>
+  <button onclick="incMouse()" >Уголеми мишлето за да го гепиш лесно!</button><br />
   <button onclick="decMouse()" >Намали мишлето!</button>
 
   <img id="imageId" src="mouse.jpg" title="Mouse Jery" />

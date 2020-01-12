@@ -23,7 +23,13 @@ window.onload = function () {
     elChaseId = getElementById0('nChase');
     elChaseId['innerText'] = Number(chase)
 }
+window.onresize = function () {
+    windowRazmeri = daiWinInnerWH();
+    chaseMouse();
 
+    elChaseId = getElementById0('nChase');
+    elChaseId['innerText'] = Number(chase--)
+}
 
 function chaseMouse() {
     img = document.getElementById('imageId');
@@ -46,7 +52,7 @@ function catchMouse() {
     chaseMouse()
 
     elChaseId = getElementById0('nChase');
-    elChaseId['innerText'] = Number(chase--)
+    elChaseId['innerText'] = Number(chase--);
 }
 function incMouse() {
     //img = document.getElementById('imageId');
@@ -54,6 +60,11 @@ function incMouse() {
     heightMouse = heightMouse + 100
     img.style.width = widthMouse + "px"
     img.style.height = heightMouse + "px"
+
+    chaseMouse()
+
+    elChaseId = getElementById0('nChase');
+    elChaseId['innerText'] = Number(chase--);
 }
 function decMouse() {
     widthMouse = widthMouse - 50
