@@ -36,8 +36,8 @@ input, button {
   font-size: 2em;
   width: 100%;
 }
-input:hover, button:hover, label:hover, input:active {
-  background-color: rgb(64, 145, 50);
+input:hover, button:hover, label:hover, input:active, input:focus, input:target {
+  background-color: rgb(64, 145, 50) !important;
 }
 button:hover {
   cursor: pointer;
@@ -153,25 +153,29 @@ izhodE.value = (`Общо атаки = ${i}, Орли = ${orliNumber}, Змии 
 
 <body>
 <div id="konti">
+<form oninput="x.value=parseInt(mishkiId.value)" >
   <fieldset>
     <legend>Вход</legend>
       <label for="orliId" >Орли
-      <input id="orliId" value="6" />
+      <input type="number" id="orliId" value="6" />
     </label>
     <label for="zmiiId">Змии
-      <input id="zmiiId" value="17" />
+      <input type="number" id="zmiiId" value="17" />
     </label>
-    <label for="mishkiId">Мишки
-      <input id="mishkiId" value="55" />
+    <label for="mishkiId">Мишки<br />
+      0<input type="range" id="mishkiId" value="499" oninput="x.value=parseInt(mishkiId.value)" />500
+    </label>
+    <label for="xId">=
+      <output id="xId" name="x" for="mishkiId" >499</output>
     </label>
   </fieldset>
-
+</form>
   <button onclick="orli()" >Започни случаен лов</button>
 
   <fieldset>
     <legend>Изход</legend>
     <label for="izhodId">Последно
-      <input id="izhodId" value="" />
+      <input id="izhodId" value="" readonly />
     </label>
 
     <div id="divId" ></div>
