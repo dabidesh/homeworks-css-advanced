@@ -162,7 +162,7 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
 
 <body>
 <div id="konti">
-<form oninput="x.value=parseInt(mishkiId.value)" >
+<form>
   <fieldset>
     <legend>Вход</legend>
       <label for="orliId" >Орли
@@ -172,10 +172,10 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
       <input type="number" id="zmiiId" value="17" />
     </label>
     <label for="mishkiId">Мишки<br />
-      0<input type="range" id="mishkiId" value="55" min="0" max="500" />500
+      [0<input type="range" id="mishkiId" value="55" min="0" max="500" oninput="x.value=parseInt(mishkiId.value)" />500]
     </label>
-    <label for="xId">=
-      <output id="xId" name="x" for="mishkiId" >55</output>
+    <label for="xId">=>
+      <output id="xId" name="x" for="mishkiId" >55</output> мишки
     </label>
   </fieldset>
 </form>
