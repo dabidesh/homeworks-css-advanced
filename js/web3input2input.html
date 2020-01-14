@@ -52,8 +52,7 @@ window.onload = function() {
   orliE = document.getElementById('orliId')
   zmiiE = document.getElementById('zmiiId')
   mishkiE = document.getElementById('mishkiId')
- // izhodE = document.getElementById('izhodId')
-  divZukoE = document.getElementById('divZukoId')
+  izhodE = document.getElementById('izhodId')
 
   //start()
   orli();
@@ -67,11 +66,6 @@ function insertP(replika) {
   elem.appendChild(document.createTextNode(replika))
   div.appendChild(elem)
 }
-function insertPzuko(replika) {
-  var elem = document.createElement('p')
-  elem.appendChild(document.createTextNode(replika))
-  divZukoE.appendChild(elem)
-}
 
 function orli() {
 
@@ -84,7 +78,6 @@ let mishkiNumber = parseInt(mishkiE.value);
 let brZhivotni = orliNumber + zmiiNumber + mishkiNumber;
 
 div.innerHTML = '';  //чисти всичко в div-а
-divZukoE.innerHTML = ''; 
 
 insertP(`Общо атаки = ${0}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`);
 
@@ -147,9 +140,7 @@ if ((mishkiNumber == 0 && zmiiNumber == 0) || (mishkiNumber == 0 && orliNumber =
 
 
 }
-//izhodE.value = (`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
-
-insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
+izhodE.value = (`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
 }//край на orli() 
 
 
@@ -183,10 +174,9 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
 
   <fieldset>
     <legend>Изход</legend>
-   <!--  <label for="izhodId">Последно
-      <input id="izhodId" value="" readonly /> -->
-      <div id="divZukoId"></div>
-    <!-- </label> -->
+    <label for="izhodId">Последно
+      <input id="izhodId" value="" readonly />
+    </label>
 
     <div id="divId" ></div>
   </fieldset>
