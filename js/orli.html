@@ -75,11 +75,20 @@ function insertPzuko(replika) {
 
 function orli() {
 
-let orliNumber = parseInt(orliE.value);
-let zmiiNumber = parseInt(zmiiE.value);
-let mishkiNumber = parseInt(mishkiE.value);
+let orliNumber = Math.abs(parseInt(orliE.value));
+let zmiiNumber = Math.abs(parseInt(zmiiE.value));
+let mishkiNumber = Math.abs(parseInt(mishkiE.value));
+
+if (isNaN(orliNumber))
+    orliNumber = 0
+if (isNaN(zmiiNumber))
+    zmiiNumber = 0
+if (isNaN(mishkiNumber))
+    mishkiNumber = 0
 
 //alert(mishkiNumber)
+//alert(orliNumber)
+//alert(zmiiNumber)
 
 let brZhivotni = orliNumber + zmiiNumber + mishkiNumber;
 
