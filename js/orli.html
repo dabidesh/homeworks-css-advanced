@@ -159,6 +159,9 @@ if ((mishkiNumber == 0 && zmiiNumber == 0) || (mishkiNumber == 0 && orliNumber =
 //izhodE.value = (`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
 
 insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
+
+//window.location.href = "#but";
+
 }//край на orli() 
 
 
@@ -171,6 +174,7 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
 
 <body>
 <div id="konti">
+  <!-- <a href="#but">Към бутона</a> -->
 <form>
   <fieldset>
     <legend>Вход</legend>
@@ -188,8 +192,8 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
     </label>
   </fieldset>
 </form>
-  <button onclick="orli()" >Започни случаен лов</button>
-
+  <button id="but" onclick="orli();window.location.href = '#but';" >Започни случаен лов</button>
+   <a href="#konti" >Въведи нови данни!</a>
   <fieldset>
     <legend>Изход</legend>
    <!--  <label for="izhodId">Последно
