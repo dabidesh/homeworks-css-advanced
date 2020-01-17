@@ -80,7 +80,7 @@ function orli() {
 
 let orliNumber = Math.abs(parseInt(orliE.value));
 let zmiiNumber = Math.abs(parseInt(zmiiE.value));
-let mishkiNumber = Math.abs(parseInt(mishkiE.value))
+let mishkiNumber = Math.abs(parseInt(mishkiE.value));
 
 if (isNaN(orliNumber))
     orliNumber = 0
@@ -182,7 +182,7 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
   <fieldset>
     <legend>Вход</legend>
       <label for="orliId" >Орли
-      <input type="number" id="orliId" name="orliName" value="6" min="0" max="150" onclick="orliName.value=''"/>
+      <input type="number" id="orliId" name="orliName" value="6" min="0" max="150" onclick="orliId.value=''"/>
     </label>
     <label for="zmiiId">Змии
       <input type="number" id="zmiiId" name="zmiiName" value="17" onclick="zmiiId.value=''" />
@@ -190,11 +190,11 @@ insertPzuko(`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${
     <label for="mishkiId">Мишки<br />
       [0<input type="range" id="mishkiId" value="55" min="0" max="150" oninput="xId.value=parseInt(mishkiId.value)" />150]
     </label>
-    <button class="butForRange" onclick="document.getElementById('mishkiId').value--;xId.value--;" >--</button>
+    <button class="butForRange" onclick="if (xId.value>0) {mishkiId.value--;xId.value--;}" >--</button>
     <label for="xId">=>
       <output id="xId" name="x" for="mishkiId" >55</output> мишки
     </label>
-    <button class="butForRange" onclick="document.getElementById('mishkiId').value++;xId.value++;" >++</button>
+    <button class="butForRange" onclick="if (xId.value<150) {mishkiId.value++;xId.value++;}" >++</button>
 
   </fieldset>
 
