@@ -37,9 +37,10 @@
    
 @media screen and (max-width: 1024px) {  
   .konti {
-    grid-template-areas: "head head"
-                                     "main main"
-                                     "sidebar sidebar"
-                                     "foot  foot";
+    grid-template-areas: "head head head"
+                          "na na na"
+                                     "main main main"
+                                     "sidebar sidebar sidebar"
+                                     "foot  foot foot";
             }
 }
