@@ -38,6 +38,6 @@ nav li:nth-child(7) { animation-delay: 3.5s; }
 
 @keyframes listu { 
   0% { transform: translateY(-20em); opacity: 0;}
-  75% { transform: translateY(0); opacity: 0.5;}
+  50% { transform: translateY(0); opacity: 0.5;}
   100% { opacity: 1;}
 }

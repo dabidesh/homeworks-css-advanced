@@ -6,8 +6,8 @@
 <script src="app.js" ></script>
 <style>
   * {
-    margin: 0;
-    padding: 0;  
+/*     margin: 0;
+    padding: 0;   */
     box-sizing: border-box;
    }
   #imageId {
@@ -22,12 +22,16 @@
     font-size: 30px;
     color: green;
   }
+
+  button {
+    font-size: 3em;
+  }
 </style>
 
 <script>
 //Слага клас „loaded“ на бодито
 window.addEventListener('DOMContentLoaded', (event) => {
-document.getElementsByTagName('body')[0].classList.add('loaded')
+  document.getElementsByTagName('body')[0].classList.add('loaded')
 })
 </script>
 
@@ -37,7 +41,7 @@ document.getElementsByTagName('body')[0].classList.add('loaded')
   <h1>Гѐпи Джери!</h1>
   <div id="nMouse"></div>
   <div><span id="nChase" ></span> избягвания</div>
-  <button onclick="incMouse()">Уголеми мишлето за да го гѐпиш лесно!</button><br />
+  <button onclick="incMouse()">Уголеми мишлето за да го гѐпиш лесно!</button><br /><br />
   <button onclick="decMouse()" >Намали мишлето!</button>
 
   <img id="imageId" src="mouse.jpg" title="Mouse Jery" />
