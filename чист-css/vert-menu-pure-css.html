@@ -1,65 +1,79 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
-<meta charset="utf-8" />
-<title>Checkbox Hack</title>
+  <meta charset="utf-8" />
+  <title>Checkbox Hack</title>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-input[type=checkbox] {
-   position: absolute;
-   top: -9999px;
-   left: -9999px;
-}
-label {
-  -webkit-appearance: push-button;
-  -moz-appearance: button;
-  display: inline-block;  /*-block*/
-  cursor: pointer;
-  border: none;
-}
+    input[type=checkbox] {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
 
-/* Default State */
-ul.submenu {
-  display: none;
-}
+    label {
+      -webkit-appearance: push-button;
+      -moz-appearance: button;
+      display: inline-block;
+      /*-block*/
+      cursor: pointer;
+      border: none;
+    }
 
-/* Toggled State */
-input[type=checkbox]:checked ~ ul.submenu {
-   display: block;
-}
-input[type=checkbox]:checked ~ label {
-   background-color: green;
-}
-</style>
+    /* Default State */
+    ul.submenu {
+      display: none;
+    }
+
+    /* Toggled State */
+    input[type=checkbox]:checked~ul.submenu {
+      display: block;
+    }
+
+    input[type=checkbox]:checked~label {
+      background-color: green;
+    }
+  </style>
 
 </head>
 
 <body>
 
-<ul>
-  <li><a href="#" >Лист 1</a></li>
-  <li><a href="#" >Лист 2</a></li>
-  <li><a href="#" >Лист 3</a>
-    <input type="checkbox" id="toggle-1" />
-    <label for="toggle-1">+</label>
-    <ul class="submenu">
-        <li><a href="#" >Лист 3.1</a></li>
-        <li><a href="#" >Лист 3.2</a></li>
-        <li><a href="#" >Лист 3.3</a></li>
-    </ul>
-  </li>
-  <li><a href="#" >Лист 4</a></li>
-  <li><a href="#" >Лист 5</a></li> 
-</ul>
+  <ul>
+    <li><a href="#">Лист 1</a></li>
+    <li><a href="#">Лист 2</a></li>
+    <li><a href="#">Лист 3</a>
+      <input type="checkbox" id="toggle-1" />
+      <label for="toggle-1">+</label>
+      <ul class="submenu">
+        <li><a href="#">Лист 3.1</a></li>
+        <li><a href="#">Лист 3.2</a></li>
+        <li><a href="#">Лист 3.3</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Лист 4</a></li>
+    <li><a href="#">Лист 5</a>
+      <input type="checkbox" id="toggle-2" />
+      <label for="toggle-2">+</label>
+      <ul class="submenu">
+        <li><a href="#">Лист 5.0</a></li>
+        <li><a href="#">Лист 5.1</a></li>
+        <li><a href="#">Лист 5.2</a></li>
+      </ul>
+    </li>
+
+  </ul>
 
 
 
-  
+
 </body>
+
 </html>
