@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2 типа персонализиран тултип (балонна помощ)</title>
+    <style>
+      .ttdiv {
+        display: none;
+
+        width: 300px;
+        height: 300px;
+        border: 1px solid;
+        background-color: #0fa;
+        position: fixed;
+        z-index: 100000;
+
+        overflow: hidden;
+        /*overflow-y: scroll;*/
+      }
+      .ttdiv-scroll {
+        display: none;
+
+        width: 300px;
+        height: 300px;
+        border: 1px solid;
+        background-color: #ffa;
+        position: fixed;
+        z-index: 99999;
+
+        overflow-y: scroll;
+      }
+
+      .p-scroll {
+        margin-bottom: 900px;
+      }
+      .right {
+        float: right;
+      }
+    </style>
+    <script>
+      function tooltip(text, element, tt) {
+        let offsetDistance = 20;
+        let offsetGlobal = 0;
+        let offsetForDivTop = 0;
+        let offsetForDivLeft = 0;
+        let windowSizes = new Array(0, 0);
+
+        windowSizes = getWinInnerWH();
+
+        if (document.body.scrollTop) offsetGlobal = document.body.scrollTop;
+        else offsetGlobal = document.documentElement.scrollTop;
+
+        if (document.body.scrollLeft)
+          offsetGlobalLeft = document.body.scrollLeft;
+        else offsetGlobalLeft = document.documentElement.scrollLeft;
+
+        elem = document.getElementById(element.id);
+        if (
+          elem.offsetTop + offsetDistance - offsetGlobal + 300 <
+          windowSizes[1]
+        )
+          offsetForDivTop = elem.offsetTop + offsetDistance - offsetGlobal
+        else offsetForDivTop = elem.offsetTop - 300 - offsetGlobal
+
+        if (
+          elem.offsetLeft + offsetDistance - offsetGlobalLeft + 300 <
+          windowSizes[0]
+        )
+          offsetForDivLeft =
+            elem.offsetLeft + offsetDistance - offsetGlobalLeft
+        else
+          offsetForDivLeft =
+            elem.offsetLeft - 300 - offsetGlobalLeft + offsetDistance
+
+        tt.style.top = offsetForDivTop + "px"
+        tt.style.left = offsetForDivLeft + "px"
+        tt.style.display = "block"
+      }
+
+      function hide(tt) {
+        tt.style.display = "none"
+      }
+
+      //вътрешни р-ри на джама
+      //@return [W,H]
+      function getWinInnerWH() {
+        var myWidth = 0,
+          myHeight = 0;
+        if (typeof window.innerWidth == "number") {
+          //Добър уеб четец
+          myWidth = window.innerWidth;
+          myHeight = window.innerHeight;
+        } else if (
+          document.documentElement &&
+          (document.documentElement.clientWidth ||
+            document.documentElement.clientHeight)
+        ) {
+          //Експлодър 6+ в режим 'standards compliant mode'
+          myWidth = document.documentElement.clientWidth;
+          myHeight = document.documentElement.clientHeight;
+        } else if (
+          document.body &&
+          (document.body.clientWidth || document.body.clientHeight)
+        ) {
+          //Експлодър 4
+          myWidth = document.body.clientWidth;
+          myHeight = document.body.clientHeight;
+        }
+        return [myWidth, myHeight];
+      }
+    </script>
+  </head>
+  <body>
+    <h1>2 типа персонализиран тултип (балонна помощ, подсказка)</h1>
+    <p>Балонна помощ, която винаги се вижда!</p>
+
+    <a
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv1'));"
+      onmouseout="hide(document.getElementById('ttdiv1'));"
+      id="srcElement1"
+      >Препратка 1</a
+    >
+    ||
+    <a
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv2'))"
+      onmouseout="hide(document.getElementById('ttdiv2'))"
+      id="srcElement2"
+      >Препратка 2</a
+    >
+    ||
+    <a
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv3'))"
+      id="srcElement3"
+      >Препратка 3</a
+    >
+
+    <a
+      class="right"
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv7'))"
+      onmouseout="hide(document.getElementById('ttdiv7'))"
+      id="srcElement7"
+      >Препратка отдясно</a
+    >
+
+    <p class="p-scroll">Превърти за да видиш как работи с долните препратки!</p>
+
+    <a
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv4'));"
+      onmouseout="hide(document.getElementById('ttdiv4'));"
+      id="srcElement4"
+      >Препратка 4</a
+    >
+    ||
+    <a
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv5'));"
+      onmouseout="hide(document.getElementById('ttdiv5'));"
+      id="srcElement5"
+      >Препратка 5</a
+    >
+    ||
+    <a
+      href="#"
+      onmouseover="tooltip('text',this, document.getElementById('ttdiv6'));"
+      id="srcElement6"
+      >Препратка 6</a
+    >
+
+    <p class="p-scroll">Превърти</p>
+
+    <div class="ttdiv" id="ttdiv1">ttdiv1 Lorem ipsum dolor sit amet.</div>
+    <div class="ttdiv" id="ttdiv2">
+      ttdiv2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur.
+    </div>
+    <div class="ttdiv-scroll" id="ttdiv3">
+      <button onclick="hide(document.getElementById('ttdiv3'));">
+        Затвори
+      </button>
+      ttdiv3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
+      perferendis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+      sequi veniam iste aliquam, ea ipsa quidem pariatur nihil harum ullam ipsum
+      dolorem asperiores perspiciatis ipsam ad voluptates enim odit repellendus
+      nam odio facilis doloremque. Dicta unde iure beatae quibusdam, deserunt
+      quam sequi rem blanditiis, nemo cum facilis ipsum nostrum natus dolor id
+      excepturi nisi animi velit alias fugiat harum. Explicabo asperiores rem
+      nam, error possimus ipsum excepturi doloremque voluptates, unde aliquid ex
+      totam quae molestiae sequi omnis? Sed non, consequatur voluptate aliquid
+      ex iusto, impedit nisi fugit corrupti ea temporibus, sequi sapiente illum
+      eaque. Expedita corporis quibusdam tempora vitae ad.
+      <button onclick="hide(document.getElementById('ttdiv3'));">
+        Затвори
+      </button>
+    </div>
+
+    <div class="ttdiv" id="ttdiv4">4 ttdiv1 Lorem ipsum dolor sit amet.</div>
+    <div class="ttdiv" id="ttdiv5">
+      5 ttdiv2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur.
+    </div>
+    <div class="ttdiv-scroll" id="ttdiv6">
+      <button onclick="hide(document.getElementById('ttdiv6'));">
+        Затвори
+      </button>
+      6 ttdiv3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
+      perferendis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
+      sequi veniam iste aliquam, ea ipsa quidem pariatur nihil harum ullam ipsum
+      dolorem asperiores perspiciatis ipsam ad voluptates enim odit repellendus
+      nam odio facilis doloremque. Dicta unde iure beatae quibusdam, deserunt
+      quam sequi rem blanditiis, nemo cum facilis ipsum nostrum natus dolor id
+      excepturi nisi animi velit alias fugiat harum. Explicabo asperiores rem
+      nam, error possimus ipsum excepturi doloremque voluptates, unde aliquid ex
+      totam quae molestiae sequi omnis? Sed non, consequatur voluptate aliquid
+      ex iusto, impedit nisi fugit corrupti ea temporibus, sequi sapiente illum
+      eaque. Expedita corporis quibusdam tempora vitae ad.
+      <button onclick="hide(document.getElementById('ttdiv6'));">
+        Затвори
+      </button>
+    </div>
+    <div class="ttdiv" id="ttdiv7">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, totam!
+      Esse rem assumenda sunt itaque eveniet sequi sint ad enim?
+    </div>
+  </body>
+</html>
