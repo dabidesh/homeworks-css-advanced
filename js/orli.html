@@ -1,273 +1,266 @@
 <!DOCTYPE html>
 <html lang="bg">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Орли</title>
-    <meta name="description" content="Описание" />
 
-    <style>
-      *,
-      *:before,
-      *:after {
-        /*  padding: 0;
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Орли</title>
+  <meta name="description" content="Описание" />
+
+  <style>
+    *,
+    *:before,
+    *:after {
+      /*  padding: 0;
   margin: 0; */
-        box-sizing: inherit;
-      }
+      box-sizing: inherit;
+    }
 
-      html {
-        box-sizing: border-box;
+    html {
+      box-sizing: border-box;
 
-        font-size: 24px;
-        line-height: 1.6em;
-      }
+      font-size: 24px;
+      line-height: 1.6em;
+    }
 
-      /* #konti {
+    /* #konti {
   padding: 2em;
 } */
 
-      #divId {
-        overflow-y: scroll;
-        height: 300px;
+    #divId {
+      overflow-y: scroll;
+      height: 300px;
 
-        border: 2px solid green;
-      }
+      border: 2px solid green;
+    }
 
-      input,
-      button {
-        font-size: 2em;
-        width: 100%;
-      }
+    input[type="number"] {
+      font-size: 2em;
+      width: 95%;
+    }
 
-      input:hover,
-      button:hover,
-      label:hover,
-      input:active,
-      input:focus,
-      input:target {
-        background-color: rgb(64, 145, 50) !important;
-      }
+    button {
+      font-size: 2em;
+      width: 100%;
+    }
 
-      button:hover {
-        cursor: pointer;
-      }
+    input[type="button"] {
+      font-size: 2em;
+      width: 4%;
+      background: green;
+      color: white;
+      border: 0;
+      transition: transform 0.8s ease-in-out;
+    }
 
-      .butForRange {
-        width: auto;
-      }
+    input[type="button"]:hover {
+      transform: rotate(720deg);
+    }
 
-      ::placeholder {
-        /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: red;
-        opacity: 0.7; /* Firefox */
-      }
 
-      :-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: red;
-        opacity: 0.7;
-      }
+    input:hover,
+    button:hover,
+    label:hover,
+    input:active,
+    input:focus,
+    input:target {
+      background-color: rgb(64, 145, 50) !important;
+    }
 
-      ::-ms-input-placeholder {
-        /* Microsoft Edge */
-        color: red;
-        opacity: 0.7;
-      }
-    </style>
+    button:hover,
+    input[type="button"]:hover {
+      cursor: pointer;
+    }
 
-    <script>
-      var i, div, orli, zmii, mishki;
-      window.onload = function () {
-        div = document.getElementById("divId");
-        orliE = document.getElementById("orliId");
-        zmiiE = document.getElementById("zmiiId");
-        mishkiE = document.getElementById("mishkiId");
-        // izhodE = document.getElementById('izhodId')
-        divZukoE = document.getElementById("divZukoId");
+    .butForRange {
+      width: auto;
+    }
 
-        //start()
-        orli();
-        //6,17,55
-        //for (let i=0; i<=20; i++)
-        //div.innerHTML += 'Extra stuff' + i;
-      };
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: red;
+      opacity: 0.7;
+      /* Firefox */
+    }
 
-      function insertP(replika) {
-        var elem = document.createElement("p");
-        elem.appendChild(document.createTextNode(replika));
-        div.appendChild(elem);
-      }
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: red;
+      opacity: 0.7;
+    }
 
-      function insertPzuko(replika) {
-        var elem = document.createElement("p");
-        elem.appendChild(document.createTextNode(replika));
-        divZukoE.appendChild(elem);
-      }
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: red;
+      opacity: 0.7;
+    }
+  </style>
 
-      function orli() {
-        let orliNumber = Math.abs(parseInt(orliE.value));
-        let zmiiNumber = Math.abs(parseInt(zmiiE.value));
-        let mishkiNumber = Math.abs(parseInt(mishkiE.value));
+  <script>
+    var i, div, orli, zmii, mishki;
+    window.onload = function () {
+      div = document.getElementById("divId");
+      orliE = document.getElementById("orliId");
+      zmiiE = document.getElementById("zmiiId");
+      mishkiE = document.getElementById("mishkiId");
+      // izhodE = document.getElementById('izhodId')
+      divZukoE = document.getElementById("divZukoId");
 
-        if (isNaN(orliNumber)) orliNumber = 0;
-        if (isNaN(zmiiNumber)) zmiiNumber = 0;
-        if (isNaN(mishkiNumber)) mishkiNumber = 0;
+      //start()
+      orli();
+      //6,17,55
+      //for (let i=0; i<=20; i++)
+      //div.innerHTML += 'Extra stuff' + i;
+    };
 
-        //alert(mishkiNumber)
-        //alert(zmiiNumber)
+    function insertP(replika) {
+      var elem = document.createElement("p");
+      elem.appendChild(document.createTextNode(replika));
+      div.appendChild(elem);
+    }
 
-        let brZhivotni = orliNumber + zmiiNumber + mishkiNumber;
+    function insertPzuko(replika) {
+      var elem = document.createElement("p");
+      elem.appendChild(document.createTextNode(replika));
+      divZukoE.appendChild(elem);
+    }
 
-        div.innerHTML = ""; //чисти всичко в div-а
-        divZukoE.innerHTML = "";
+    function orli() {
+      let orliNumber = Math.abs(parseInt(orliE.value));
+      let zmiiNumber = Math.abs(parseInt(zmiiE.value));
+      let mishkiNumber = Math.abs(parseInt(mishkiE.value));
+
+      if (isNaN(orliNumber)) orliNumber = 0;
+      if (isNaN(zmiiNumber)) zmiiNumber = 0;
+      if (isNaN(mishkiNumber)) mishkiNumber = 0;
+
+      //alert(mishkiNumber)
+      //alert(zmiiNumber)
+
+      let brZhivotni = orliNumber + zmiiNumber + mishkiNumber;
+
+      div.innerHTML = ""; //чисти всичко в div-а
+      divZukoE.innerHTML = "";
+
+      insertP(
+        `Общо атаки = ${0}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`
+      );
+
+      for (i = 1; i >= 1; i++) {
+        vidIzyazhdane = parseInt(Math.random() * 3);
+
+        //console.log(vidIzyazhdane);
+        if (mishkiNumber == 0) insertP("Няма мишки.");
+
+        if (vidIzyazhdane == 0) {
+          //орел изяжда змия
+          if (orliNumber == 0) insertP("Няма орли.");
+          if (zmiiNumber !== 0 && orliNumber !== 0) {
+            orliNumber--;
+            zmiiNumber--;
+            mishkiNumber++;
+
+            insertP("Орел изяде змия!");
+          }
+          if (orliNumber !== 0 && zmiiNumber == 0)
+            insertP("Неуспешна атака на орел.");
+        }
+        if (vidIzyazhdane == 1) {
+          //орел изяжда мишка
+          if (orliNumber == 0) insertP("Няма орли.");
+          if (mishkiNumber !== 0 && orliNumber !== 0) {
+            orliNumber--;
+            zmiiNumber++;
+            mishkiNumber--;
+
+            insertP("Орел изяде мишка!");
+          }
+          if (orliNumber !== 0 && mishkiNumber == 0)
+            insertP("Неуспешна атака на орел.");
+        }
+        if (vidIzyazhdane == 2) {
+          //змия изяжда мишка
+          if (zmiiNumber == 0) insertP("Няма змии");
+          if (mishkiNumber !== 0 && zmiiNumber !== 0) {
+            orliNumber++;
+            zmiiNumber--;
+            mishkiNumber--;
+
+            insertP("Змия изяде мишка!");
+          }
+          if (zmiiNumber !== 0 && mishkiNumber == 0)
+            insertP("Неуспешна атака на змия.");
+        }
+
+        brZhivotni = orliNumber + zmiiNumber + mishkiNumber;
 
         insertP(
-          `Общо атаки = ${0}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`
-        );
-
-        for (i = 1; i >= 1; i++) {
-          vidIzyazhdane = parseInt(Math.random() * 3);
-
-          //console.log(vidIzyazhdane);
-          if (mishkiNumber == 0) insertP("Няма мишки.");
-
-          if (vidIzyazhdane == 0) {
-            //орел изяжда змия
-            if (orliNumber == 0) insertP("Няма орли.");
-            if (zmiiNumber !== 0 && orliNumber !== 0) {
-              orliNumber--;
-              zmiiNumber--;
-              mishkiNumber++;
-
-              insertP("Орел изяде змия!");
-            }
-            if (orliNumber !== 0 && zmiiNumber == 0)
-              insertP("Неуспешна атака на орел.");
-          }
-          if (vidIzyazhdane == 1) {
-            //орел изяжда мишка
-            if (orliNumber == 0) insertP("Няма орли.");
-            if (mishkiNumber !== 0 && orliNumber !== 0) {
-              orliNumber--;
-              zmiiNumber++;
-              mishkiNumber--;
-
-              insertP("Орел изяде мишка!");
-            }
-            if (orliNumber !== 0 && mishkiNumber == 0)
-              insertP("Неуспешна атака на орел.");
-          }
-          if (vidIzyazhdane == 2) {
-            //змия изяжда мишка
-            if (zmiiNumber == 0) insertP("Няма змии");
-            if (mishkiNumber !== 0 && zmiiNumber !== 0) {
-              orliNumber++;
-              zmiiNumber--;
-              mishkiNumber--;
-
-              insertP("Змия изяде мишка!");
-            }
-            if (zmiiNumber !== 0 && mishkiNumber == 0)
-              insertP("Неуспешна атака на змия.");
-          }
-
-          brZhivotni = orliNumber + zmiiNumber + mishkiNumber;
-
-          insertP(
-            `Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`
-          );
-
-          if (
-            (mishkiNumber == 0 && zmiiNumber == 0) ||
-            (mishkiNumber == 0 && orliNumber == 0) ||
-            (zmiiNumber == 0 && orliNumber == 0)
-          )
-            break;
-        }
-        //izhodE.value = (`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
-
-        insertPzuko(
           `Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`
         );
 
-        //window.location.href = "#but";
-      } //край на orli()
-    </script>
-  </head>
+        if (
+          (mishkiNumber == 0 && zmiiNumber == 0) ||
+          (mishkiNumber == 0 && orliNumber == 0) ||
+          (zmiiNumber == 0 && orliNumber == 0)
+        )
+          break;
+      }
+      //izhodE.value = (`Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`)
 
-  <body>
-    <div id="konti">
-      <!-- <a href="#but">Към бутона</a> -->
+      insertPzuko(
+        `Общо атаки = ${i}, Орли = ${orliNumber}, Змии = ${zmiiNumber}, Мишки = ${mishkiNumber}, Общо животни = ${brZhivotni}`
+      );
 
-      <fieldset>
-        <legend>Вход</legend>
-        <label for="orliId"
-          >Орли
-          <input
-            type="number"
-            id="orliId"
-            name="orliName"
-            value="6"
-            placeholder="бр. орли"
-            min="0"
-            max="150"
-          />
-        </label>
-        <label for="zmiiId"
-          >Змии
-          <input
-            type="number"
-            id="zmiiId"
-            name="zmiiName"
-            value="17"
-            placeholder="бр. змии"
-            min="0"
-            max="150"
-          />
-        </label>
-        <label for="mishkiId"
-          >Мишки<br />
-          [0<input
-            type="range"
-            id="mishkiId"
-            value="55"
-            min="0"
-            max="150"
-            oninput="xId.value=parseInt(mishkiId.value)"
-          />150]
-        </label>
-        <button
-          class="butForRange"
-          onclick="if (xId.value>0) {mishkiId.value--;xId.value--;}"
-        >
-          --
-        </button>
-        <label for="xId">
-          <output id="xId" name="x" for="mishkiId">55</output> мишки
-        </label>
-        <button
-          class="butForRange"
-          onclick="if (xId.value<150) {mishkiId.value++;xId.value++;}"
-        >
-          ++
-        </button>
-      </fieldset>
+      //window.location.href = "#but";
+    } //край на orli()
+  </script>
+</head>
 
-      <button id="but" onclick="orli();window.location.href = '#but';">
-        Започни случаен лов
+<body>
+  <div id="konti">
+    <!-- <a href="#but">Към бутона</a> -->
+
+    <fieldset>
+      <legend>Вход</legend>
+      <label for="orliId">Орли<br />
+        <input type="number" id="orliId" name="orliName" value="6" placeholder="бр. орли" min="0" max="150" />
+        <input type="button" value="X" onclick="orliId.value = ''">
+      </label>
+      <label for="zmiiId">Змии<br />
+        <input type="number" id="zmiiId" name="zmiiName" value="17" placeholder="бр. змии" min="0" max="150" />
+        <input type="button" value="X" onclick="zmiiId.value = ''">
+      </label>
+      <label for="mishkiId">Мишки<br />
+        [0<input type="range" id="mishkiId" value="55" min="0" max="150"
+          oninput="xId.value=parseInt(mishkiId.value)" />150]
+      </label>
+      <button class="butForRange" onclick="if (xId.value>0) {mishkiId.value--;xId.value--;}">
+        --
       </button>
-      <a href="#konti">Въведи нови данни!</a>
-      <fieldset>
-        <legend>Изход</legend>
-        <!--  <label for="izhodId">Последно
+      <label for="xId">
+        <output id="xId" name="x" for="mishkiId">55</output> мишки
+      </label>
+      <button class="butForRange" onclick="if (xId.value<150) {mishkiId.value++;xId.value++;}">
+        ++
+      </button>
+    </fieldset>
+
+    <button id="but" onclick="orli();window.location.href = '#but';">
+      Започни случаен лов
+    </button>
+    <a href="#konti">Въведи нови данни!</a>
+    <fieldset>
+      <legend>Изход</legend>
+      <!--  <label for="izhodId">Последно
       <input id="izhodId" value="" readonly /> -->
-        <p>Последно:</p>
-        <div id="divZukoId"></div>
-        <!-- </label> -->
-        <p>Всички:</p>
-        <div id="divId"></div>
-      </fieldset>
-    </div>
-  </body>
+      <p>Последно:</p>
+      <div id="divZukoId"></div>
+      <!-- </label> -->
+      <p>Всички:</p>
+      <div id="divId"></div>
+    </fieldset>
+  </div>
+</body>
+
 </html>
