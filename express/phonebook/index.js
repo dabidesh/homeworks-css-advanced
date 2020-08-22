@@ -8,6 +8,8 @@ const app = express()
 //изнасяне на конфигурацията в друг файл за да не стане претрупано
 require('./config/express')(app)
 
+app.use(express.static('public'))
+
 //клиента праща на сървъра
 app.use(express.json())
 //за да разбере данните сървъра, без това ще е undefined
