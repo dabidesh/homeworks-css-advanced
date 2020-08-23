@@ -27,9 +27,10 @@ module.exports = {
       //res.render('index', { contact, tmpProba })
     } else {
       //res.send('<meta http-equiv="refresh" content = "1; url = /" /> <script>alert(\'Невалидно име или номер!\')</script><a href="/">Върни се или чакай 1 секунда!</a>')
-      let tmpProba = 'Невалидни данни!'
+      let tmpProba = 'Невалиднo име и/или номер!'
       //res.redirect('/')
-      res.render('index', { tmpProba })
+      let contacts = phonebook.getContacts()
+      res.render('index', { contacts, tmpProba })
     }
     //res.send('Тест')
   },
