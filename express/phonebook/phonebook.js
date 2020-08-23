@@ -6,10 +6,14 @@
 
 const phonebook = []
 
-const addContact = contact => {
+const addContact = (contact) => {
+
   phonebook.push(contact)
 
   console.log(phonebook)
+  /* } else
+    res.send('<meta http-equiv="refresh" content = "1; url = /" /> <script>alert(\'Невалидно име или номер!\')</script><a href="/">Върни се или чакай 1 секунда!</a>') */
+
 
 }
 

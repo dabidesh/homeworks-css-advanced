@@ -6,7 +6,9 @@ module.exports = {
 
     let contacts = phonebook.getContacts()
 
-    res.render('index', { contacts });
+    //let tmpProba = 'Валидни данни!'
+
+    res.render('index', { contacts })
     // TODO: load index page
   },
   addPhonebookPost: (req, res) => {
@@ -15,10 +17,20 @@ module.exports = {
 
     let contact = new Contact(req.body.name, req.body.number)
 
-    phonebook.addContact(contact)
+    if (contact.name.length >= 2 && contact.name.length <= 33
+      && contact.number.length >= 3 && contact.number.length <= 20) {
+      phonebook.addContact(contact)
 
-    res.redirect('/')
+      let tmpProba = 'Валидни данни!'
 
+      res.redirect('/')
+      //res.render('index', { contact, tmpProba })
+    } else {
+      //res.send('<meta http-equiv="refresh" content = "1; url = /" /> <script>alert(\'Невалидно име или номер!\')</script><a href="/">Върни се или чакай 1 секунда!</a>')
+      let tmpProba = 'Невалидни данни!'
+      //res.redirect('/')
+      res.render('index', { tmpProba })
+    }
     //res.send('Тест')
   },
 
