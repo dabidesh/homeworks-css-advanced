@@ -3,6 +3,8 @@
 {{!-- Contacts Table --}}
 <form action="/del" method="POST"><button type="submit"
     onclick="document.getElementById('phoneTable').deleteRow(1)">Delete</button>
+
+    <p>{{tmpStr}} {{tmpDel.name}} {{tmpDel.number}}</p>
 </form>
 <table id="phoneTable" class="table">
   <thead>

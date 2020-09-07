@@ -36,8 +36,14 @@ module.exports = {
   },
 
   delPhonebookPost: (req, res) => {
-    phonebook.delContact()
+    let tmpDel = phonebook.delContact()
+    let contacts = phonebook.getContacts()
 
-    res.redirect('/')
+    let tmpStr = 'Изтрит запис: '
+    if (tmpDel === undefined) tmpStr = 'Няма записи за изтриване!'
+
+    res.render('index', { contacts, tmpStr, tmpDel })
+
+    //res.redirect('/')
   }
 }

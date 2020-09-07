@@ -23,6 +23,7 @@ const getContacts = () => {
 
 const delContact = () => {
   let tmp = phonebook.shift()
+  return tmp
 }
 
 module.exports = {

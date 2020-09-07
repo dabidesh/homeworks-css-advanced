@@ -8,6 +8,7 @@ const app = express()
 //изнасяне на конфигурацията в друг файл за да не стане претрупано
 require('./config/express')(app)
 
+//изнервих се, че не зарежда favicon.ico и затуй сложих още една публична папка
 app.use(express.static('public'))
 
 //клиента праща на сървъра
