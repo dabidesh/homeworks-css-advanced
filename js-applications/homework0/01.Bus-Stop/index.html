@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bus Stop</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div id="stopInfo" style="width:20em">
+    <div>
+      <form>
+        <label for="stopId">Stop ID: </label>
+        <input id="stopId" type="text">
+        <select onchange="stopId.value=sel.value;sel0.selected=true;submit.click();" id="sel">
+          <option id="sel0" value="">Choose id</option>
+          <option value="1287">1287</option>
+          <option value="1308">1308</option>
+          <option value="1327">1327</option>
+          <option value="2334">2334</option>
+          <option value="1234">1234 – invalid</option>
+        </select>
+        <input id="submit" type="submit" value="Check">
+        <span>On change select click emulation immediately!</span>
+      </form>
+    </div>
+    <div id="result">
+      <div id="stopName"></div>
+      <ul id="buses"></ul>
+      <a href="#" id="a" target="_blank"></a>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bus Schedule</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div id="schedule">
+    <div id="info"><span class="info">Not Connected</span></div>
+    <div id="controls">
+      <input id="depart" value="Depart" type="button" onclick="result.depart()">
+      <input id="arrive" value="Arrive" type="button" onclick="result.arrive()" disabled><br />
+      <input id="auto" value="Auto" type="button" onclick="result.auto();auto.disabled=true;stopB.disabled=false">
+      <input id="stopB" value="Stop" type="button" onclick="result.stop();stopB.disabled=true;auto.disabled=false;">
+      <p>On click "Auto" – click emulation for "Depart" and next "Arrive" and again until sleep!</p>
+      <p>On click "Stop" – stop emulation!</p>
+      <h1>Requests – links</h1>
+      <p>
+        <label>Change id: <input id="idInput" /><button id="idButton"
+            onclick="result.changeId();">Change</button></label>
+        <select id="sel" onchange="idInput.value = sel.value;sel0.selected=true;idButton.click();">
+          <option id="sel0" value="">Choose id ...</option>
+          <option value="121">121 – invalid</option>
+          <option value="666">666 – invalid</option>
+          <option value="depot">depot</option>
+          <option value="0361">0361</option>
+          <option value="0812">0812</option>
+          <option value="1567">1567</option>
+          <option value="0067">0067</option>
+          <option value="1844">1844</option>
+          <option value="2053">2053</option>
+          <option value="2037">2037</option>
+          <option value="0098">0098</option>
+          <option value="2057">2057</option>
+          <option value="0566">0566</option>
+          <option value="0631">0631</option>
+          <option value="1931">1931</option>
+          <option value="0296">0296</option>
+          <option value="2571">2571</option>
+          <option value="2572">2572</option>
+        </select>
+        </select>
+      </p>
+      <div id="links">
+      </div>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Forecaster</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div id="content">
+    <div id="request">
+      <form>
+        <p>Choose a time and watch the forecast change!</p>
+        <select id="selTime" onchange="playAll();">
+          <option id="firstTime" value="">Choose time ...</option>
+          <option value="1000">1 s</option>
+          <option value="2000">2 s</option>
+          <option value="3000">3 s</option>
+          <option value="3000">4 s</option>
+        </select>
+        <input id="location" class='bl' type="text">
+        <select
+          onchange="document.getElementById('location').value=sel.value;document.querySelectorAll('#sel option')[0].selected=true;submit.click();"
+          id="sel">
+          <option id="firstVillage" value="">Choose city or village...</option>
+          <option value="new york">New York</option>
+          <option value="barcelona">Barcelona</option>
+          <option value="london">London</option>
+          <option value="sofia">Sofia – invalid</option>
+          <option value="chuypetlovo">Chuypetlovo – invalid</option>
+        </select>
+        <input id="submit" class="bl" type="submit" value="Get Weather">
+        <span>On change select click emulation immediately!</span>
+      </form>
+    </div>
+  </div>
+  <div id="forecast" style="display:none">
+    <div id="current">
+      <div class="label">Current conditions</div>
+    </div>
+    <div id="upcoming">
+      <div class="label">Three-day forecast</div>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+
+</html>
