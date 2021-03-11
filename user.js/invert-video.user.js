@@ -16,12 +16,12 @@
   let flag = false;
 
   let css = `
-video, img {
+video, img, canvas {
     filter: invert(98%);
 }
 `;
   let css0 = `
-video, img {
+video, img, canvas {
     filter: invert(0);
 }
 `;
