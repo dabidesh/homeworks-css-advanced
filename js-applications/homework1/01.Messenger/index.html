@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Messenger</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div id="main">
+    <form id="formId">
+      <textarea id="messages" cols="80" rows="12"></textarea>
+      <div id="controls">
+        <p id="error">You must fill both fields!</p>
+        <label for="author">Name: </label><input id="author" name="author" type="text" required minlength="1"
+          maxlength="100"><br>
+        <label for="content">Message: </label><input id="content" name="content" type="text" required minlength="1"
+          maxlength="100">
+        <div id="divSubmit"><input id="submitId" type="submit" value="Send" disabled></div>
+        <input id="refresh" type="button" value="Refresh">
+      </div>
+    </form>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>
