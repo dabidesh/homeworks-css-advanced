@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Http Errors</title>
+  <style>
+    input,
+    button {
+      font-size: 40px;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <input id="input"><button onclick="callFetch(`${input.value}`)">Error</button>
+  <button id="abortButtonId">X</button>
+  <script>
+    const callFetch = async (code) => {
+      try {
+        const controller = new AbortController();
+        const id = setTimeout(() => {
+          console.log('Auto abort after 2000 ms');
+          controller.abort()
+        }, 2000);
+        abortButtonId.onclick = () => {
+          console.log('Abort from click!');
+          controller.abort();
+        }
+        const signal = controller.signal;
+        const response =
+          await fetch('http://httpstat.us/' + code, {
+            signal,
+          });
+        clearTimeout(id);
+        if (response.ok == false) {
+          throw new Error(response.statusText);
+        }
+        console.log(response.statusText);
+        //const data = await response.json();
+        //return data;  //
+        return response;
+      } catch (err) {
+        console.log(err);
+        console.log(err.name);
+      }
+    };
+
+    callFetch(200);
+  </script>
+</body>
+
+</html>
