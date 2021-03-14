@@ -8,7 +8,9 @@
   <title>Http Errors</title>
   <style>
     input,
-    button {
+    button,
+    select,
+    li {
       font-size: 40px;
     }
 
@@ -19,16 +21,40 @@
 </head>
 
 <body>
+  <h1>AbortController</h1>
+  <p>
+  <ol>
+    <li>Set throttling.</li>
+    <li>Choose late time.</li>
+    <li>Wait or press button X.</li>
+  </ol>
+  </p>
   <input id="input"><button onclick="callFetch(`${input.value}`)">Error</button>
   <button id="abortButtonId">X</button>
+  <select id="selectId" onchange="setDelay();">
+    <option value="1000">1 s</option>
+    <option value="2000">2 s</option>
+    <option value="4000">4 s</option>
+    <option value="8000">8 s</option>
+    <option value="16000">16 s</option>
+  </select>
   <script>
+    let delay = +selectId.value;
+    const setDelay = () => {
+      const changeDelay = (delay) => {
+        if (delay) {
+          delay = +selectId.value;
+        }
+      }
+    }
+
     const callFetch = async (code) => {
       try {
         const controller = new AbortController();
         const id = setTimeout(() => {
-          console.log('Auto abort after 2000 ms');
+          console.log('Auto abort after ' + delay + ' ms');
           controller.abort()
-        }, 2000);
+        }, delay);
         abortButtonId.onclick = () => {
           console.log('Abort from click!');
           controller.abort();
