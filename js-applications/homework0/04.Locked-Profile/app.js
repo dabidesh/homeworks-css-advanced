@@ -24,23 +24,23 @@ const lockedProfile = async () => {
       }
       mainElement.insertAdjacentHTML('beforeend',
         `<div class="profile">
-        <img src="./iconProfile2.png" class="userIcon" />
-        <label>Lock</label>
-        <input type="radio" name="user${i + 1}Locked" value="lock" checked>
-          <label>Unlock</label>
-          <input type="radio" name="user${i + 1}Locked" value="unlock"><br>
-            <hr>
-              <label>Username</label>
-              <input type="text" name="user${i + 1}Username" value="${u.username}" disabled readonly />
-              <div id="user${i + 1}HiddenFields" style="display: none;">
-                <hr>
-                  <label>Email:</label>
-                  <input type="email" name="user${i + 1}Email" value="${u.email}" disabled readonly />
-                  <label>Age:</label>
-                  <input type="email" name="user${i + 1}Age" value="${u.age}" disabled readonly />
-				</div>
-                <button>Show more</button>
-              </div>`);
+  <img src="./iconProfile2.png" class="userIcon" />
+  <label>Lock</label>
+  <input type="radio" name="user${i + 1}Locked" value="lock" checked>
+  <label>Unlock</label>
+  <input type="radio" name="user${i + 1}Locked" value="unlock"><br>
+  <hr>
+  <label>Username</label>
+  <input type="text" name="user${i + 1}Username" value="${u.username}" disabled readonly />
+  <div id="user${i + 1}HiddenFields" style="display: none;">
+    <hr>
+    <label>Email:</label>
+    <input type="email" name="user${i + 1}Email" value="${u.email}" disabled readonly />
+    <label>Age:</label>
+    <input type="email" name="user${i + 1}Age" value="${u.age}" disabled readonly />
+  </div>
+  <button>Show more</button>
+</div>`);
       mainElement.querySelectorAll('main div button')[i].onclick = (e) => hideOrRevealUserInfo(e);
     });
   } catch (err) {
@@ -80,21 +80,46 @@ const getUsers = async () => {
 const start = () => {
   const hideString = 'Hide and lock all profiles';
   const showString = 'Unlock and show more all';
+  const clickShowMore = (i) => {
+    const but = mainElement.querySelectorAll('div>button')[i];
+    if (but.textContent == 'Show more') {
+      but.click();
+    }
+  };
   for (let i = 0; i < countProfiles; i++) {
     if (startButton.textContent === showString) {
       mainElement.querySelectorAll('div input[value="unlock"]')[i].click();
-    }
-    setTimeout(mainElement.querySelectorAll('div>button')[i].click(), 500);
 
-    if (startButton.textContent === hideString) {
-      mainElement.querySelectorAll('div input[value="lock"]')[i].click();
+      const but = mainElement.querySelectorAll('div>button')[i];
+      if (but.textContent == 'Show more') {
+        but.click();
+      }
+    } else {
+      if (startButton.textContent === hideString) {
+        const inputRadio = mainElement.querySelectorAll('div input[value="unlock"]')[i];
+        inputRadio.click();
+
+
+        const but = mainElement.querySelectorAll('div>button')[i];
+        if (but.textContent == 'Hide it') {
+          but.click();
+          const inputRadio = mainElement.querySelectorAll('div input[value="lock"]')[i];
+          inputRadio.click();
+        }
+
+        const inputRadioLock = mainElement.querySelectorAll('div input[value="lock"]')[i];
+        inputRadioLock.click();
+      }
+
     }
+
   }
   if (startButton.textContent === showString) {
     startButton.textContent = hideString;
   } else {
     startButton.textContent = showString;
   }
+
 };
 
 const setUrl = () => {
