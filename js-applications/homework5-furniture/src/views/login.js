@@ -1,5 +1,5 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
-import { login } from '../api/data.js';
+import { login, setStyleInMenu } from '../api/data.js';
 
 const loginTemplate = (onSubmit, errorMsg, invalidEmail, invalidPass) =>
   html`
@@ -15,12 +15,12 @@ const loginTemplate = (onSubmit, errorMsg, invalidEmail, invalidPass) =>
         ${errorMsg ? html`<p class="red">${errorMsg}</p>` : ''}
         <div class="form-group">
           <label class="form-control-label" for="email">Email</label>
-          <input class=${'form-control' + (invalidEmail ? ' is-invalid' : ' is-valid' )} id="email" type="text"
+          <input class=${'form-control' + (invalidEmail ? ' is-invalid' : ' is-valid')} id="email" type="text"
             name="email">
         </div>
         <div class="form-group">
           <label class="form-control-label" for="password">Password</label>
-          <input class=${'form-control' + (invalidPass ? ' is-invalid' : ' is-valid' )} id="password" type="password"
+          <input class=${'form-control' + (invalidPass ? ' is-invalid' : ' is-valid')} id="password" type="password"
             name="password">
         </div>
         <input type="submit" class="btn btn-primary" value="Login" />
@@ -32,7 +32,10 @@ const loginTemplate = (onSubmit, errorMsg, invalidEmail, invalidPass) =>
 export async function loginPage(ctx) {
   //console.log('login page');
 
-  ctx.render(loginTemplate(onSubmit));
+
+  await ctx.render(loginTemplate(onSubmit));
+
+  setStyleInMenu();
 
   // not need to export
   async function onSubmit(e) {

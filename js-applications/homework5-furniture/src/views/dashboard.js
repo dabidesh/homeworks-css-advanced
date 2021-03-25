@@ -1,5 +1,5 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
-import { getFurniture } from '../api/data.js';
+import { getFurniture, setStyleInMenu } from '../api/data.js';
 import { itemTemplate } from './common/item.js';
 
 const dashboardTemplate = (data) => html`
@@ -23,5 +23,7 @@ export async function dashboardPage(ctx) {
 
 
   //console.log(ctx);
-  ctx.render(dashboardTemplate(data));
+  await ctx.render(dashboardTemplate(data));
+
+  setStyleInMenu();
 }

@@ -1,5 +1,5 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
-import { register } from '../api/data.js';
+import { register, setStyleInMenu } from '../api/data.js';
 
 const registerTemplate = (onSubmit, errorMsg, invalidEmail, invalidPass, invalidRe) => html`
 <div class="row space-top">
@@ -39,8 +39,9 @@ const registerTemplate = (onSubmit, errorMsg, invalidEmail, invalidPass, invalid
 export async function registerPage(ctx) {
   //console.log('register page');
 
-  ctx.render(registerTemplate(onSubmit));
+  await ctx.render(registerTemplate(onSubmit));
 
+  setStyleInMenu();
   // not need to export
   async function onSubmit(e) {
     e.preventDefault();

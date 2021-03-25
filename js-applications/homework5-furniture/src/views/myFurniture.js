@@ -1,5 +1,5 @@
 import { html } from '../../node_modules/lit-html/lit-html.js';
-import { getMyFurniture } from '../api/data.js';
+import { getMyFurniture, setStyleInMenu } from '../api/data.js';
 import { itemTemplate } from './common/item.js';
 
 const myFurnitureTemplate = (data) => html`
@@ -14,9 +14,11 @@ const myFurnitureTemplate = (data) => html`
 </div>`;
 
 export async function myPage(ctx) {
-  console.log('my page');
+  //console.log('my page');
 
   const data = await getMyFurniture();
 
-  ctx.render(myFurnitureTemplate(data));
+  await ctx.render(myFurnitureTemplate(data));
+
+  setStyleInMenu();
 }
