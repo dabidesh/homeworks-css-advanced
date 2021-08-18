@@ -3,13 +3,36 @@
 // Идеята е сървиса да е глупав – каквото му кажем, това прави
 
 const Play = require('../models/Play');
-//const { isUser, isGuest } = require('../middlewares/guards');
+const User = require('../models/User');
 
-const getAllPlays = async (orderBy) => {
+//const { isUser, isGuest } = require('../middlewares/guards');
+const isEmptyObj = (obj) => {
+  return (obj && Object.keys(obj).length === 0 && obj.constructor === Object);
+};
+
+const getAllPlays = async (query) => {
   let sort = '-createdAt';
-  if (orderBy == 'likes') {
+  if (!isEmptyObj(query) && query.orderBy == undefined &&
+    query.orderBy == 'likes') {
+    err = new Error('Wrong query parameter!');
+    err.type = 'Wrong query parameter orderBy!';
+    throw err;
+  } else if (!isEmptyObj(query) && query.orderBy == undefined &&
+    query.orderBy != 'likes') {
+    err = new Error('Wrong query parameter and not equal to likes!');
+    err.type = 'Wrong query parameter and/or not equal to likes (404)!';
+    throw err;
+  } else if (Object.keys(query).length != 1 && !isEmptyObj(query)) {
+    err = new Error('Query parameter not one!');
+    err.type = 'Query parameter not one (404)!';
+    throw err;
+  } else if (query.orderBy == 'likes') {
     console.log('Sorting by likes ...');
     sort = { usersLiked: 'desc' };
+  } else if (query != {} && query.orderBy != 'likes' && query.orderBy != undefined) {
+    let err = new Error('Is not likes, 404 (all)!');
+    err.type = 'Is not likes, 404 (all)';
+    throw err;
   }
   // Ако се напише await се тая, винаги връща промис
   return Play.find({})
@@ -18,11 +41,29 @@ const getAllPlays = async (orderBy) => {
   //sort {createdAt: -1}
 };
 
-const getAllPublicPlays = async (orderBy) => {
+const getAllPublicPlays = async (query) => {
   let sort = '-createdAt';
-  if (orderBy == 'likes') {
-    console.log('Sorting by likes public...');
+  if (!isEmptyObj(query) && query.orderBy == undefined &&
+    query.orderBy == 'likes') {
+    err = new Error('Wrong query parameter!');
+    err.type = 'Wrong query parameter orderBy (public)!';
+    throw err;
+  } else if (!isEmptyObj(query) && query.orderBy == undefined &&
+    query.orderBy != 'likes') {
+    err = new Error('Wrong query parameter and not equal to likes!');
+    err.type = 'Wrong query parameter and/or not equal to likes (404)(public)!';
+    throw err;
+  } else if (Object.keys(query).length != 1 && !isEmptyObj(query)) {
+    err = new Error('Query parameter not one!');
+    err.type = 'Query parameter not one (404)!';
+    throw err;
+  } else if (query.orderBy == 'likes') {
+    console.log('Sorting by likes (public) ...');
     sort = { usersLiked: 'desc' };
+  } else if (query != {} && query.orderBy != 'likes' && query.orderBy != undefined) {
+    let err = new Error('Is not likes, 404 (all)!');
+    err.type = 'Is not likes, 404 (all)(public)';
+    throw err;
   }
   // Ако се напише await се тая, винаги връща промис
   return Play.find({ public: true })
@@ -108,14 +149,19 @@ const deletePlay = async (id) => {
 };
 
 // Връзката от потр. към пиесата е безпредметна в конкр. задание
+// Заради доп. функц. го слагам!
 // Виктор: това мое мнение е субективно!
 const likePlay = async (id, userId) => {
   const play = await Play.findById(id);
+  const user = await User.findById(userId);
 
+  // no need ._id, mongoose will understand, т.е. може user и play
   play.usersLiked.push(userId);
+  user.likedPlays.push(id);
 
   // return за да върне промиса и да го await-не от другата страна
-  return play.save();
+  //return play.save();
+  return Promise.all([user.save(), play.save()]);
 };
 
 module.exports = {

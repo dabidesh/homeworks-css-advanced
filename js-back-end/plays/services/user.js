@@ -37,8 +37,16 @@ async function getUserByEmail(email) {
   return user;
 }
 
+const getUserDetailsByUsername = async (username) => {
+  const pattern = new RegExp(`^${username}$`, 'i');
+  const user = await User.findOne({ username: { $regex: pattern } })
+    .populate('likedPlays').lean();
+  return user;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getUserByUsername,
+  getUserDetailsByUsername,
 };

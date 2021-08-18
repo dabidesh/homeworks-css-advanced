@@ -21,8 +21,8 @@ router.post('/create', isUser(), async (req, res) => {
     // TODO extract model data and forward to service
     const playData = {
       title: req.body.title.trim(),
-      description: req.body.description.title.trim(),
-      imageUrl: req.body.imageUrl.title.trim(),
+      description: req.body.description.trim(),
+      imageUrl: req.body.imageUrl.trim(),
       public: Boolean(req.body.public),
       // Няма нужда, защото имат стойности по подразбиране в модела Play
       //createdAt: () => new Date(), може да се пише и Date.now!
