@@ -13,7 +13,10 @@ router.get('/create', isUser(), (req, res) => {
 // 0. try-catch, async
 // 1. context и го подаваме във формата
 // 2. Бизнес-логиката ...
-// 3. storage-мидълеъра връща това, което е в сървиса. от което следва, че валидациите трябва да са в контролера или сървиса (но сървисите ги правим глупави)! На ниво модел също има валидации! Сървиса ще го метне на модела и той ще каже кое става и кое не.
+// 3. storage-мидълеъра връща това, което е в сървиса. от което следва, че 
+// валидациите трябва да са в контролера или сървиса(но сървисите ги правим
+// глупави)! На ниво модел също има валидации! Сървиса ще го метне на модела
+// и той ще каже кое става и кое не.
 
 router.post('/create', isUser(), async (req, res) => {
   console.log(req.body);
@@ -31,7 +34,8 @@ router.post('/create', isUser(), async (req, res) => {
     };
 
     // Няма нужда от const play = (няма защо да го пазим)
-    // Пишем само req.storage.createPlay, защото сме деструктурирали в storage-мидълеъра
+    // Пишем само req.storage.createPlay, защото сме деструктурирали в
+    // storage - мидълеъра
     await req.storage.createPlay(playData);
 
     res.redirect('/');
@@ -64,9 +68,10 @@ router.get('/details/:id', async (req, res) => {
   try {
     console.log(req.params);
     const play = await req.storage.getPlayById(req.params.id);
-    //console.log(play);
+    console.log('play:', play.createdAt);
     // Виктор сложи with в шаблона и затова user не работеше ...
-    // user работи навсякъде, след като се закачи за locals в auth-мидълеъра (ф-ята parseToken)
+    // user работи навсякъде, след като се закачи за locals в auth-мидълеъра
+    //(ф-ята parseToken)
     // Затуй закачи hasUser за play
     //play.hasUser = Boolean(req.user);
     // Ако е автора => няма бутон

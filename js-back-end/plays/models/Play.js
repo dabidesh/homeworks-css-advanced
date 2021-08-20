@@ -13,7 +13,8 @@ const schema = new Schema({
   // () => new Date() или Date.now (взима го по референция и го извиква в нужния момент)
   createdAt: { type: Date, default: () => new Date() },
   usersLiked: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
-  author: { type: Schema.Types.ObjectId, ref: 'User' }
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  usersLikedLength: { type: Number, default: 0 },
 });
 // public, винаги го има; посл. 3 са служебни!
 

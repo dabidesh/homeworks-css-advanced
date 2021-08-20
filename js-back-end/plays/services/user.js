@@ -2,13 +2,15 @@
 
 const User = require('../models/User');
 
-async function createUser(username, email, hashedPassword) {
+async function createUser(username, email, gender, ganre, hashedPassword) {
   // TODO adapt properties to project requirements
   // validation by in middleware or controler
 
   const user = new User({
     username,
     email,
+    gender,
+    ganre,
     hashedPassword,
     likedPlays: [],
   });
@@ -41,6 +43,8 @@ const getUserDetailsByUsername = async (username) => {
   const pattern = new RegExp(`^${username}$`, 'i');
   const user = await User.findOne({ username: { $regex: pattern } })
     .populate('likedPlays').lean();
+  // без populate е undefined -> т.е. попълва полетата по id-то!
+  //console.log('user.js: ', user);
   return user;
 };
 

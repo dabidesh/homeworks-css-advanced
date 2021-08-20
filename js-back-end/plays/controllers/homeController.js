@@ -36,9 +36,8 @@ router.get('/search', async (req, res) => {
 
 router.get('/user/:id', async (req, res) => {
   const userData = await user.getUserDetailsByUsername(req.params.id);
-  console.log(userData.likedPlays);
+  console.log('homeController, userData.likedPlays: ', userData.likedPlays);
   userData.likedPlays = userData.likedPlays.map(x => `„${x.title}“`).join(', ');
-
   res.render('home/profile', { id: req.params.id, userData });
 });
 

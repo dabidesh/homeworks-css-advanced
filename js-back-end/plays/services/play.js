@@ -26,13 +26,13 @@ const getAllPlays = async (query) => {
     err = new Error('Query parameter not one!');
     err.type = 'Query parameter not one (404)!';
     throw err;
-  } else if (query.orderBy == 'likes') {
-    console.log('Sorting by likes ...');
-    sort = { usersLiked: 'desc' };
-  } else if (query != {} && query.orderBy != 'likes' && query.orderBy != undefined) {
+  } else if (!isEmptyObj(query) && query.orderBy != 'likes' && query.orderBy != undefined) {
     let err = new Error('Is not likes, 404 (all)!');
     err.type = 'Is not likes, 404 (all)';
     throw err;
+  } else if (query.orderBy == 'likes') {
+    console.log('Sorting by likes ...');
+    sort = { usersLikedLength: 'desc' };
   }
   // Ако се напише await се тая, винаги връща промис
   return Play.find({})
@@ -57,14 +57,15 @@ const getAllPublicPlays = async (query) => {
     err = new Error('Query parameter not one!');
     err.type = 'Query parameter not one (404)!';
     throw err;
-  } else if (query.orderBy == 'likes') {
-    console.log('Sorting by likes (public) ...');
-    sort = { usersLiked: 'desc' };
-  } else if (query != {} && query.orderBy != 'likes' && query.orderBy != undefined) {
+  } else if (!isEmptyObj(query) && query.orderBy != 'likes' && query.orderBy != undefined) {
     let err = new Error('Is not likes, 404 (all)!');
     err.type = 'Is not likes, 404 (all)(public)';
     throw err;
+  } else if (query.orderBy == 'likes') {
+    console.log('Sorting by likes (public) ...');
+    sort = { usersLikedLength: 'desc' };
   }
+  //{ usersLiked: 'asc' };  '-usersLiked'
   // Ако се напише await се тая, винаги връща промис
   return Play.find({ public: true })
     .sort(sort)
@@ -103,7 +104,7 @@ const getPlaysBySearch = async (query, user) => {
 
 //.populate('usersLiked') и без и с туй рàботи!
 const getPlayById = async (id) => {
-  return Play.findById(id).lean();
+  return Play.findById(id).populate('usersLiked').lean();
 };
 
 const createPlay = async (playData) => {
@@ -158,7 +159,7 @@ const likePlay = async (id, userId) => {
   // no need ._id, mongoose will understand, т.е. може user и play
   play.usersLiked.push(userId);
   user.likedPlays.push(id);
-
+  play.usersLikedLength++;
   // return за да върне промиса и да го await-не от другата страна
   //return play.save();
   return Promise.all([user.save(), play.save()]);

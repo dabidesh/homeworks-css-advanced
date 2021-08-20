@@ -13,8 +13,8 @@ module.exports = () => (req, res, next) => {
   // without parseToken work but with redirect fail whitout cookie
   if (parseToken(req, res)) {
     req.auth = {
-      async register(username, email, password) {
-        const token = await register(username, email, password);
+      async register(username, email, gender, ganre, password) {
+        const token = await register(username, email, gender, ganre, password);
         // cookies in request
         res.cookie(COOKIE_NAME, token);
       },
@@ -38,7 +38,7 @@ module.exports = () => (req, res, next) => {
 
 //module.exports = init;
 
-async function register(username, email, password) {
+async function register(username, email, gender, ganre, password) {
   // TODO adapt parameters to project requirements [x]
   // TODO extra validations [x]
 
@@ -53,7 +53,7 @@ async function register(username, email, password) {
   }
   // salt is in beginig on hashedPassword, 10 -> runds
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await userService.createUser(username, email, hashedPassword);
+  const user = await userService.createUser(username, email, gender, ganre, hashedPassword);
 
   return generateToken(user);
 
@@ -91,7 +91,7 @@ function generateToken(userData) {
   return jwt.sign({
     _id: userData._id,
     username: userData.username,
-    email: userData.email,
+    //email: userData.email,
   }, TOKEN_SECRET);
 }
 

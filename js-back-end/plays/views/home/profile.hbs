@@ -1,8 +1,20 @@
-<p>Име: {{id}}</p>
-<p>Liked plays:
-  {{#if userData.likedPlays}}
-  <span>{{userData.likedPlays}}</span>
-  {{else}}
-  <span>No likeded plays yet!</span>
-  {{/if}}
-</p>
+<div style="color: #ddd;">
+  <p>Име: {{id}}</p>
+  <p>Liked plays:
+    {{#if userData.likedPlays}}
+    <span>{{userData.likedPlays}}</span>
+    {{else}}
+    <span>No likeded plays yet!</span>
+    {{/if}}
+  </p>
+  <p>__v:
+    <span>{{userData.__v}}</span>
+  </p>
+  <p>Gender:
+    <span>{{userData.gender}}</span>
+  </p>
+  </p>
+  <p>Ganre:
+    <span>{{userData.ganre}}</span>
+  </p>
+</div>

@@ -11,8 +11,29 @@
   </div>
 
   <div class="on-dark">
-    <label for="repeatPassword">Repeat Password:</label>
-    <input type="password" placeholder="********" name="rePass" />
+    <label for="rePass">Repeat Password:</label>
+    <input type="password" placeholder="********" name="rePass" id="rePass" />
+  </div>
+
+  <div class="on-dark-my">
+    <fieldset>
+      <legend>Select gender: </legend>
+      <label>Man:
+        <input type="radio" value="man" name="gender" {{#if userData.genderMan}} checked {{/if}} /></label><br />
+      <label>Women:
+        <input type="radio" value="woman" name="gender" {{#if userData.genderWoman}} checked {{/if}} /></label>
+    </fieldset>
+  </div>
+
+  <div class="on-dark-my">
+    <label>Select favorite ganre:
+      <select name="ganre">
+        <option value="None" {{#if userData.o.ganreNone}}selected{{/if}}>None</option>
+        <option value="Science fiction" {{#if userData.o.ganreFiction}}selected{{/if}}>Science fiction</option>
+        <option value="Horror" {{#if userData.o.ganreHorror}}selected{{/if}}>Horror</option>
+        <option value="Fantasy" {{#if userData.o.ganreFantasy}}selected{{/if}}>Fantasy</option>
+      </select>
+    </label>
   </div>
 
   <button class="btn" type="submit">Register</button>

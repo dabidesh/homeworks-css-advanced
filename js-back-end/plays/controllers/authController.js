@@ -30,6 +30,12 @@ router.post(
     }
     return true;
   }),
+  body('gender').custom(value => {
+    if (value != 'man' && value != 'woman') {
+      throw new Error('Gender not exist!');
+    }
+    return true;
+  }),
   async (req, res) => {
     console.log(req.body);
     const { errors } = validationResult(req);
@@ -44,14 +50,44 @@ router.post(
       console.log('req.auth');
       console.log(req.auth);
 
-      await req.auth.register(req.body.username, req.body.email, req.body.password);
+      await req.auth.register(
+        req.body.username,
+        req.body.email,
+        req.body.gender,
+        req.body.ganre,
+        req.body.password);
 
       //console.log(errors);
       res.redirect('/');  // TODO: change redirect location
     } catch (err) {
+      let genderMan, genderWoman;
+      if (req.body.gender == 'man') {
+        genderMan = true;
+      }
+      if (req.body.gender == 'woman') {
+        genderWoman = true;
+      }
+      let o = {
+        ganreNone: false,
+        ganreFiction: false,
+        ganreHorror: false,
+        ganreFantasy: false,
+      };
+      console.log('req.body.ganre: ', req.body.ganre);
+      if (req.body.ganre == 'None') o.ganreNone = true;
+      if (req.body.ganre == 'Science fiction') {
+        console.log('Влиза');
+        o.ganreFiction = true;
+      }
+      if (req.body.ganre == 'Horror') o.ganreHorror = true;
+      if (req.body.ganre == 'Fantasy') o.ganreFantasy = true;
+
       const ctx = {
         errors: err.message.split('\n'),
         userData: {
+          genderMan,
+          genderWoman,
+          o,
           username: req.body.username,
           email: req.body.email,
         }
