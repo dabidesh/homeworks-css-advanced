@@ -32,15 +32,32 @@ const getAllPlays = async (query) => {
     throw err;
   } else if (query.orderBy == 'likes') {
     console.log('Sorting by likes ...');
-    sort = { usersLikedLength: 'desc' };
+    //sort = { usersLikedLength: 'desc' };
+    return Play
+      .aggregate(
+        [
+          {
+            "$project": {
+              "title": 1,
+              "description": 1,
+              "imageUrl": 1,
+              "public": 1,
+              "createdAt": 1,
+              "author": 1,
+              "usersLiked": 1,
+              "length": { "$size": "$usersLiked" }
+            }
+          },
+          { "$sort": { "length": -1 } }
+        ]
+      );
   }
-  // Ако се напише await се тая, винаги връща промис
+  // Ако се напише await 'се тая, винаги връща промис
   return Play.find({})
     .sort(sort)
     .lean();  //връща всички, lean – за да ги подадем на шаблона, премахва функционалността, която mongoose е добавила (гетъри, сетъри), идеята е да върнем вю-модела
   //sort {createdAt: -1}
 };
-
 const getAllPublicPlays = async (query) => {
   let sort = '-createdAt';
   if (!isEmptyObj(query) && query.orderBy == undefined &&
