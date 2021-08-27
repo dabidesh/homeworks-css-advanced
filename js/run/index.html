@@ -51,16 +51,28 @@
 <script>
   convId.onclick = (e) => {
     e.preventDefault();
-    if (min.value != '') {
+    if (min.value != '' || sec.value != '') {
       const temp = (1 / (+sec.value / 60 + +min.value)) * 60;
       km.value = temp.toFixed(2);
       m.value = (temp * (1000 / 3600)).toFixed(2);
+
+      let totalSeconds = Math.round((+kmLength.value / temp) * 3600);
+      hourTime.value = String(Math.floor(totalSeconds / 3600));
+      totalSeconds %= 3600;
+      minTime.value = String(Math.floor(totalSeconds / 60));
+      secTime.value = String(totalSeconds % 60);
     } else if (km.value != '') {
       const temp = +km.value;
       m.value = (temp * (1000 / 3600)).toFixed(2);
       const secAll = ((1 / temp) * 3600);
       sec.value = Math.round(secAll % 60);
       min.value = Math.round(secAll / 60) - (+sec.value != 0 ? 1 : 0);
+
+      let totalSeconds = Math.round((+kmLength.value / temp) * 3600);
+      hourTime.value = String(Math.floor(totalSeconds / 3600));
+      totalSeconds %= 3600;
+      minTime.value = String(Math.floor(totalSeconds / 60));
+      secTime.value = String(totalSeconds % 60);
     } else if (hourTime.value != '' || minTime.value != '' ||
       secTime.value != '') {
       const timeHours = +secTime.value / 3600 + +minTime.value / 60 +
