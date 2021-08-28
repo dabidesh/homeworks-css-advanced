@@ -34,21 +34,32 @@
 <body>
   <h1>Търчане</h1>
   <form id="run">
-    <input id="min" placeholder="мин" type="number" /> :
-    <input id="sec" placeholder="сек" type="number" /> мин/км
+    <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" /> :
+    <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" /> мин/км
     <br />
-    <input id="km" class="long" type="number" step="0.01" /> км/ч<br />
-    <input id="m" class="long" type="number" step="0.01" /> м/с<br />
+    <input id="km" class="long" type="number" step="0.01" min="0" max="18000" value="12.90" /> км/ч<br />
+    <input id="m" class="long" type="number" step="0.01" min="0" max="5000" value="3.58" /> м/с<br />
     <input id="hourTime" placeholder="час" type="number" /> :
-    <input id="minTime" placeholder="мин" type="number" /> :
-    <input id="secTime" placeholder="сек" type="number" />
+    <input id="minTime" placeholder="мин" type="number" min="0" max="59" value="23" /> :
+    <input id="secTime" placeholder="сек" type="number" min="0" max="59" value="15" />
     <br />
     <input id="kmLength" class="long" type="number" value="5.00" step="0.01" /> км<br />
     <button id="convId">Сметни!</button>
-    <button id="clearId">Изчисти!</button>
+    <button id="clearId">Начални ст.</button>
   </form>
 </body>
 <script>
+  let isLastChangeTempo, isLastChangeSpeed, isLastChangeTime;
+
+  const totalSecondsToHMS = (totalSeconds) => {
+    const hourTime = String(Math.floor(totalSeconds / 3600));
+    totalSeconds %= 3600;
+    const minTime = String(Math.floor(totalSeconds / 60));
+    const secTime = String(Math.floor(totalSeconds % 60));
+
+    return [hourTime, minTime, secTime];
+  }
+
   convId.onclick = (e) => {
     e.preventDefault();
     if (min.value != '' || sec.value != '') {
@@ -56,11 +67,8 @@
       km.value = temp.toFixed(2);
       m.value = (temp * (1000 / 3600)).toFixed(2);
 
-      let totalSeconds = Math.round((+kmLength.value / temp) * 3600);
-      hourTime.value = String(Math.floor(totalSeconds / 3600));
-      totalSeconds %= 3600;
-      minTime.value = String(Math.floor(totalSeconds / 60));
-      secTime.value = String(totalSeconds % 60);
+      [hourTime.value, minTime.value, secTime.value] =
+        totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
     } else if (km.value != '') {
       const temp = +km.value;
       m.value = (temp * (1000 / 3600)).toFixed(2);
@@ -68,11 +76,8 @@
       sec.value = Math.round(secAll % 60);
       min.value = Math.round(secAll / 60) - (+sec.value != 0 ? 1 : 0);
 
-      let totalSeconds = Math.round((+kmLength.value / temp) * 3600);
-      hourTime.value = String(Math.floor(totalSeconds / 3600));
-      totalSeconds %= 3600;
-      minTime.value = String(Math.floor(totalSeconds / 60));
-      secTime.value = String(totalSeconds % 60);
+      [hourTime.value, minTime.value, secTime.value] =
+        totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
     } else if (hourTime.value != '' || minTime.value != '' ||
       secTime.value != '') {
       const timeHours = +secTime.value / 3600 + +minTime.value / 60 +
@@ -82,8 +87,9 @@
       const temp = +km.value;
       m.value = (temp * (1000 / 3600)).toFixed(2);
       const secAll = ((1 / temp) * 3600);
-      sec.value = Math.round(secAll % 60);
-      min.value = Math.round(secAll / 60) - (+sec.value != 0 ? 1 : 0);
+      [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+      //sec.value = Math.round(secAll % 60);
+      //min.value = Math.round(secAll / 60) - (+sec.value != 0 ? 1 : 0);
     }
   };
   clearId.onclick = (e) => {
@@ -94,6 +100,50 @@
     m.value = ''; */
     run.reset();
   };
+
+  min.onchange = sec.onchange =
+    min.onkeyup = sec.onkeyup = () => {
+      const temp = (1 / (+sec.value / 60 + +min.value)) * 60;
+      km.value = temp.toFixed(2);
+      m.value = (temp * (1000 / 3600)).toFixed(2);
+
+      [hourTime.value, minTime.value, secTime.value] =
+        totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
+    };
+
+  km.onchange = km.onkeyup = () => {
+    const temp = +km.value;
+    m.value = (temp * (1000 / 3600)).toFixed(2);
+    const secAll = ((1 / temp) * 3600);
+    [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+
+    [hourTime.value, minTime.value, secTime.value] =
+      totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
+  };
+
+  m.onchange = m.onkeyup = () => {
+    const temp = +m.value * 3.6;
+    km.value = temp.toFixed(2);
+    const secAll = ((1 / temp) * 3600);
+    [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+
+    [hourTime.value, minTime.value, secTime.value] =
+      totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
+  };
+
+  hourTime.onchange = minTime.onchange =
+    secTime.onchange = kmLength.onchange =
+    hourTime.onkeyup = minTime.onkeyup =
+    secTime.onkeyup = kmLength.onkeyup = () => {
+      const timeHours = +secTime.value / 3600 + +minTime.value / 60 +
+        +hourTime.value;
+      km.value = (+kmLength.value / timeHours).toFixed(2);
+
+      const temp = +km.value;
+      m.value = (temp * (1000 / 3600)).toFixed(2);
+      const secAll = ((1 / temp) * 3600);
+      [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+    };
 </script>
 
 </html>
