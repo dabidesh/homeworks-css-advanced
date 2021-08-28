@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="app.js"></script>
   <title>Търчане</title>
 
   <style>
@@ -44,106 +45,10 @@
     <input id="secTime" placeholder="сек" type="number" min="0" max="59" value="15" />
     <br />
     <input id="kmLength" class="long" type="number" value="5.00" step="0.01" /> км<br />
-    <button id="convId">Сметни!</button>
+    <button id="convId">Запиши ст.</button>
     <button id="clearId">Начални ст.</button>
+    <button id="loadId">Зареди ст.</button>
   </form>
 </body>
-<script>
-  let isLastChangeTempo, isLastChangeSpeed, isLastChangeTime;
-
-  const totalSecondsToHMS = (totalSeconds) => {
-    const hourTime = String(Math.floor(totalSeconds / 3600));
-    totalSeconds %= 3600;
-    const minTime = String(Math.floor(totalSeconds / 60));
-    const secTime = String(Math.floor(totalSeconds % 60));
-
-    return [hourTime, minTime, secTime];
-  }
-
-  convId.onclick = (e) => {
-    e.preventDefault();
-    if (min.value != '' || sec.value != '') {
-      const temp = (1 / (+sec.value / 60 + +min.value)) * 60;
-      km.value = temp.toFixed(2);
-      m.value = (temp * (1000 / 3600)).toFixed(2);
-
-      [hourTime.value, minTime.value, secTime.value] =
-        totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
-    } else if (km.value != '') {
-      const temp = +km.value;
-      m.value = (temp * (1000 / 3600)).toFixed(2);
-      const secAll = ((1 / temp) * 3600);
-      sec.value = Math.round(secAll % 60);
-      min.value = Math.round(secAll / 60) - (+sec.value != 0 ? 1 : 0);
-
-      [hourTime.value, minTime.value, secTime.value] =
-        totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
-    } else if (hourTime.value != '' || minTime.value != '' ||
-      secTime.value != '') {
-      const timeHours = +secTime.value / 3600 + +minTime.value / 60 +
-        +hourTime.value;
-      km.value = (+kmLength.value / timeHours).toFixed(2);
-
-      const temp = +km.value;
-      m.value = (temp * (1000 / 3600)).toFixed(2);
-      const secAll = ((1 / temp) * 3600);
-      [_, min.value, sec.value] = totalSecondsToHMS(secAll);
-      //sec.value = Math.round(secAll % 60);
-      //min.value = Math.round(secAll / 60) - (+sec.value != 0 ? 1 : 0);
-    }
-  };
-  clearId.onclick = (e) => {
-    e.preventDefault();
-    /* min.value = '';
-    sec.value = '';
-    km.value = '';
-    m.value = ''; */
-    run.reset();
-  };
-
-  min.onchange = sec.onchange =
-    min.onkeyup = sec.onkeyup = () => {
-      const temp = (1 / (+sec.value / 60 + +min.value)) * 60;
-      km.value = temp.toFixed(2);
-      m.value = (temp * (1000 / 3600)).toFixed(2);
-
-      [hourTime.value, minTime.value, secTime.value] =
-        totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
-    };
-
-  km.onchange = km.onkeyup = () => {
-    const temp = +km.value;
-    m.value = (temp * (1000 / 3600)).toFixed(2);
-    const secAll = ((1 / temp) * 3600);
-    [_, min.value, sec.value] = totalSecondsToHMS(secAll);
-
-    [hourTime.value, minTime.value, secTime.value] =
-      totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
-  };
-
-  m.onchange = m.onkeyup = () => {
-    const temp = +m.value * 3.6;
-    km.value = temp.toFixed(2);
-    const secAll = ((1 / temp) * 3600);
-    [_, min.value, sec.value] = totalSecondsToHMS(secAll);
-
-    [hourTime.value, minTime.value, secTime.value] =
-      totalSecondsToHMS(Math.round((+kmLength.value / temp) * 3600));
-  };
-
-  hourTime.onchange = minTime.onchange =
-    secTime.onchange = kmLength.onchange =
-    hourTime.onkeyup = minTime.onkeyup =
-    secTime.onkeyup = kmLength.onkeyup = () => {
-      const timeHours = +secTime.value / 3600 + +minTime.value / 60 +
-        +hourTime.value;
-      km.value = (+kmLength.value / timeHours).toFixed(2);
-
-      const temp = +km.value;
-      m.value = (temp * (1000 / 3600)).toFixed(2);
-      const secAll = ((1 / temp) * 3600);
-      [_, min.value, sec.value] = totalSecondsToHMS(secAll);
-    };
-</script>
 
 </html>
