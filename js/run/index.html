@@ -14,7 +14,8 @@
       font-family: monospace;
     }
 
-    input {
+    input,
+    select {
       margin-bottom: 6px;
     }
 
@@ -45,9 +46,36 @@
     <input id="secTime" placeholder="сек" type="number" min="0" max="59" value="15" />
     <br />
     <input id="kmLength" class="long" type="number" value="5.00" step="0.01" /> км<br />
-    <button id="convId">Запиши ст.</button>
-    <button id="clearId">Начални ст.</button>
-    <button id="loadId">Зареди ст.</button>
+    <input id="achievementId" class="long" type="number" value="58.21" step="0.01" />% в. п.<br />
+    <select id="ageId">
+      <option value="0">Възр.</option>
+      <option value="1">10÷14</option>
+      <option value="2">15÷19</option>
+      <option value="3">20÷24</option>
+      <option value="4">25÷29</option>
+      <option value="5">30÷34</option>
+      <option value="6">35÷39</option>
+      <option value="7">40÷44</option>
+      <option value="8">45÷49</option>
+      <option value="9">50÷54</option>
+      <option value="10">55÷59</option>
+      <option value="11">60÷64</option>
+      <option value="12">65÷69</option>
+      <option value="13">70÷74</option>
+      <option value="14">75÷79</option>
+      <option value="15">80÷84</option>
+      <option value="16">85÷89</option>
+      <option value="17">90÷∞</option>
+    </select>
+    <select id="genderId">
+      <option value="0">Пол</option>
+      <option value="1">Жена</option>
+      <option value="2">Мъж</option>
+    </select>
+    <br />
+    <button id="convId">Запиши</button>
+    <button id="clearId">Начални</button>
+    <button id="loadId">Зареди</button>
   </form>
 </body>
 
