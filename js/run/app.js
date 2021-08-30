@@ -22,6 +22,20 @@ const updateAgeАchievement = (groupIndex) => {
   achievementId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
 };
 
+const setTimeByAgeAchievement = (groupIndex) => {
+  let min, sec;
+  if (genderId.value == '1') {
+    [min, sec] = wo[groupIndex].WR.split(':');
+  } else {
+    [min, sec] = man[groupIndex].WR.split(':');
+  }
+
+  const allSecWR = (+min) * 60 + (+sec);
+  const newSec = (allSecWR / (+achievementId.value)) * 100;
+  [hourTime.value, minTime.value, secTime.value] =
+    totalSecondsToHMS(newSec);
+};
+
 const updateAllByTimeAndDistance = () => {
   realFlatDistId.value = (+kmLengthId.value) * 1000 + 7.92 * (+elevId.value);
 
@@ -41,7 +55,7 @@ const updateAllByTimeAndDistance = () => {
   const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
   flatTimeId.value = `${hh}:${mm}:${ss}`;
 
-  updateAgeАchievement(Number(ageId.value));
+  updateAgeАchievement(+(ageId.value));
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
 };
 
@@ -136,6 +150,26 @@ hourTime.onchange = minTime.onchange =
 
 ageId.onchange = genderId.onchange = () => {
   updateAllByTimeAndDistance();
+};
+
+achievementId.onchange = () => {
+  setTimeByAgeAchievement(+ageId.value);
+
+  const timeHours = +secTime.value / 3600 + (+minTime.value) / 60 +
+    (+hourTime.value);
+  km.value = (+kmLengthId.value / timeHours).toFixed(2);
+
+  const temp = +km.value;
+  m.value = (temp * (1000 / 3600)).toFixed(2);
+  const secAll = ((1 / temp) * 3600);
+  [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+
+  const secAllOnFlat =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) / (+realFlatDistId.value));
+
+  const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
+  flatTimeId.value = `${hh}:${mm}:${ss}`;
 };
 
 window.onload = () => {
