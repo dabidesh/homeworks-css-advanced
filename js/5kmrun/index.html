@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script defer src="app.js"></script>
+  <title>Търчане с 5kmrun – калкулатор</title>
+  <meta name="description"
+    content="Калкулатор в помощ на бегачите от 5kmrun – време, темпо, скорост, възрастово постижение, поправка за изкачванията." />
+
+  <style>
+    * {
+      font-size: 22px;
+      font-family: monospace;
+    }
+
+    input,
+    select {
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 4ch;
+    }
+
+    .long {
+      width: 8ch;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      transform: scale(2);
+      margin: 1em 1em 1em 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Търчане с <a href="https://5kmrun.bg/" title="Свободно, но организирано бягане ...">5kmrun</a></h1>
+  <form id="run">
+    <input id="hourTime" placeholder="час" type="number" min="0" max="99" value="00" />ч
+    <input id="minTime" placeholder="мин" type="number" min="0" max="59" value="23" />м
+    <input id="secTime" placeholder="сек" type="number" min="0" max="59" value="15" />с време
+    <br />
+    <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" />м
+    <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
+    <br />
+    <input id="km" class="long" type="number" step="0.01" min="0" max="18000" value="12.90" /> км/ч<br />
+
+    <select id="ageId">
+      <option value="0">Възр.</option>
+      <option value="1">10÷14</option>
+      <option value="2">15÷19</option>
+      <option value="3">20÷24</option>
+      <option value="4">25÷29</option>
+      <option value="5">30÷34</option>
+      <option value="6">35÷39</option>
+      <option value="7">40÷44</option>
+      <option value="8">45÷49</option>
+      <option value="9">50÷54</option>
+      <option value="10">55÷59</option>
+      <option value="11">60÷64</option>
+      <option value="12">65÷69</option>
+      <option value="13">70÷74</option>
+      <option value="14">75÷79</option>
+      <option value="15">80÷84</option>
+      <option value="16">85÷89</option>
+      <option value="17">90÷∞</option>
+    </select> <label for="women"> Жена</label><input type="checkbox" id="women">
+
+    <!-- <select id="genderId">
+      <option value="0">Пол</option>
+      <option value="1">Жена</option>
+      <option value="2">Мъж</option>
+    </select> -->
+    <br />
+    <input id="achievementId" class="long" type="number" value="58.21" step="0.01" />% в. п.<br />
+    <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк. <button id="helpProfileTrackId"
+      class="help">?</button><br />
+    <input id="realFlatDistId" class="long" type="number" value="5626" step="1" readonly /> м равна писта<br />
+    <input id="flatTimeId" class="long" type="text" value="" readonly /> на писта<br />
+
+    <input id="m" class="long" type="number" step="0.01" min="0" max="5000" value="3.58" /> м/с<br />
+
+    <input id="kmLengthId" class="long" type="number" value="5.00" step="0.01" readonly /> км<br />
+
+    <button id="convId">Запиши</button>
+    <button id="clearId">Начални</button>
+    <button id="loadId">Зареди</button>
+  </form>
+  <footer>в. 0.0.1</footer>
+</body>
+
+</html>
