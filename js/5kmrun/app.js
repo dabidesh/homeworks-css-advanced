@@ -64,6 +64,11 @@ loadId.onclick = (e) => {
 
   const allDataObj = JSON.parse(localStorage.getItem('allDataObj'));
 
+  if (!allDataObj) {
+    alert('Трябва първо да запишеш данни!');
+    return;
+  }
+
   min.value = allDataObj.min;
   sec.value = allDataObj.sec;
   km.value = allDataObj.km;
@@ -103,7 +108,7 @@ convId.onclick = (e) => {
 clearId.onclick = (e) => {
   e.preventDefault();
   run.reset();
-  genderId.value = '2';
+  women.checked = false;
   ageId.value = '7';
   updateAllByTimeAndDistance();
 };
