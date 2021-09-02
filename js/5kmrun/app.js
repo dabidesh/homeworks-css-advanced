@@ -80,6 +80,8 @@ loadId.onclick = (e) => {
   elevId.value = allDataObj.elevId;
   women.checked = allDataObj.women;
   ageId.value = allDataObj.ageId;
+
+  updateAllByTimeAndDistance();
 };
 
 convId.onclick = (e) => {
