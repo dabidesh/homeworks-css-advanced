@@ -81,19 +81,26 @@ const setLevel = (allSec, groupIndex) => {
   }
 
   if (allSec > allSecNovice) {
-    levelId.value = 'Начинаещ/а,' + ` още ${Math.round(allSec - allSecNovice)} с до „новак/чка“!`;
+    levelId.value = 'Начинаещ/а,';
+    levelId2.value = `${Math.round(allSec - allSecNovice)} с до „новак/чка“!`;
   } else if (allSec > allSecIntermediate) {
-    levelId.value = 'Новак/чка,' + ` още ${Math.round(allSec - allSecIntermediate)} с до „среден/а“!`;
+    levelId.value = 'Новак/чка,';
+    levelId2.value = `${Math.round(allSec - allSecIntermediate)} с до „среден/а“!`;
   } else if (allSec > allSecAdvanced) {
-    levelId.value = 'Среден/а,' + ` още ${Math.round(allSec - allSecAdvanced)} с до „напреднал/а“!`;
+    levelId.value = 'Среден/а,';
+    levelId2.value = `${Math.round(allSec - allSecAdvanced)} с до „напр.“!`;
   } else if (allSec > allSecElite) {
-    levelId.value = 'Напреднал/а,' + ` още ${Math.round(allSec - allSecElite)} с до „елитен/а“!`;
+    levelId.value = 'Напреднал/а,';
+    levelId2.value = `${Math.round(allSec - allSecElite)} с до „елитен/а“!`;
   } else if (allSec > allSecWR) {
-    levelId.value = 'Елитен/а,' + ` още ${Math.round(allSec - allSecWR)} с до св. рекорд!`;
+    levelId.value = 'Елитен/а,';
+    levelId2.value = `${Math.round(allSec - allSecWR)} с до св. р.!`;
   } else if (allSec == allSecWR) {
-    levelId.value = 'Изравнил/а си св. рекорд!';
+    levelId.value = 'Св. рекорд!';
+    levelId2.value = 'Изравнил/а си св. р.!';
   } else if (allSec < allSecWR) {
-    levelId.value = 'Подобрил/а си св. рекорд с' + ` ${Math.round(allSecWR - allSec)} с!`;
+    levelId.value = 'Нов св. рекорд!';
+    levelId2.value = 'Подобрил/а си св. р. с' + ` ${Math.round(allSecWR - allSec)} с!`;
   }
 };
 
