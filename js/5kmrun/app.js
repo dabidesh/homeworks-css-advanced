@@ -9,13 +9,20 @@ const totalSecondsToHMS = (totalSeconds) => {
 };
 
 const HMStoSeconds = (hh, mm, ss) => {
+  let hhNew, mmNew, ssNew;
   if (hh == undefined) {
-    hh = 0;
+    hhNew = 0;
+    mmNew = +mm;
+    ssNew = +ss;
+  } else {
+    hhNew = +mm;
+    mmNew = +ss;
+    ssNew = +hh;
   }
-  if (mm.includes(':')) {
-    [hh, mm] = mm.split(':');
-  }
-  return (+hh) * 3600 + (+mm) * 60 + (+ss);
+
+  //mm,ss,hh
+
+  return hhNew * 3600 + mmNew * 60 + ssNew;
 };
 
 const updateAgeАchievement = (groupIndex) => {
@@ -53,30 +60,30 @@ const setLevel = (allSec, groupIndex) => {
   let hh, mm, ss, allSecWR, allSecBeginner, allSecNovice,
     allSecIntermediate, allSecAdvanced, allSecElite;
   if (women.checked == true) {
-    [mm, ss] = wo[groupIndex].WR.split(':');
+    [mm, ss, hh] = wo[groupIndex].WR.split(':');
     allSecWR = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = wo[groupIndex].Beginner.split(':');
+    [mm, ss, hh] = wo[groupIndex].Beginner.split(':');
     allSecBeginner = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = wo[groupIndex].Novice.split(':');
+    [mm, ss, hh] = wo[groupIndex].Novice.split(':');
     allSecNovice = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = wo[groupIndex].Intermediate.split(':');
+    [mm, ss, hh] = wo[groupIndex].Intermediate.split(':');
     allSecIntermediate = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = wo[groupIndex].Advanced.split(':');
+    [mm, ss, hh] = wo[groupIndex].Advanced.split(':');
     allSecAdvanced = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = wo[groupIndex].Elite.split(':');
+    [mm, ss, hh] = wo[groupIndex].Elite.split(':');
     allSecElite = Math.round(HMStoSeconds(hh, mm, ss));
   } else {
-    [mm, ss] = man[groupIndex].WR.split(':');
+    [mm, ss, hh] = man[groupIndex].WR.split(':');
     allSecWR = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = man[groupIndex].Beginner.split(':');
+    [mm, ss, hh] = man[groupIndex].Beginner.split(':');
     allSecBeginner = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = man[groupIndex].Novice.split(':');
+    [mm, ss, hh] = man[groupIndex].Novice.split(':');
     allSecNovice = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = man[groupIndex].Intermediate.split(':');
+    [mm, ss, hh] = man[groupIndex].Intermediate.split(':');
     allSecIntermediate = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = man[groupIndex].Advanced.split(':');
+    [mm, ss, hh] = man[groupIndex].Advanced.split(':');
     allSecAdvanced = Math.round(HMStoSeconds(hh, mm, ss));
-    [mm, ss] = man[groupIndex].Elite.split(':');
+    [mm, ss, hh] = man[groupIndex].Elite.split(':');
     allSecElite = Math.round(HMStoSeconds(hh, mm, ss));
   }
 
@@ -100,16 +107,19 @@ const setLevel = (allSec, groupIndex) => {
     levelId2.value = 'Изравнил/а си св. р.!';
   } else if (allSec < allSecWR) {
     levelId.value = 'Нов св. рекорд!';
-    levelId2.value = 'Подобрил/а си св. р. с' + ` ${Math.round(allSecWR - allSec)} с!`;
+    levelId2.value = 'Подобр. с' + ` ${Math.round(allSecWR - allSec)} с!`;
   }
 };
 
-const updateAllByTimeAndDistance = (flag, flagTempo) => {
+const updateAllByTimeAndDistance = (flag, flagTempo, flagAchievement) => {
   if (flag == undefined) {
     flag = true;
   }
   if (flag) {
     realFlatDistId.value = Math.round((+kmLengthId.value) * 1000 + 7.92 * (+elevId.value));
+  }
+  if (flagAchievement == undefined) {
+    flagAchievement = true;
   }
 
   if (flagTempo == undefined) {
@@ -134,7 +144,9 @@ const updateAllByTimeAndDistance = (flag, flagTempo) => {
   const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
   flatTimeId.value = `${hh}:${mm}:${ss}`;
 
-  updateAgeАchievement(+(ageId.value));
+  if (flagAchievement) {
+    updateAgeАchievement(+(ageId.value));
+  }
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
 
   setLevel(secAllOnFlat, +(ageId.value));
@@ -282,7 +294,7 @@ achievementId.onchange = achievementId.onkeyup =
     const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
     flatTimeId.value = `${hh}:${mm}:${ss}`;
 
-    updateAllByTimeAndDistance();
+    updateAllByTimeAndDistance(true, true, false);
   };
 
 window.onload = () => {
