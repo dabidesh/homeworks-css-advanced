@@ -8,6 +8,16 @@ const totalSecondsToHMS = (totalSeconds) => {
   return [hourTime, minTime, secTime];
 };
 
+const HMStoSeconds = (hh, mm, ss) => {
+  if (hh == undefined) {
+    hh = 0;
+  }
+  if (mm.includes(':')) {
+    [hh, mm] = mm.split(':');
+  }
+  return (+hh) * 3600 + (+mm) * 60 + (+ss);
+};
+
 const updateAgeАchievement = (groupIndex) => {
   let min, sec;
   if (women.checked == true) {
@@ -24,7 +34,7 @@ const updateAgeАchievement = (groupIndex) => {
 
 const setTimeByAgeAchievement = (groupIndex) => {
   let min, sec;
-  if (genderId.value == '1') {
+  if (women.checked == true) {
     [min, sec] = wo[groupIndex].WR.split(':');
   } else {
     [min, sec] = man[groupIndex].WR.split(':');
@@ -36,8 +46,64 @@ const setTimeByAgeAchievement = (groupIndex) => {
     totalSecondsToHMS(newSec);
 };
 
-const updateAllByTimeAndDistance = () => {
-  realFlatDistId.value = Math.round((+kmLengthId.value) * 1000 + 7.92 * (+elevId.value));
+const setLevel = (allSec, groupIndex) => {
+
+  allSec = Math.round(allSec);
+
+  let hh, mm, ss, allSecWR, allSecBeginner, allSecNovice,
+    allSecIntermediate, allSecAdvanced, allSecElite;
+  if (women.checked == true) {
+    [mm, ss] = wo[groupIndex].WR.split(':');
+    allSecWR = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = wo[groupIndex].Beginner.split(':');
+    allSecBeginner = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = wo[groupIndex].Novice.split(':');
+    allSecNovice = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = wo[groupIndex].Intermediate.split(':');
+    allSecIntermediate = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = wo[groupIndex].Advanced.split(':');
+    allSecAdvanced = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = wo[groupIndex].Elite.split(':');
+    allSecElite = Math.round(HMStoSeconds(hh, mm, ss));
+  } else {
+    [mm, ss] = man[groupIndex].WR.split(':');
+    allSecWR = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = man[groupIndex].Beginner.split(':');
+    allSecBeginner = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = man[groupIndex].Novice.split(':');
+    allSecNovice = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = man[groupIndex].Intermediate.split(':');
+    allSecIntermediate = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = man[groupIndex].Advanced.split(':');
+    allSecAdvanced = Math.round(HMStoSeconds(hh, mm, ss));
+    [mm, ss] = man[groupIndex].Elite.split(':');
+    allSecElite = Math.round(HMStoSeconds(hh, mm, ss));
+  }
+
+  if (allSec > allSecNovice) {
+    levelId.value = 'Начинаещ/а,' + ` още ${Math.round(allSec - allSecNovice)} с до „новак/чка“!`;
+  } else if (allSec > allSecIntermediate) {
+    levelId.value = 'Новак/чка,' + ` още ${Math.round(allSec - allSecIntermediate)} с до „среден/а“!`;
+  } else if (allSec > allSecAdvanced) {
+    levelId.value = 'Среден/а,' + ` още ${Math.round(allSec - allSecAdvanced)} с до „напреднал/а“!`;
+  } else if (allSec > allSecElite) {
+    levelId.value = 'Напреднал/а,' + ` още ${Math.round(allSec - allSecElite)} с до „елитен/а“!`;
+  } else if (allSec > allSecWR) {
+    levelId.value = 'Елитен/а,' + ` още ${Math.round(allSec - allSecWR)} с до св. рекорд!`;
+  } else if (allSec == allSecWR) {
+    levelId.value = 'Изравнил/а си св. рекорд!';
+  } else if (allSec < allSecWR) {
+    levelId.value = 'Подобрил/а си св. рекорд с' + ` ${Math.round(allSecWR - allSec)} с!`;
+  }
+};
+
+const updateAllByTimeAndDistance = (flag) => {
+  if (flag == undefined) {
+    flag = true;
+  }
+  if (flag) {
+    realFlatDistId.value = Math.round((+kmLengthId.value) * 1000 + 7.92 * (+elevId.value));
+  }
 
   const timeHours = +secTime.value / 3600 + (+minTime.value) / 60 +
     (+hourTime.value);
@@ -57,6 +123,8 @@ const updateAllByTimeAndDistance = () => {
 
   updateAgeАchievement(+(ageId.value));
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
+
+  setLevel(secAllOnFlat, +(ageId.value));
 };
 
 loadId.onclick = (e) => {
@@ -117,7 +185,7 @@ clearId.onclick = (e) => {
 
 helpProfileTrackId.onclick = (e) => {
   e.preventDefault();
-  alert('Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта!');
+  alert('Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта или директно избери реалната дължина!');
 };
 
 min.onchange = sec.onchange =
@@ -165,6 +233,14 @@ hourTime.onchange = minTime.onchange =
     //hourTime.value = hourTime.value.padStart(2, '0');
     updateAllByTimeAndDistance();
   };
+
+realFlatDistId.onchange = realFlatDistId.onkeyup = () => {
+
+  const tmp = ((+realFlatDistId.value) - (+kmLengthId.value) * 1000) /
+    7.92;
+  elevId.value = Math.round(tmp);
+  updateAllByTimeAndDistance(false);
+};
 
 women.onchange = ageId.onchange = () => {
   updateAllByTimeAndDistance();
