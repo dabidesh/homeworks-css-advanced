@@ -104,7 +104,7 @@ const setLevel = (allSec, groupIndex) => {
   }
 };
 
-const updateAllByTimeAndDistance = (flag) => {
+const updateAllByTimeAndDistance = (flag, flagTempo) => {
   if (flag == undefined) {
     flag = true;
   }
@@ -112,14 +112,20 @@ const updateAllByTimeAndDistance = (flag) => {
     realFlatDistId.value = Math.round((+kmLengthId.value) * 1000 + 7.92 * (+elevId.value));
   }
 
+  if (flagTempo == undefined) {
+    flagTempo = true;
+  }
+
   const timeHours = +secTime.value / 3600 + (+minTime.value) / 60 +
     (+hourTime.value);
   km.value = (+kmLengthId.value / timeHours).toFixed(2);
 
-  const temp = +km.value;
-  m.value = (temp * (1000 / 3600)).toFixed(2);
-  const secAll = ((1 / temp) * 3600);
-  [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+  if (flagTempo) {
+    const temp = +km.value;
+    m.value = (temp * (1000 / 3600)).toFixed(2);
+    const secAll = ((1 / temp) * 3600);
+    [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+  }
 
   const secAllOnFlat =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
@@ -205,6 +211,7 @@ min.onchange = sec.onchange =
       totalSecondsToHMS(Math.round((+kmLengthId.value / temp) * 3600));
 
     updateAgeАchievement(Number(ageId.value));
+    updateAllByTimeAndDistance(true, false);
   };
 
 km.onchange = km.onkeyup = () => {
@@ -217,6 +224,7 @@ km.onchange = km.onkeyup = () => {
     totalSecondsToHMS(Math.round((+kmLengthId.value / temp) * 3600));
 
   updateAgeАchievement(Number(ageId.value));
+  updateAllByTimeAndDistance();
 };
 
 m.onchange = m.onkeyup = () => {
@@ -229,6 +237,7 @@ m.onchange = m.onkeyup = () => {
     totalSecondsToHMS(Math.round((+kmLengthId.value / temp) * 3600));
 
   updateAgeАchievement(Number(ageId.value));
+  updateAllByTimeAndDistance();
 };
 
 hourTime.onchange = minTime.onchange =
@@ -272,6 +281,8 @@ achievementId.onchange = achievementId.onkeyup =
 
     const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
     flatTimeId.value = `${hh}:${mm}:${ss}`;
+
+    updateAllByTimeAndDistance();
   };
 
 window.onload = () => {
