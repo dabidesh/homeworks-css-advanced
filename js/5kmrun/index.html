@@ -59,11 +59,14 @@
     <input id="minTime" placeholder="мин" type="number" min="0" max="59" value="23" />м
     <input id="secTime" placeholder="сек" type="number" min="0" max="59" value="15" />с време
     <br />
-    <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" />м
-    <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
-    <br />
-    <input id="km" class="long" type="number" step="0.01" min="0" max="18000" value="12.90" /> км/ч<br />
-
+    <select id="tracksId" class="toLong">
+      <option id="flatId" value="5000">Избери трасе ...</option>
+      <option id="realZapaden2Id" value="5444">„Западен парк 2“, гр. София</option>
+      <option id="realBorisovaId" value="5238">„Борисова градина“, гр. София</option>
+      <option id="realVarnaId" value="5182">„Морска градина“, гр. Варна</option>
+      <option id="realBurgasId" value="5158">„Морска градина“, гр. Бургас</option>
+      <option id="realPlovdivId" value="5087">„Гребен канал 2“, гр. Пловдив</option>
+    </select><br />
     <select id="ageId">
       <option value="0">Възр.</option>
       <option value="1">10÷14</option>
@@ -83,21 +86,24 @@
       <option value="15">80÷84</option>
       <option value="16">85÷89</option>
       <option value="17">90÷∞</option>
-    </select> <label for="women"> Жена</label><input type="checkbox" id="women">
-
-    <!-- <select id="genderId">
-      <option value="0">Пол</option>
-      <option value="1">Жена</option>
-      <option value="2">Мъж</option>
-    </select> -->
+    </select> <label for="women"> Жена</label><input type="checkbox" id="women"><br />
+    <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" />м
+    <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
     <br />
+    <input id="km" class="long" type="number" step="0.01" min="0" max="18000" value="12.90" /> км/ч<br />
     <input id="achievementId" class="long" type="number" value="58.21" step="0.01" />% в. п.<br />
+    <span>Ниво: </span><button id="helpLevelsId" class="help">?</button><br />
     <input id="levelId" class="toLong" type="text" value="Среден" readonly /><br />
     <input id="levelId2" class="toLong" type="text" value="Среден" readonly /><br />
     <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк. <button id="helpProfileTrackId"
       class="help">?</button><br />
     <input id="realFlatDistId" class="long" type="number" value="5626" step="1" /> м равна писта<br />
     <input id="flatTimeId" class="long" type="text" value="" readonly /> на писта<br />
+    <input id="zapaden2TimeId" class="long" type="text" value="" readonly /> в Западен 2<br />
+    <input id="borisovaTimeId" class="long" type="text" value="" readonly /> в Борисова<br />
+    <input id="varnaTimeId" class="long" type="text" value="" readonly /> във Варна<br />
+    <input id="burgasTimeId" class="long" type="text" value="" readonly /> в Бургас<br />
+    <input id="plovdivTimeId" class="long" type="text" value="" readonly /> в Пловдив<br />
 
     <input id="m" class="long" type="number" step="0.01" min="0" max="5000" value="3.58" /> м/с<br />
 

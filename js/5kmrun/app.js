@@ -8,6 +8,8 @@ const totalSecondsToHMS = (totalSeconds) => {
   return [hourTime, minTime, secTime];
 };
 
+// bad code!!!
+// good: ('01:02:03'.match(/:/g) || []).length; //2
 const HMStoSeconds = (hh, mm, ss) => {
   let hhNew, mmNew, ssNew;
   if (hh == undefined) {
@@ -20,6 +22,8 @@ const HMStoSeconds = (hh, mm, ss) => {
     ssNew = +hh;
   }
 
+  //console.log(('01:02:03'.match(/:/g) || []).length);
+  //logs 2
   //mm,ss,hh
 
   return hhNew * 3600 + mmNew * 60 + ssNew;
@@ -139,10 +143,51 @@ const updateAllByTimeAndDistance = (flag, flagTempo, flagAchievement) => {
 
   const secAllOnFlat =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
-    (((+kmLengthId.value) * 1000) / (+realFlatDistId.value));
+    (((+kmLengthId.value) * 1000) /
+      ((+realFlatDistId.value)));
 
-  const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
+  const secAllOnZapaden2 =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) /
+      (5000 - (+realZapaden2Id.value - (+realFlatDistId.value)) / 2));
+
+  const secAllOnBurgas =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) /
+      (5000 - (+realBurgasId.value - (+realFlatDistId.value)) / 2));
+
+  const secAllOnVarna =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) /
+      (5000 - (+realVarnaId.value - (+realFlatDistId.value)) / 2));
+
+  const secAllOnBorisova =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) /
+      (5000 - (+realBorisovaId.value - (+realFlatDistId.value)) / 2));
+
+  const secAllOnPlovdiv =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) /
+      (5000 - (+realPlovdivId.value - (+realFlatDistId.value)) / 2));
+
+  let [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
   flatTimeId.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = totalSecondsToHMS(secAllOnZapaden2);
+  zapaden2TimeId.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = totalSecondsToHMS(secAllOnBurgas);
+  burgasTimeId.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = totalSecondsToHMS(secAllOnVarna);
+  varnaTimeId.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = totalSecondsToHMS(secAllOnBorisova);
+  borisovaTimeId.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = totalSecondsToHMS(secAllOnPlovdiv);
+  plovdivTimeId.value = `${hh}:${mm}:${ss}`;
 
   if (flagAchievement) {
     updateAgeАchievement(+(ageId.value));
@@ -173,6 +218,7 @@ loadId.onclick = (e) => {
   elevId.value = allDataObj.elevId;
   women.checked = allDataObj.women;
   ageId.value = allDataObj.ageId;
+  tracksId.value = allDataObj.tracksId;
 
   updateAllByTimeAndDistance();
 };
@@ -194,6 +240,7 @@ convId.onclick = (e) => {
       'elevId': elevId.value,
       'women': women.checked ? true : false,
       'ageId': ageId.value,
+      'tracksId': tracksId.value,
     };
 
     localStorage.setItem('allDataObj', JSON.stringify(allDataObj));
@@ -205,12 +252,23 @@ clearId.onclick = (e) => {
   run.reset();
   women.checked = false;
   ageId.value = '7';
+  tracksId.value = '5444';
   updateAllByTimeAndDistance();
 };
 
 helpProfileTrackId.onclick = (e) => {
   e.preventDefault();
-  alert('Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта или директно избери реалната дължина!');
+  alert(`Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта или директно избери реалната дължина!
+  Времената на различните трасета също ще се променят!`);
+};
+
+helpLevelsId.onclick = (e) => {
+  e.preventDefault();
+  alert(`Начинаещ/а: по-бърз/а от 5% от бегач(к)ите. Започнал/а е да търчи преди 1 месец.
+Новак/чка: по-бърз/а от 20 % от бегач(к)ите. Започнал/а е  да търчи преди 6 месеца.
+Среден/а:  по-бърз/а от 50 % от бегач(к)ите. Започнал/а е да търчи преди 2 години.
+Напреднал: по-бърз/а от 80 % от бегач(к)ите. Започнал/а е да търчи преди 5 години.
+Елитен/на: по-бърз/а от 95 % от бегач(к)ите. Започнал/а е да търчи преди повече от 5 години редовно и упорито!`);
 };
 
 min.onchange = sec.onchange =
@@ -300,7 +358,17 @@ achievementId.onchange = achievementId.onkeyup =
 window.onload = () => {
   women.checked = false;
   ageId.value = '7';
+  tracksId.value = '5444';
   updateAllByTimeAndDistance();
+};
+
+tracksId.onchange = () => {
+  realFlatDistId.value = tracksId.value;
+
+  const tmp = ((+realFlatDistId.value) - (+kmLengthId.value) * 1000) /
+    7.92;
+  elevId.value = Math.round(tmp);
+  updateAllByTimeAndDistance(false);
 };
 
 
