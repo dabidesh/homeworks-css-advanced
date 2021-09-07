@@ -43,6 +43,20 @@ const updateAgeАchievement = (groupIndex) => {
   achievementId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
 };
 
+const updateAgeАchievementMax = (groupIndex, secAllOnFlat) => {
+  let min, sec;
+  if (women.checked == true) {
+    [min, sec] = wo[groupIndex].WR.split(':');
+  } else {
+    [min, sec] = man[groupIndex].WR.split(':');
+  }
+
+  const allSecWR = (+min) * 60 + (+sec);
+  const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
+  const allSecTemp = (+hh) * 3600 + (+mm) * 60 + (+ss);
+  achievementMaxId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
+};
+
 const setTimeByAgeAchievement = (groupIndex) => {
   let min, sec;
   if (women.checked == true) {
@@ -191,6 +205,8 @@ const updateAllByTimeAndDistance = (flag, flagTempo, flagAchievement) => {
 
   if (flagAchievement) {
     updateAgeАchievement(+(ageId.value));
+    updateAgeАchievementMax(+(ageId.value), secAllOnFlat);
+
   }
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
 
@@ -259,7 +275,8 @@ clearId.onclick = (e) => {
 helpProfileTrackId.onclick = (e) => {
   e.preventDefault();
   alert(`Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта или директно избери реалната дължина!
-  Времената на различните трасета също ще се променят!`);
+
+Времената на различните трасета също ще се променят!`);
 };
 
 helpLevelsId.onclick = (e) => {
@@ -268,7 +285,16 @@ helpLevelsId.onclick = (e) => {
 Новак/чка: по-бърз/а от 20 % от бегач(к)ите. Започнал/а е  да търчи преди 6 месеца.
 Среден/а:  по-бърз/а от 50 % от бегач(к)ите. Започнал/а е да търчи преди 2 години.
 Напреднал: по-бърз/а от 80 % от бегач(к)ите. Започнал/а е да търчи преди 5 години.
-Елитен/на: по-бърз/а от 95 % от бегач(к)ите. Започнал/а е да търчи преди повече от 5 години редовно и упорито!`);
+Елитен/на: по-бърз/а от 95 % от бегач(к)ите. Започнал/а е да търчи преди повече от 5 години редовно и упорито!
+
+Нивото се определя по времето, изчислено за равна писта!`);
+};
+
+helpAchievementsId.onclick = (e) => {
+  e.preventDefault();
+  alert(`Възрастовото постижение е процента от световния рекорд в съответната възрастова група.
+
+Втората стойност е на база удължено трасе към равна писта, т.е. взима се времето от пистата!`);
 };
 
 min.onchange = sec.onchange =
