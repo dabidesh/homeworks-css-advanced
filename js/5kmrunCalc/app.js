@@ -420,6 +420,7 @@ achievementId.onchange = achievementId.onkeyup =
   };
 
 window.onload = () => {
+  summaryId.click();
   women.checked = false;
   ageId.value = '7';
   tracksId.value = '5444';
