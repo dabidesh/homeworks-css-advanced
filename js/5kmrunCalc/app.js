@@ -244,9 +244,8 @@ const updateAllByTimeAndDistance = (flag, flagTempo, flagAchievement) => {
 
   if (flagAchievement) {
     updateAgeАchievement(+(ageId.value));
-    updateAgeАchievementMax(+(ageId.value), secAllOnFlat);
-
   }
+  updateAgeАchievementMax(+(ageId.value), secAllOnFlat);
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
 
   setLevel(secAllOnFlat, +(ageId.value));
