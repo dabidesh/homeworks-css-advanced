@@ -73,11 +73,17 @@ const setTimeByAgeAchievement = (groupIndex) => {
 
 const setLevel = (allSec, groupIndex) => {
 
+  let str0, str1, strWR, strNewWR;
+
   allSec = Math.round(allSec);
 
   let hh, mm, ss, allSecWR, allSecBeginner, allSecNovice,
     allSecIntermediate, allSecAdvanced, allSecElite;
   if (women.checked == true) {
+    str0 = 'По-бърза от ';
+    str1 = ' от бегачките!';
+    strWR = 'Двете сте само!';
+    strNewWR = 'Единствена си!';
     [mm, ss, hh] = wo[groupIndex].WR.split(':');
     allSecWR = Math.round(HMStoSeconds(hh, mm, ss));
     [mm, ss, hh] = wo[groupIndex].Beginner.split(':');
@@ -91,6 +97,10 @@ const setLevel = (allSec, groupIndex) => {
     [mm, ss, hh] = wo[groupIndex].Elite.split(':');
     allSecElite = Math.round(HMStoSeconds(hh, mm, ss));
   } else {
+    str0 = 'По-бърз от ';
+    str1 = ' от бегачите!';
+    strWR = 'Двамата сте само!';
+    strNewWR = 'Единствен си!';
     [mm, ss, hh] = man[groupIndex].WR.split(':');
     allSecWR = Math.round(HMStoSeconds(hh, mm, ss));
     [mm, ss, hh] = man[groupIndex].Beginner.split(':');
@@ -105,27 +115,48 @@ const setLevel = (allSec, groupIndex) => {
     allSecElite = Math.round(HMStoSeconds(hh, mm, ss));
   }
 
+  const tempSec0 = (allSec - allSecNovice) /
+    (allSecBeginner - allSecNovice);
+  const tempSec1 = (allSec - allSecIntermediate) /
+    (allSecNovice - allSecIntermediate);
+  const tempSec2 = (allSec - allSecAdvanced) / (allSecIntermediate - allSecAdvanced);
+  const tempSec3 = (allSec - allSecElite) /
+    (allSecAdvanced - allSecElite);
+  const tempSec4 = (allSec - allSecWR) /
+    (allSecElite - allSecWR);
   if (allSec > allSecNovice) {
     levelId.value = 'Начинаещ/а,';
     levelId2.value = `${Math.round(allSec - allSecNovice)} с до „новак/чка“!`;
+    percentFastestId.value =
+      `${str0}${((15 - tempSec0 * 15) + 5).toFixed(2)}%!`;
   } else if (allSec > allSecIntermediate) {
     levelId.value = 'Новак/чка,';
     levelId2.value = `${Math.round(allSec - allSecIntermediate)} с до „среден/а“!`;
+    percentFastestId.value =
+      `${str0}${((30 - tempSec1 * 30) + 20).toFixed(2)}%!`;
   } else if (allSec > allSecAdvanced) {
     levelId.value = 'Среден/а,';
     levelId2.value = `${Math.round(allSec - allSecAdvanced)} с до „напр.“!`;
+    percentFastestId.value =
+      `${str0}${((30 - tempSec2 * 30) + 50).toFixed(2)}%!`;
   } else if (allSec > allSecElite) {
     levelId.value = 'Напреднал/а,';
     levelId2.value = `${Math.round(allSec - allSecElite)} с до „елитен/а“!`;
+    percentFastestId.value =
+      `${str0}${((15 - tempSec3 * 15) + 80).toFixed(2)}%!`;
   } else if (allSec > allSecWR) {
     levelId.value = 'Елитен/а,';
     levelId2.value = `${Math.round(allSec - allSecWR)} с до св. р.!`;
+    percentFastestId.value =
+      `${str0}${((5 - tempSec4 * 5) + 95).toFixed(2)}%!`;
   } else if (allSec == allSecWR) {
-    levelId.value = 'Св. рекорд!';
+    levelId.value = 'Изр. св. рекорд!';
     levelId2.value = 'Изравнил/а си св. р.!';
+    percentFastestId.value = strWR;
   } else if (allSec < allSecWR) {
     levelId.value = 'Нов св. рекорд!';
     levelId2.value = 'Подобр. с' + ` ${Math.round(allSecWR - allSec)} с!`;
+    percentFastestId.value = strNewWR;
   }
 };
 
@@ -163,27 +194,32 @@ const updateAllByTimeAndDistance = (flag, flagTempo, flagAchievement) => {
   const secAllOnZapaden2 =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
     (((+kmLengthId.value) * 1000) /
-      (5000 - (+realZapaden2Id.value - (+realFlatDistId.value)) / 2));
+      (5000 - (+realZapaden2Id.value - (+realFlatDistId.value))));
 
   const secAllOnBurgas =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
     (((+kmLengthId.value) * 1000) /
-      (5000 - (+realBurgasId.value - (+realFlatDistId.value)) / 2));
+      (5000 - (+realBurgasId.value - (+realFlatDistId.value))));
 
   const secAllOnVarna =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
     (((+kmLengthId.value) * 1000) /
-      (5000 - (+realVarnaId.value - (+realFlatDistId.value)) / 2));
+      (5000 - (+realVarnaId.value - (+realFlatDistId.value))));
 
   const secAllOnBorisova =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
     (((+kmLengthId.value) * 1000) /
-      (5000 - (+realBorisovaId.value - (+realFlatDistId.value)) / 2));
+      (5000 - (+realBorisovaId.value - (+realFlatDistId.value))));
+
+  const secAllOnYuzhen =
+    ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
+    (((+kmLengthId.value) * 1000) /
+      (5000 - (+realYuzhenId.value - (+realFlatDistId.value))));
 
   const secAllOnPlovdiv =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
     (((+kmLengthId.value) * 1000) /
-      (5000 - (+realPlovdivId.value - (+realFlatDistId.value)) / 2));
+      (5000 - (+realPlovdivId.value - (+realFlatDistId.value))));
 
   let [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
   flatTimeId.value = `${hh}:${mm}:${ss}`;
@@ -199,6 +235,9 @@ const updateAllByTimeAndDistance = (flag, flagTempo, flagAchievement) => {
 
   [hh, mm, ss] = totalSecondsToHMS(secAllOnBorisova);
   borisovaTimeId.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = totalSecondsToHMS(secAllOnYuzhen);
+  yuzhenTimeId.value = `${hh}:${mm}:${ss}`;
 
   [hh, mm, ss] = totalSecondsToHMS(secAllOnPlovdiv);
   plovdivTimeId.value = `${hh}:${mm}:${ss}`;
@@ -287,14 +326,14 @@ helpLevelsId.onclick = (e) => {
 Напреднал: по-бърз/а от 80 % от бегач(к)ите. Започнал/а е да търчи преди 5 години.
 Елитен/на: по-бърз/а от 95 % от бегач(к)ите. Започнал/а е да търчи преди повече от 5 години редовно и упорито!
 
-Нивото се определя по времето, изчислено за равна писта!`);
+Внимание – недовършена функционалност, нивото се определя по времето, изчислено за равна писта!`);
 };
 
 helpAchievementsId.onclick = (e) => {
   e.preventDefault();
   alert(`Възрастовото постижение е процента от световния рекорд в съответната възрастова група.
 
-Втората стойност е на база удължено трасе към равна писта, т.е. взима се времето от пистата!`);
+Внимание – недовършена функционалност, втората стойност е на база удължено трасе към равна писта, т.е. взима се времето от пистата!`);
 };
 
 min.onchange = sec.onchange =
