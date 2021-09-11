@@ -38,7 +38,8 @@ const updateAgeАchievement = (groupIndex) => {
   }
 
   const allSecWR = (+min) * 60 + (+sec);
-  const allSecTemp = (+minTime.value) * 60 + (+secTime.value);
+  const allSecTemp = (+hourTime.value) * 3600 + (+minTime.value) * 60 +
+    (+secTime.value);
 
   achievementId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
 };
