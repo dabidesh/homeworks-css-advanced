@@ -371,6 +371,25 @@ helpAchievementsId.onclick = (e) => {
 Внимание – недовършена функционалност, втората стойност е на база удължено трасе към равна писта, т.е. взима се времето от пистата!`);
 };
 
+helpPulsId.onclick = (e) => {
+  e.preventDefault();
+  alert(`Консултирайте се с лекар!
+
+Работния пулс за търчане на 5 км трябва да бъде в аеробната зона, ако искаш постижението ти да бъде силно (60÷90 % от максималния, според други източници 60÷80 %).
+
+Максимален, резерв, работен, пулс в покой [удари за минута]
+Възраст [години]
+Зона [%]
+
+Максимален = 208 - (0.7 * Възраст)
+Резерв = Максимален - Пулс в покой
+Работен = Резерв * (Зона)/100 + (Пулс в покой)
+
+При професионални спортисти и хора, които са в отлична форма и биологичната им възраст не отговаря на действителната формулите не важат!
+
+Съществуват функционални тесове за определяне на работния/максималния пулс.`);
+};
+
 // темпо
 min.onchange = sec.onchange =
   min.onkeyup = sec.onkeyup = () => {
@@ -456,12 +475,24 @@ achievementId.onchange = achievementId.onkeyup =
     updateAllByTimeAndDistance({ achievement: false });
   };
 
-window.onload = () => {
-  summaryId.click();
+const sleepDeep = ms => {
+  return new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+};
+
+window.onload = async () => {
+
   women.checked = false;
   ageId.value = '7';
   tracksId.value = '5444';
+  zoneId.value = '0.9';
+  calculateHeartRates();
   updateAllByTimeAndDistance();
+
+  summaryId.click();
+  await sleepDeep(1000);
+  summaryPulsId.click();
 };
 
 tracksId.onchange = () => {
@@ -473,6 +504,27 @@ tracksId.onchange = () => {
   updateAllByTimeAndDistance({ realFlatDistId: false });
 };
 
+RHR.onchange = RHR.onkeyup =
+  zoneId.onchange = zoneId.onkeyup =
+  ageId.onchange = ageId.onkeyup = () => {
+    calculateHeartRates();
+  };
+
+const calculateHeartRates = () => {
+  const MHR1 = 208 - (0.7 * achievementArray[+ageId.value]);
+  const MHR2 = 208 - (0.7 * (achievementArray[+ageId.value] + 4));
+
+  const reserve1 = MHR1 - (+RHR.value);
+  const reserve2 = MHR2 - (+RHR.value);
+
+  const workRate1 = Math.round(reserve1 * (+zoneId.value) + (+RHR.value));
+  const workRate2 = Math.round(reserve2 * (+zoneId.value) + (+RHR.value));
+
+  workRateId.value = `${workRate1}÷${workRate2}`;
+};
+
+const achievementArray =
+  [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 
 const wo = [
   {

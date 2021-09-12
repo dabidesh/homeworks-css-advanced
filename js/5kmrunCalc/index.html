@@ -10,7 +10,7 @@
   <meta name="description" content="В помощ на бегач(к)ите от 5kmrun – 
   време, трасета, възсрастова група, пол, темпо, 
     скорост, възрастово постижение, ниво - процент от бегач(к)ите, 
-    поправка за различните трасета." />
+    поправка за различните трасета, пулс." />
 
   <style>
     * {
@@ -91,6 +91,23 @@
       <option value="16">85÷89</option>
       <option value="17">90÷∞</option>
     </select> <label for="women"> Жена</label><input type="checkbox" id="women"><br />
+    <select id="zoneId">
+      <option value="0">Зона ...</option>
+      <option value="0.1">10%</option>
+      <option value="0.2">20%</option>
+      <option value="0.3">30%</option>
+      <option value="0.4">40%</option>
+      <option value="0.5">50%</option>
+      <option value="0.6">60%</option>
+      <option value="0.7">70%</option>
+      <option value="0.8">80%</option>
+      <option value="0.9">90%</option>
+      <option value="1">100%</option>
+    </select>
+    <label for="RHR">Пулс </label><input id="RHR" placeholder="пулс" type="number" min="0" max="200" value="58" />
+    <br />
+    <input id="workRateId" class="long" type="text" value="" />
+    удара/мин <button id="helpPulsId" class="help">?</button><br />
     <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" />м
     <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
     <br />
@@ -135,27 +152,75 @@
       спусканията и максималния наклон. Последното е важно, защото на трасе „Западен парк 2“ има спускане с голям наклон
       и малък процент от изкачването може да се компенсира.
     </p>
-    <p>Съществува проблем със снемането на профила на трасето, понеже различните приложения дават различни данни.
-      Очаквам предложения за „идеалното“ приложение или метод за снемане на профила, който не изисква много пари, защото
+    <p>Съществува проблем със снемането на профила на трасето, понеже различните
+      приложения дават различни данни.
+      Очаквам предложения за „идеалното“ приложение или метод за снемане на
+      профила, който не изисква много пари, защото
       се надявам, че доброволци ще се намерят!</p>
-    <p>Друг подход е да се вземе средното време от рекордите на избрана група от участници, особено на тези, които са
+    <p>Друг подход е да се вземе средното време от рекордите на избрана група
+      от участници, особено на тези, които са
       търчали по всички трасета, <strong>включително равна писта</strong>.
     </p>
-    <p>Очаквам всякакви предложения, вкл. формули, каква извадка от бегач(к)и да се ползва и пр. и сигнали за бъгове!
+    <p>Очаквам всякакви предложения, вкл. формули, каква извадка от бегач(к)и
+      да се ползва и пр. и сигнали за бъгове!
     </p>
     <ul>
-      <li><a href="https://github.com/dabidesh/homeworks/tree/master/js/5kmrunCalc">Гитхъб директория</a></li>
-      <li><a
-          href="https://downgit.github.io/#/home?url=https://github.com/dabidesh/homeworks/tree/master/js/5kmrunCalc">Препратка
-          за източване</a></li>
-      <li><a href="https://www.facebook.com/Plamen.Prodanov.Dabidabidesh/">Фейсбук</a></li>
-      <li><a href="https://www.strava.com/athletes/82041883">Страва</a></li>
-      <li><a href="mailto:bradata666@gmail.com?subject=5kmrunCalc" title="Изпрати имейл до Брадата">Имейл:
+      <li>
+        <a href="https://github.com/dabidesh/homeworks/tree/master/js/5kmrunCalc">
+          Гитхъб директория</a>
+      </li>
+      <li>
+        <a href="https://downgit.github.io/#/home?url=https://github.com/dabidesh/homeworks/tree/master/js/5kmrunCalc">
+          Препратка
+          за източване
+        </a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/Plamen.Prodanov.Dabidabidesh/">
+          Фейсбук</a>
+      </li>
+      <li>
+        <a href="https://www.strava.com/athletes/82041883">Страва</a>
+      </li>
+      <li><a href="mailto:bradata666@gmail.com?subject=5kmrunCalc" title="Изпрати имейл до Брадата">
+          Имейл:
           bradata666@gmail.com</a>
       </li>
     </ul>
     <button onclick="summaryId.click();">Сгъни</button>
   </details>
+
+  <details id="pulsId" open>
+    <summary id="summaryPulsId">
+      Определяне на максимален/работен пулс</summary>
+    <p><strong>Консултирайте се с лекар!</strong></p>
+
+    <p>Работния пулс за търчане на 5 км трябва да бъде в аеробната зона,
+      ако искаш постижението ти да бъде силно (60÷90
+      % от
+      максималния, според други източници 60÷80 %).</p>
+
+    <ul>
+      <li>Максимален, резерв, работен, пулс в покой [удари за минута]</li>
+      <li>Възраст [години]</li>
+      <li>Зона [%]</li>
+    </ul>
+    <ul>
+      <li>Максимален = 208 - (0.7 * Възраст)</li>
+      <li>Резерв = Максимален - Пулс в покой</li>
+      <li>Работен = Резерв * (Зона)/100 + (Пулс в покой)</li>
+    </ul>
+
+    <p>При професионални спортисти и/или хора, които са в отлична форма,
+      и/или биологичната им възраст не отговаря на
+      действителната
+      формулите не важат!</p>
+
+    <p>Съществуват функционални тесове за определяне на
+      работния/максималния пулс.</p>
+    <button onclick="summaryPulsId.click();">Сгъни</button>
+  </details>
+
   <footer>5kmrunCalc в. 0.0.1 <br /><a href="#up">↑ Най-горе</a></footer>
 </body>
 
