@@ -182,7 +182,7 @@ const setLevel = (allSec, groupIndex) => {
   }
 };
 
-const updateAllByTimeAndDistance = (flag = {}) => {
+const updateAllByTimeAndDistance = async (flag = {}) => {
   if (flag.realFlatDistId == undefined) {
     flag.realFlatDistId = true;
   }
@@ -487,9 +487,9 @@ window.onload = async () => {
   ageId.value = '7';
   tracksId.value = '5444';
   await sleepDeep(300);
-  zoneId.value = '0.9';
-  calculateHeartRates();
-  updateAllByTimeAndDistance();
+  zoneId.value = '0.85';
+  await calculateHeartRates();
+  await updateAllByTimeAndDistance();
 
   summaryId.click();
   await sleepDeep(1000);
@@ -511,7 +511,7 @@ RHR.onchange = RHR.onkeyup =
     calculateHeartRates();
   };
 
-const calculateHeartRates = () => {
+const calculateHeartRates = async () => {
   const MHR1 = 208 - (0.7 * achievementArray[+ageId.value]);
   const MHR2 = 208 - (0.7 * (achievementArray[+ageId.value] + 4));
 
