@@ -297,10 +297,6 @@ loadId.onclick = (e) => {
     return;
   }
 
-  min.value = allDataObj.min;
-  sec.value = allDataObj.sec;
-  km.value = allDataObj.km;
-  m.value = allDataObj.m;
   hourTime.value = allDataObj.hourTime;
   minTime.value = allDataObj.minTime;
   secTime.value = allDataObj.secTime;
@@ -308,9 +304,41 @@ loadId.onclick = (e) => {
   elevId.value = allDataObj.elevId;
   women.checked = allDataObj.women;
   ageId.value = allDataObj.ageId;
-  tracksId.value = allDataObj.tracksId;
+  // tmp
+  if (allDataObj.tracksId) {
+    tracksId.value = allDataObj.tracksId;
+  }
+  if (allDataObj.restHR) {
+    restHR.value = allDataObj.restHR;
+    zoneId.value = allDataObj.zoneId;
+  }
 
   updateAllByTimeAndDistance();
+};
+
+const loadNoAlert = async () => {
+
+  const allDataObj = await JSON.parse(localStorage.getItem('allDataObj'));
+
+  if (allDataObj) {
+    hourTime.value = allDataObj.hourTime;
+    minTime.value = allDataObj.minTime;
+    secTime.value = allDataObj.secTime;
+    kmLengthId.value = allDataObj.kmLengthId;
+    elevId.value = allDataObj.elevId;
+    women.checked = allDataObj.women;
+    ageId.value = allDataObj.ageId;
+    // tmp
+    if (allDataObj.tracksId) {
+      tracksId.value = allDataObj.tracksId;
+    }
+    if (allDataObj.restHR) {
+      restHR.value = allDataObj.restHR;
+      zoneId.value = allDataObj.zoneId;
+    }
+
+    updateAllByTimeAndDistance();
+  }
 };
 
 convId.onclick = (e) => {
@@ -319,10 +347,6 @@ convId.onclick = (e) => {
   if (confirm('Сигурен ли си, че искаш да презапишеш всичко?')) {
 
     const allDataObj = {
-      'min': min.value,
-      'sec': sec.value,
-      'km': km.value,
-      'm': m.value,
       'hourTime': hourTime.value,
       'minTime': minTime.value,
       'secTime': secTime.value,
@@ -331,6 +355,8 @@ convId.onclick = (e) => {
       'women': women.checked ? true : false,
       'ageId': ageId.value,
       'tracksId': tracksId.value,
+      'restHR': restHR.value,
+      'zoneId': zoneId.value,
     };
 
     localStorage.setItem('allDataObj', JSON.stringify(allDataObj));
@@ -375,7 +401,7 @@ helpPulsId.onclick = (e) => {
   e.preventDefault();
   alert(`Консултирайте се с лекар!
 
-Работния пулс за търчане на 5 км трябва да бъде в аеробната зона, ако искаш постижението ти да бъде силно (60÷85 % от максималния, според други източници 60÷80 %).
+Работния пулс за търчане на 5 км трябва да бъде в аеробната зона, ако искаш постижението ти да бъде силно, но и безопасно (60÷85 % от максималния, според други източници 60÷80 %)(виж формулата).
 
 Максимален, резерв, работен, пулс в покой [удари за минута]
 Възраст [години]
@@ -488,6 +514,7 @@ window.onload = async () => {
   tracksId.value = '5444';
   await sleepDeep(300);
   zoneId.value = '0.85';
+  loadNoAlert();
   await calculateHeartRates();
   await updateAllByTimeAndDistance();
 
@@ -505,21 +532,22 @@ tracksId.onchange = () => {
   updateAllByTimeAndDistance({ realFlatDistId: false });
 };
 
-RHR.onchange = RHR.onkeyup =
+restHR.onchange = restHR.onkeyup =
   zoneId.onchange = zoneId.onkeyup =
   ageId.onchange = ageId.onkeyup = () => {
     calculateHeartRates();
+    updateAllByTimeAndDistance();
   };
 
 const calculateHeartRates = async () => {
   const MHR1 = 208 - (0.7 * achievementArray[+ageId.value]);
   const MHR2 = 208 - (0.7 * (achievementArray[+ageId.value] + 4));
 
-  const reserve1 = MHR1 - (+RHR.value);
-  const reserve2 = MHR2 - (+RHR.value);
+  const reserve1 = MHR1 - (+restHR.value);
+  const reserve2 = MHR2 - (+restHR.value);
 
-  const workRate1 = Math.round(reserve1 * (+zoneId.value) + (+RHR.value));
-  const workRate2 = Math.round(reserve2 * (+zoneId.value) + (+RHR.value));
+  const workRate1 = Math.round(reserve1 * (+zoneId.value) + (+restHR.value));
+  const workRate2 = Math.round(reserve2 * (+zoneId.value) + (+restHR.value));
 
   workRateId.value = `${workRate1}÷${workRate2}`;
 };
