@@ -313,6 +313,7 @@ loadId.onclick = (e) => {
     zoneId.value = allDataObj.zoneId;
   }
 
+  calculateHeartRates();
   updateAllByTimeAndDistance();
 };
 
@@ -369,6 +370,9 @@ clearId.onclick = (e) => {
   women.checked = false;
   ageId.value = '7';
   tracksId.value = '5444';
+  zoneId.value = '0.85';
+  restHR.value = '56';
+  calculateHeartRates();
   updateAllByTimeAndDistance();
 };
 
@@ -411,7 +415,7 @@ helpPulsId.onclick = (e) => {
 Резерв = Максимален - Пулс в покой
 Работен = Резерв * (Зона)/100 + (Пулс в покой)
 
-При професионални спортисти и хора, които са в отлична форма и биологичната им възраст не отговаря на действителната формулите не важат!
+При професионални спортисти и/или хора, които са в отлична форма, и/или биологичната им възраст не отговаря на действителната формулите не важат!
 
 Съществуват функционални тесове за определяне на работния/максималния пулс.`);
 };
@@ -474,7 +478,7 @@ realFlatDistId.onchange = realFlatDistId.onkeyup = () => {
   updateAllByTimeAndDistance({ realFlatDistId: false });
 };
 
-women.onchange = ageId.onchange = () => {
+women.onchange = () => {
   updateAllByTimeAndDistance();
 };
 
@@ -534,7 +538,7 @@ tracksId.onchange = () => {
 
 restHR.onchange = restHR.onkeyup =
   zoneId.onchange = zoneId.onkeyup =
-  ageId.onchange = ageId.onkeyup = () => {
+  ageId.onchange = () => {
     calculateHeartRates();
     updateAllByTimeAndDistance();
   };
