@@ -16,12 +16,12 @@
   let flag = false;
 
   let css = `
-video, img, canvas {
-    filter: invert(98%);
+video, img, canvas, svg {
+    filter: invert(95%) contrast(80%);
 }
 `;
   let css0 = `
-video, img, canvas {
+video, img, canvas, svg {
     filter: invert(0);
 }
 `;
@@ -33,12 +33,12 @@ video, img, canvas {
   const styleBbDiv = `
   #videoId {
     position: fixed;
-    left: 10px;
-    top: 60px;
+    bottom: 10px;
+    right: 10px;
     opacity: 0.8;
     background-color: #000;
     color: #fff;
-    z-index: 999999;
+    z-index: 2147483647 !important;
   }
   #videoId button {
     padding: 0;
@@ -46,6 +46,9 @@ video, img, canvas {
     cursor: pointer;
     width: 30px;
     height: 30px;
+  }
+  video {
+    z-index: 5 !important;
   }
   `;
   document.body.insertAdjacentHTML('beforeend', html);
@@ -71,6 +74,7 @@ video, img, canvas {
       style0.innerHTML = css0;
       flag = false;
     }
+      fullscreen.click();
   };
 
   const vButton = document.querySelector('#videoId button');
