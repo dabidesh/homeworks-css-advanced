@@ -4,7 +4,7 @@
 // @version      0.0.1
 // @description  Invert video for softuni by clicking right button!
 // @author       dabidesh
-// @match        https://softuni.bg/*/video/64609/*
+// @match        https://softuni.bg/*/video/*
 // @icon         https://www.google.com/s2/favicons?domain=softuni.bg
 // @grant        none
 // @noframe
