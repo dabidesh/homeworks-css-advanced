@@ -6,25 +6,29 @@ const querystring = require('querystring');
 
 const storageService = require('./services/storageService.js');
 
-function processPost(request, response, callback) {
-  var queryData = "";
+async function processPost(request, response, callback) {
+  let queryData = '';
   if (typeof callback !== 'function') return null;
 
   if (request.method == 'POST') {
     request.on('data', function (data) {
       queryData += data;
-      if (queryData.length > 1e6) {
-        queryData = "";
-        response.writeHead(413, { 'Content-Type': 'text/plain' }).end();
+      if (queryData.length > 1e6) { // change to 2 to trigger 413 page
+        queryData = '';
+        //response.writeHead(413, { 'Content-Type': 'text/plain' }).end();
+        //request.connection.destroy();
+        response.writeHead(302, {
+          'Location': '/page413'
+        });
+        response.end();
         request.connection.destroy();
+        return;
       }
+      request.on('end', function () {
+        request.post = querystring.parse(queryData);
+        callback();
+      });
     });
-
-    request.on('end', function () {
-      request.post = querystring.parse(queryData);
-      callback();
-    });
-
   } else {
     response.writeHead(405, { 'Content-Type': 'text/plain' });
     response.end();
@@ -94,19 +98,20 @@ const app = http.createServer((req, res) => {
 
           storageService.saveCat(req.post)
             .then(() => {
-              console.log('end');
+              //console.log('end');
+              //res.end();
+              res.writeHead(302, {
+                'Location': '/'
+              });
               res.end();
             })
             .catch(err => {
               console.log('err');
               console.log(err);
             });
-
           res.writeHead(302, {
             'Location': '/'
           });
-
-          res.writeHead(200, "OK", { 'Content-Type': 'text/plain' });
           res.end();
         });
 
@@ -120,7 +125,7 @@ const app = http.createServer((req, res) => {
           if (body.length > 1e6)
             req.connection.destroy();
         });
-
+ 
         req.on('end', function () {
           let post = querystring.parse(body);
           // use post['blah'], etc.
@@ -128,9 +133,28 @@ const app = http.createServer((req, res) => {
           console.log(post);
           //JSON.parse(JSON.stringify(post))
         });
-
+ 
         res.end(); */
       }
+      break;
+    case '/page413':
+      res.writeHead(413, {
+        'Content-Type': 'text/html'
+      });
+      fs.readFile('./views/page413.html', 'utf8', (err, result) => {
+        if (err) {
+          res.statusCode = 404;
+          return res.end();
+        }
+        res.write(result);
+        res.end();
+      });
+      /* content = fs.readFileSync('./views/page413.html');
+      res.writeHead(413, {
+        'Content-Type': 'text/html'
+      });
+      res.write(content);
+      res.end(); */
       break;
     default:
       res.statusCode = 404;
