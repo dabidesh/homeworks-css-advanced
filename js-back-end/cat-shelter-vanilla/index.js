@@ -42,7 +42,7 @@ async function processPost(request, response, callback) {
   }
 }
 
-const app = http.createServer((req, res) => {
+const app = http.createServer(async (req, res) => {
   switch (req.url) {
     case '/':
       let content = fs.readFileSync('./views/home/index.html');
@@ -50,6 +50,19 @@ const app = http.createServer((req, res) => {
         'Content-Type': 'text/html'
       });
       res.write(content);
+      try {
+        const result = await storageService.getAllCats();
+        console.log(db.cats);
+        //console.log('index', db);
+        //await sleepDeep(2000);
+        res.writeHead(302, {
+          'Location': '/'
+        });
+        res.end();
+      } catch (err) {
+        console.log('err');
+        console.log(err);
+      };
       res.end();
       break;
     case '/styles/site.css':
@@ -96,7 +109,7 @@ const app = http.createServer((req, res) => {
         });
       } else if (req.method == 'POST') {
 
-        processPost(req, res, async function () {
+        processPost(req, res, async () => {
           //console.log(req.post);
           // Use request.post here
           //console.log(req.post['name']);
@@ -123,7 +136,7 @@ const app = http.createServer((req, res) => {
 
             //const results = await storageService.getAllCats();
             //console.log(new Buffer.alloc(result));
-            console.log('index', db);
+            //console.log('index', db);
             //await sleepDeep(2000);
             res.writeHead(302, {
               'Location': '/'

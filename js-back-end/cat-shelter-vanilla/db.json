@@ -68,6 +68,16 @@
       "name": "b",
       "description": "b",
       "breed": "Persian"
+    },
+    {
+      "name": "r",
+      "description": "r",
+      "breed": "Persian"
+    },
+    {
+      "name": "w",
+      "description": "w",
+      "breed": "Persian"
     }
   ]
 }
