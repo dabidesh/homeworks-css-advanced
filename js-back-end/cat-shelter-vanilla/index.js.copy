@@ -112,31 +112,30 @@ const app = http.createServer(async (req, res) => {
       break;
     case '/cats/add-cat':
       if (req.method == 'GET') {
-        let breeds = db.breeds.map(x => `
-                        <option value="${x}">${x}</option>
-                    `).join('');
-        const content = `
-        <form action="/cats/add-cat" method="POST" class="cat-form">
-      <!-- enctype="multipart/form-data" -->
-      <h2>Add Cat</h2>
-      <label for="name">Name</label>
-      <input name="name" type="text" id="name">
-      <label for="description">Description</label>
-      <textarea name="description" id="description"></textarea>
-      <!-- <label for="image">Image</label>
-            <input name="upload" type="file" id="image"> -->
-      <label for="group">Breed</label>
-      <select name="breed" id="group">
-        ${breeds}
-      </select>
-      <button type="submit">Add Cat</button>
-    </form>
-        `;
-        const title = 'Add Cat';
-        const result = storageService.generatePage(content, title);
+        res.writeHead(200, {
+          'Content-Type': 'text/html'
+        });
+        fs.readFile('./views/addCat.html', 'utf8', (err, result) => {
+          if (err) {
+            res.statusCode = 404;
+            return res.end();
+          }
 
-        res.write(result);
-        res.end();
+          /* let breeds = [
+            'Persian',
+            'Angora',
+            'Улична превъзходна',
+          ]; */
+
+          let mappedBreeds = db.breeds.map(x => `
+                        <option value="${x}">${x}</option>
+                    `);
+
+          result = result.replace('{{breeds}}', mappedBreeds);
+
+          res.write(result);
+          res.end();
+        });
       } else if (req.method == 'POST') {
 
         processPost(req, res, async () => {
@@ -163,13 +162,23 @@ const app = http.createServer(async (req, res) => {
             }); */
           try {
             await storageService.saveCat(req.post);
+
+            //const results = await storageService.getAllCats();
+            //console.log(new Buffer.alloc(result));
+            //console.log('index', db);
+            //await sleepDeep(2000);
+            res.writeHead(301, {
+              'Location': '/'
+            });
+            res.end();
           } catch (err) {
             console.log('err');
             console.log(err);
           };
-          res.writeHead(302, {
+          res.writeHead(301, {
             'Location': '/'
           });
+
           res.end();
         });
 

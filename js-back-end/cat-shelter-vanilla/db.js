@@ -1,4 +1,5 @@
-{
+let xxx;
+export default xxx = {
   "breeds": [
     "Улична превъзходна (Street Superb)",
     "Ангорска (Angora)",
@@ -69,16 +70,6 @@
       "name": "e",
       "description": "e",
       "breed": "Улична превъзходна"
-    },
-    {
-      "name": "Каканижа",
-      "description": "Френска дългокосместа",
-      "breed": "Улична превъзходна (Street Superb)"
-    },
-    {
-      "name": "Балканска",
-      "description": "Дзвер",
-      "breed": "Улична превъзходна (Street Superb)"
     }
   ]
-}
+};
