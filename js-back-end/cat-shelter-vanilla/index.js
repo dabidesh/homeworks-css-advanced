@@ -1,10 +1,17 @@
 const http = require('http');
 const fs = require('fs');
 const querystring = require('querystring');
+const db = require('./db.json');
 //const multipart = require('multipart');
 //const querystring = require('qs');
 
 const storageService = require('./services/storageService.js');
+
+const sleepDeep = ms => {
+  return new Promise(
+    resolve => setTimeout(resolve, ms)
+  )
+}
 
 async function processPost(request, response, callback) {
   let queryData = '';
@@ -89,17 +96,19 @@ const app = http.createServer((req, res) => {
         });
       } else if (req.method == 'POST') {
 
-        processPost(req, res, function () {
-          console.log(req.post);
+        processPost(req, res, async function () {
+          //console.log(req.post);
           // Use request.post here
-          console.log(req.post['name']);
-          console.log(req.post.description);
-          console.log(req.post.breed);
+          //console.log(req.post['name']);
+          //console.log(req.post.description);
+          //console.log(req.post.breed);
 
-          storageService.saveCat(req.post)
+          /* storageService.saveCat(req.post)
             .then(() => {
               //console.log('end');
               //res.end();
+              const result = storageService.getAllCats()
+              //console.log(result);
               res.writeHead(302, {
                 'Location': '/'
               });
@@ -108,10 +117,26 @@ const app = http.createServer((req, res) => {
             .catch(err => {
               console.log('err');
               console.log(err);
+            }); */
+          try {
+            await storageService.saveCat(req.post);
+
+            //const results = await storageService.getAllCats();
+            //console.log(new Buffer.alloc(result));
+            console.log('index', db);
+            //await sleepDeep(2000);
+            res.writeHead(302, {
+              'Location': '/'
             });
+            res.end();
+          } catch (err) {
+            console.log('err');
+            console.log(err);
+          };
           res.writeHead(302, {
             'Location': '/'
           });
+
           res.end();
         });
 
@@ -165,8 +190,9 @@ const app = http.createServer((req, res) => {
 
 const PORT = 5000;
 const HOST = 'localhost';
+const PATH = __dirname;
 app.listen(PORT, HOST, () => {
-  console.info(`App is listening on http://${HOST}:${PORT}`);
+  console.info(`__dirname: ${PATH}. App is listening on http://${HOST}:${PORT}`);
 });
 
 //console.log('App is listening on port 5000...');

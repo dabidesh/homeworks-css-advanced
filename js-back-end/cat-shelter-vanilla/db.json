@@ -16,17 +16,8 @@
       "breed": "Fluffy Cat"
     },
     {
-      "name": "asasdasd",
-      "description": ""
-    },
-    {
       "name": "Navcho",
       "description": "asda"
-    },
-    {
-      "name": "sdasd",
-      "description": "",
-      "breed": "Persian"
     },
     {
       "name": "Сибирка",
@@ -42,6 +33,41 @@
       "name": "Гола",
       "description": "Безкосместа",
       "breed": "Улична превъзходна"
+    },
+    {
+      "name": "Рижко",
+      "description": "Средно дебел!",
+      "breed": "Persian"
+    },
+    {
+      "name": "Гръцка",
+      "description": "Византийска",
+      "breed": "Persian"
+    },
+    {
+      "name": "Рижака 4",
+      "description": "Мухоловец",
+      "breed": "Улична превъзходна"
+    },
+    {
+      "name": "Ескимоска",
+      "description": "Белокосместа",
+      "breed": "Persian"
+    },
+    {
+      "name": "e",
+      "description": "e",
+      "breed": "Улична превъзходна"
+    },
+    {
+      "name": "3",
+      "description": "3",
+      "breed": "Persian"
+    },
+    {
+      "name": "b",
+      "description": "b",
+      "breed": "Persian"
     }
   ]
 }
