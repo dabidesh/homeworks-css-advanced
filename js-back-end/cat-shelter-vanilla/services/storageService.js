@@ -32,8 +32,6 @@ const saveCat = async (cat) => {
 
 };
 
-
-
 const getAllCats = async () => {
   fst.readFile(PATH + '../db.json', 'utf8', (err, data) => {
     if (err) throw err;

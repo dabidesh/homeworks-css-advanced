@@ -1,4 +1,5 @@
 const http = require('http');
+//const url = require('url');
 const fs = require('fs');
 const fsp = require('fs/promises');
 //const querystring = require('querystring');
@@ -98,6 +99,24 @@ async function processPost(request, response, callback) {
 }
 
 const app = http.createServer(async (req, res) => {
+  //const pathname = url.parse(req.url).pathname;
+  if ((/^\/delete\/.+$/g).test(req.url)) {
+    //res.write('delete');
+    const path = req.url;
+    const id = path.split('/').pop();
+    console.log(id);
+    console.log(db.cats.filter(c => c.id == id));
+    db.cats.filter(c => c.id == id)[0].delete = true;
+    console.log(db);
+
+    let result = JSON.stringify(db, '', 2);
+    fsp.writeFile('./db.json', result);
+    res.writeHead(302, {
+      'Location': '/'
+    });
+    res.end();
+    return;
+  }
   switch (req.url) {
     case '/styles/site.css':
       let css = fs.readFileSync('./styles/site.css');
@@ -148,9 +167,11 @@ const app = http.createServer(async (req, res) => {
         </form>
         `;
 
-        console.log(db.cats);
+        //console.log(db.cats);
 
-        const liCats = (db.cats).map(c => `
+        const liCats = (db.cats)
+          .filter(c => c.delete != true && c)
+          .map(c => `
         <li>
           <img src="${c.hotLink}" alt="${c.name}">
           <h3>${c.name}</h3>
@@ -260,6 +281,8 @@ const app = http.createServer(async (req, res) => {
 
             await storageService.saveCat(req.post);
 
+            //await sleepDeep(2000);
+
             /* fs.writeFile(`./uploads/${req.post.filename}`, req.post.upload, 'binary', function (err) {
               if (err) {
                 return console.log(err);
@@ -298,6 +321,11 @@ const app = http.createServer(async (req, res) => {
         res.end(); */
       }
       break;
+    case '/delete': {  ///.+$
+      res.write('delete');
+      res.end();
+      break;
+    }
     case '/page413':
       res.writeHead(413, {
         'Content-Type': 'text/html'
@@ -330,6 +358,7 @@ const app = http.createServer(async (req, res) => {
       const result = storageService.generatePage(content, title);
 
       res.write(result);
+      res.end();
       break;
     }
   }
