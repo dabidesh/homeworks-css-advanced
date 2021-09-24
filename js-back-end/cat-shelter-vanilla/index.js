@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
-const querystring = require('querystring');
+const fsp = require('fs/promises');
+//const querystring = require('querystring');
 const db = require('./db.json');
 //const multipart = require('multipart');
 //const querystring = require('qs');
@@ -12,6 +13,55 @@ const sleepDeep = ms => {
     resolve => setTimeout(resolve, ms)
   )
 }
+
+const parseBody = (body) => {
+  let index =
+    body.indexOf('Content-Disposition: form-data; name="name"') + 47;
+  let name = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r') break;
+    name += body[i];
+  }
+  index =
+    body.indexOf('Content-Disposition: form-data; name="description"') + 54;
+  let description = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r' && body[i + 1] == '\n' &&
+      body[i + 2] == '-') break;
+    description += body[i];
+  }
+  index =
+    body.indexOf('Content-Disposition: form-data; name="breed"') + 48;
+  let breed = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r') break;
+    breed += body[i];
+  }
+  index =
+    body.indexOf('Content-Disposition: form-data; name="hotLink"') + 50;
+  let hotLink = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r') break;
+    hotLink += body[i];
+  }
+  index =
+    body.indexOf('Content-Disposition: form-data; name="upload"; filename="') + 57;
+  let filename = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '"') break;
+    filename += body[i];
+  }
+  let addLength = filename.length;
+  index =
+    body.indexOf('Content-Disposition: form-data; name="upload"; filename="') + 87 + addLength;
+  let upload = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r' && body[i + 1] == '\n' &&
+      body[i + 2] == '-' && body[i + 3] == '-') break;
+    upload += body[i];
+  }
+  return { name, description, breed, filename, upload, hotLink };
+};
 
 async function processPost(request, response, callback) {
   let queryData = '';
@@ -31,10 +81,15 @@ async function processPost(request, response, callback) {
         request.connection.destroy();
         return;
       }
-      request.on('end', function () {
+      console.log(typeof queryData);
+      console.log(queryData);
+      console.log(parseBody(queryData));
+      /* request.on('end', function () {
         request.post = querystring.parse(queryData);
         callback();
-      });
+      }); */
+      request.post = parseBody(queryData);
+      callback();
     });
   } else {
     response.writeHead(405, { 'Content-Type': 'text/plain' });
@@ -73,27 +128,54 @@ const app = http.createServer(async (req, res) => {
       };
       res.end();
       break;
-    case '/':
-      let con = fs.readFileSync('./views/home/index.html');
+    case '/': {
+      /* let con = fs.readFileSync('./views/home/index.html');
       res.writeHead(200, {
         'Content-Type': 'text/html'
       });
-      res.write(con);
+      res.write(con); */
       try {
-        const result = await storageService.getAllCats();
+        //const result = await storageService.getAllCats();
+        const title = 'Cat Shelter';
+        const headerPlus = `
+        <h1>Cat Shelter</h1>
+        <form action="/search">
+          <input type="text">
+          <button type="button">Search</button>
+        </form>
+        `;
+
         console.log(db.cats);
-        //console.log('index', db);
-        //await sleepDeep(2000);
-        /* res.writeHead(302, {
-          'Location': '/'
-        });
-        res.end(); */
+
+        const liCats = db.cats.map(c => `
+        <li>
+          <img src="${c.hotLink}" alt="${c.name}">
+          <h3>${c.name}</h3>
+          <p><span>Breed: </span>${c.breed}</p>
+          <p><span>Description: </span>${c.description}</p>
+          <ul class="buttons">
+            <li class="btn edit"><a href="/editCat">Change Info</a></li>
+            <li class="btn delete"><a href="/delete">New Home</a></li>
+          </ul>
+        `);
+        const content = `
+        <section class="cats">
+          <ul>
+          ${liCats}
+          </ul>
+        </section>
+        `;
+        const result = storageService.generatePage(content, title, headerPlus);
+
+        res.write(result);
+        res.end();
       } catch (err) {
         console.log('err');
         console.log(err);
       };
       res.end();
       break;
+    }
     case '/js/script.js':
       let js = fs.readFileSync('./js/script.js');
       res.writeHead(200, {
@@ -116,21 +198,23 @@ const app = http.createServer(async (req, res) => {
                         <option value="${x}">${x}</option>
                     `).join('');
         const content = `
-        <form action="/cats/add-cat" method="POST" class="cat-form">
-      <!-- enctype="multipart/form-data" -->
-      <h2>Add Cat</h2>
-      <label for="name">Name</label>
-      <input name="name" type="text" id="name">
-      <label for="description">Description</label>
-      <textarea name="description" id="description"></textarea>
-      <!-- <label for="image">Image</label>
-            <input name="upload" type="file" id="image"> -->
-      <label for="group">Breed</label>
-      <select name="breed" id="group">
-        ${breeds}
-      </select>
-      <button type="submit">Add Cat</button>
-    </form>
+        <form action="/cats/add-cat" method="POST" class="cat-form" enctype="multipart/form-data">
+          <!-- enctype="multipart/form-data" -->
+          <h2>Add Cat</h2>
+          <label for="name">Name</label>
+          <input name="name" type="text" id="name" />
+          <label for="description">Description</label>
+          <textarea name="description" id="description"></textarea>
+          <label for="image">Image</label>
+          <input name="upload" type="file" id="image" />
+          <label for="hotLink">Image hot link</label>
+          <input name="hotLink" type="text" id="hotLink" />
+          <label for="group">Breed</label>
+          <select name="breed" id="group">
+            ${breeds}
+          </select>
+          <button type="submit">Add Cat</button>
+        </form>
         `;
         const title = 'Add Cat';
         const result = storageService.generatePage(content, title);
@@ -162,7 +246,23 @@ const app = http.createServer(async (req, res) => {
               console.log(err);
             }); */
           try {
+            //console.log(typeof req.post);
+            //console.log(req.post);
+            //console.log(JSON.parse(JSON.stringify(req.post)));
+            /* console.log(req.post.upload);
+
+            const target = fs.createWriteStream(`./uploads/${req.post.filename}`);
+            req.on('connection', (req.post.upload) => console.log('con') );
+            req.pipe(target); */
+
             await storageService.saveCat(req.post);
+
+            fs.writeFile(`./uploads/${req.post.filename}`, req.post.upload, 'binary', function (err) {
+              if (err) {
+                return console.log(err);
+              }
+              console.log("The file was saved!");
+            });
           } catch (err) {
             console.log('err');
             console.log(err);
@@ -183,7 +283,7 @@ const app = http.createServer(async (req, res) => {
           if (body.length > 1e6)
             req.connection.destroy();
         });
- 
+
         req.on('end', function () {
           let post = querystring.parse(body);
           // use post['blah'], etc.
@@ -191,7 +291,7 @@ const app = http.createServer(async (req, res) => {
           console.log(post);
           //JSON.parse(JSON.stringify(post))
         });
- 
+
         res.end(); */
       }
       break;
@@ -214,10 +314,21 @@ const app = http.createServer(async (req, res) => {
       res.write(content);
       res.end(); */
       break;
-    default:
-      res.statusCode = 404;
-      res.end();
+    default: {
+      /* res.statusCode = 404;
+      res.end(); */
+      const content = `
+      <h2>404 Not Found</h2>
+      `;
+      const title = '404 Error!!!';
+      res.writeHead(404, {
+        'Content-Type': 'text/html'
+      });
+      const result = storageService.generatePage(content, title);
+
+      res.write(result);
       break;
+    }
   }
 });
 

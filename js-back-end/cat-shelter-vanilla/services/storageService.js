@@ -21,12 +21,12 @@ const saveCat = (cat) => {
 const getAllCats = async () => {
   fst.readFile(PATH + '../db.json', 'utf8', (err, data) => {
     if (err) throw err;
-    console.log(JSON.parse(data).cats);
+    //console.log(JSON.parse(data).cats);
     return data;
   });
 };
 
-const generatePage = (content, title) => {
+const generatePage = (content, title, headerPlus) => {
   /* res.writeHead(200, {
     'Content-Type': 'text/html'
   });
@@ -58,6 +58,7 @@ const generatePage = (content, title) => {
         <li><a href="/cats/add-cat">Add Cat</a></li>
       </ul>
     </nav>
+    ${headerPlus}
   </header>
 
   <main>
