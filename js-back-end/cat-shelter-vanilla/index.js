@@ -157,7 +157,7 @@ const app = http.createServer(async (req, res) => {
             <li class="btn edit"><a href="/editCat">Change Info</a></li>
             <li class="btn delete"><a href="/delete">New Home</a></li>
           </ul>
-        `);
+        `).join('');
         const content = `
         <section class="cats">
           <ul>

@@ -35,6 +35,7 @@ const generatePage = (content, title, headerPlus) => {
       res.statusCode = 404;
       return res.end();
     } */
+  if (headerPlus == undefined) headerPlus = '';
   let result = `
   <!DOCTYPE html>
 <html lang="en">
