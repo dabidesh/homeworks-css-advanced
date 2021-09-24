@@ -135,6 +135,9 @@ const app = http.createServer(async (req, res) => {
       });
       res.write(con); */
       try {
+        res.writeHead(200, {
+          'Content-Type': 'text/html'
+        });
         //const result = await storageService.getAllCats();
         const title = 'Cat Shelter';
         const headerPlus = `
@@ -147,15 +150,15 @@ const app = http.createServer(async (req, res) => {
 
         console.log(db.cats);
 
-        const liCats = db.cats.map(c => `
+        const liCats = (db.cats).map(c => `
         <li>
           <img src="${c.hotLink}" alt="${c.name}">
           <h3>${c.name}</h3>
           <p><span>Breed: </span>${c.breed}</p>
           <p><span>Description: </span>${c.description}</p>
           <ul class="buttons">
-            <li class="btn edit"><a href="/editCat">Change Info</a></li>
-            <li class="btn delete"><a href="/delete">New Home</a></li>
+            <li class="btn edit"><a href="/editCat/${c.id}">Change Info</a></li>
+            <li class="btn delete"><a href="/delete/${c.id}">New Home</a></li>
           </ul>
         `).join('');
         const content = `
@@ -165,7 +168,7 @@ const app = http.createServer(async (req, res) => {
           </ul>
         </section>
         `;
-        const result = storageService.generatePage(content, title, headerPlus);
+        const result = await storageService.generatePage(content, title, headerPlus);
 
         res.write(result);
         res.end();
@@ -217,7 +220,7 @@ const app = http.createServer(async (req, res) => {
         </form>
         `;
         const title = 'Add Cat';
-        const result = storageService.generatePage(content, title);
+        const result = await storageService.generatePage(content, title);
 
         res.write(result);
         res.end();
@@ -257,12 +260,12 @@ const app = http.createServer(async (req, res) => {
 
             await storageService.saveCat(req.post);
 
-            fs.writeFile(`./uploads/${req.post.filename}`, req.post.upload, 'binary', function (err) {
+            /* fs.writeFile(`./uploads/${req.post.filename}`, req.post.upload, 'binary', function (err) {
               if (err) {
                 return console.log(err);
               }
               console.log("The file was saved!");
-            });
+            }); */
           } catch (err) {
             console.log('err');
             console.log(err);

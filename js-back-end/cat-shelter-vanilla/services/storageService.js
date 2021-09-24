@@ -3,7 +3,21 @@ const db = require('../db.json');
 const fs = require('fs/promises');  //'fs/promises'
 const fst = require('fs');
 
-const saveCat = (cat) => {
+const nextId = () => {
+  let id;
+  do {
+    id = ('0000000000' + (Math.random() * 9999999999 | 0).toString(16)).slice(-10);
+  }
+  while (db.cats[id] != undefined);
+
+  return id;
+}
+
+const saveCat = async (cat) => {
+  const id = nextId();
+  cat.id = id;
+  /* let obj = {};
+  obj[id] = cat; */
   db.cats.push(cat);
 
   //console.log(db);
@@ -18,6 +32,8 @@ const saveCat = (cat) => {
 
 };
 
+
+
 const getAllCats = async () => {
   fst.readFile(PATH + '../db.json', 'utf8', (err, data) => {
     if (err) throw err;
@@ -26,7 +42,7 @@ const getAllCats = async () => {
   });
 };
 
-const generatePage = (content, title, headerPlus) => {
+const generatePage = async (content, title, headerPlus) => {
   /* res.writeHead(200, {
     'Content-Type': 'text/html'
   });
