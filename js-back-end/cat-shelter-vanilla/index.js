@@ -116,6 +116,42 @@ const app = http.createServer(async (req, res) => {
     });
     res.end();
     return;
+  } else if ((/^\/editCat\/.+$/g).test(req.url)) {
+    const path = req.url;
+    const id = path.split('/').pop();
+    const cat = db.cats.filter(c => c.id == id)[0]
+    if (req.method == 'GET') {
+      let breeds = db.breeds.map(x => `
+                        <option ${(cat.breed === x) ? 'selected' : ''} value="${x}">${x}</option>
+                    `).join('');
+      const content = `
+        <form action="/cats/add-cat" method="POST" class="cat-form" enctype="multipart/form-data">
+          <!-- enctype="multipart/form-data" -->
+          <h2>Edit Cat</h2>
+          <label for="name">Name</label>
+          <input name="name" type="text" id="name" value="${cat.name}" />
+          <label for="description">Description</label>
+          <textarea name="description" id="description">${cat.description}</textarea>
+          <label for="image">Image</label>
+          <input name="upload" type="file" id="image" />
+          <label for="hotLink">Image hot link</label>
+          <input name="hotLink" type="text" id="hotLink" value="${cat.hotLink}"/>
+          <label for="group">Breed</label>
+          <select name="breed" id="group">
+            ${breeds}
+          </select>
+          <button type="submit">Add Cat</button>
+        </form>
+        `;
+      const title = 'Edit Cat';
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      const result = await storageService.generatePage(content, title);
+
+      res.write(result);
+      res.end();
+    } else if (req.method == 'POST') {
+
+    }
   }
   switch (req.url) {
     case '/styles/site.css':
@@ -346,25 +382,25 @@ const app = http.createServer(async (req, res) => {
       res.end(); */
       break;
     default: {
-      /* res.statusCode = 404;
-      res.end(); */
-      const content = `
+      res.statusCode = 404;
+      res.end();
+      /* const content = `
       <h2>404 Not Found</h2>
       `;
       const title = '404 Error!!!';
       res.writeHead(404, {
         'Content-Type': 'text/html'
       });
-      const result = storageService.generatePage(content, title);
+      const result = await storageService.generatePage(content, title);
 
       res.write(result);
-      res.end();
+      res.end(); */
       break;
     }
   }
 });
 
-const PORT = 5000;
+const PORT = 5001;
 const HOST = 'localhost';
 const PATH = __dirname;
 app.listen(PORT, HOST, () => {
