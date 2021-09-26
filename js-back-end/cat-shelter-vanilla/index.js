@@ -120,6 +120,10 @@ const app = http.createServer(async (req, res) => {
     const path = req.url;
     const id = path.split('/').pop();
     const cat = db.cats.filter(c => c.id == id)[0];
+    if (cat == undefined) {
+      res.statusCode = 404;
+      res.end();
+    }
     const editCat = async (post) => {
       cat.name = post.name;
       let result = JSON.stringify(db, '', 2);
@@ -162,12 +166,19 @@ const app = http.createServer(async (req, res) => {
           console.log('err');
           console.log(err);
         };
-        res.writeHead(302, {
-          'Location': '/'
+        /* res.writeHead(302, {
+          'Location': '/',
+          'Content-Type': 'text/html'
         });
-        res.end();
+        res.end(); */
         return;
       });
+      res.writeHead(302, {
+        'Location': '/',
+        'Content-Type': 'text/html'
+      });
+      res.end();
+      return;
     }
   }
   switch (req.url) {

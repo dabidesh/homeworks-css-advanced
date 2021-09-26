@@ -22,7 +22,7 @@
       "id": "00322fc457"
     },
     {
-      "name": "Green Cat 666",
+      "name": "Green Cat",
       "description": "Lazy green Cat!!!",
       "breed": "Бомбайска (Bombay)",
       "filename": "",
@@ -67,6 +67,15 @@
       "upload": "ctet-stream\r\n\r\n",
       "hotLink": "https://w7.pngwing.com/pngs/859/427/png-transparent-tom-cat-jerry-mouse-golden-age-of-american-animation-tom-and-jerry-cartoon-tom-jerry-mammal-cat-like-mammal-heroes.png",
       "id": "006d3a2cf1"
+    },
+    {
+      "name": "",
+      "description": "",
+      "breed": "Улична превъзходна (Street Superb)",
+      "filename": "",
+      "upload": "ctet-stream\r\n\r\n",
+      "hotLink": "",
+      "id": "0-20c352e1"
     }
   ]
 }
