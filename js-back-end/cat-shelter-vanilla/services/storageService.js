@@ -29,7 +29,6 @@ const saveCat = async (cat) => {
   // });
 
   return fs.writeFile('./db.json', result);
-
 };
 
 const getAllCats = async () => {

@@ -119,13 +119,18 @@ const app = http.createServer(async (req, res) => {
   } else if ((/^\/editCat\/.+$/g).test(req.url)) {
     const path = req.url;
     const id = path.split('/').pop();
-    const cat = db.cats.filter(c => c.id == id)[0]
+    const cat = db.cats.filter(c => c.id == id)[0];
+    const editCat = async (post) => {
+      cat.name = post.name;
+      let result = JSON.stringify(db, '', 2);
+      return fsp.writeFile('./db.json', result);
+    };
     if (req.method == 'GET') {
       let breeds = db.breeds.map(x => `
                         <option ${(cat.breed === x) ? 'selected' : ''} value="${x}">${x}</option>
                     `).join('');
       const content = `
-        <form action="/cats/add-cat" method="POST" class="cat-form" enctype="multipart/form-data">
+        <form action="/editCat/${id}" method="POST" class="cat-form" enctype="multipart/form-data">
           <!-- enctype="multipart/form-data" -->
           <h2>Edit Cat</h2>
           <label for="name">Name</label>
@@ -150,7 +155,19 @@ const app = http.createServer(async (req, res) => {
       res.write(result);
       res.end();
     } else if (req.method == 'POST') {
-
+      processPost(req, res, async () => {
+        try {
+          await editCat(req.post);
+        } catch (err) {
+          console.log('err');
+          console.log(err);
+        };
+        res.writeHead(302, {
+          'Location': '/'
+        });
+        res.end();
+        return;
+      });
     }
   }
   switch (req.url) {
@@ -284,33 +301,12 @@ const app = http.createServer(async (req, res) => {
       } else if (req.method == 'POST') {
 
         processPost(req, res, async () => {
-          //console.log(req.post);
-          // Use request.post here
-          //console.log(req.post['name']);
-          //console.log(req.post.description);
-          //console.log(req.post.breed);
-
-          /* storageService.saveCat(req.post)
-            .then(() => {
-              //console.log('end');
-              //res.end();
-              const result = storageService.getAllCats()
-              //console.log(result);
-              res.writeHead(302, {
-                'Location': '/'
-              });
-              res.end();
-            })
-            .catch(err => {
-              console.log('err');
-              console.log(err);
-            }); */
           try {
             //console.log(typeof req.post);
             //console.log(req.post);
             //console.log(JSON.parse(JSON.stringify(req.post)));
             /* console.log(req.post.upload);
-
+  
             const target = fs.createWriteStream(`./uploads/${req.post.filename}`);
             req.on('connection', (req.post.upload) => console.log('con') );
             req.pipe(target); */
@@ -334,27 +330,6 @@ const app = http.createServer(async (req, res) => {
           });
           res.end();
         });
-
-        /* let body = '';
-
-        req.on('data', function (data) {
-          body += data;
-
-          // Too much POST data, kill the connection!
-          // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-          if (body.length > 1e6)
-            req.connection.destroy();
-        });
-
-        req.on('end', function () {
-          let post = querystring.parse(body);
-          // use post['blah'], etc.
-          post = JSON.parse(JSON.stringify(post))
-          console.log(post);
-          //JSON.parse(JSON.stringify(post))
-        });
-
-        res.end(); */
       }
       break;
     case '/delete': {  ///.+$
@@ -392,7 +367,7 @@ const app = http.createServer(async (req, res) => {
         'Content-Type': 'text/html'
       });
       const result = await storageService.generatePage(content, title);
-
+   
       res.write(result);
       res.end(); */
       break;
