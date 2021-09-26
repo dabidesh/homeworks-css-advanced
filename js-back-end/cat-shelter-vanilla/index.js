@@ -126,6 +126,11 @@ const app = http.createServer(async (req, res) => {
     }
     const editCat = async (post) => {
       cat.name = post.name;
+      cat.description = post.description;
+      cat.breed = post.breed;
+      cat.filename = post.filename;
+      cat.upload = post.upload;
+      cat.hotLink = post.hotLink;
       let result = JSON.stringify(db, '', 2);
       return fsp.writeFile('./db.json', result);
     };
