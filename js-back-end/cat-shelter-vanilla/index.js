@@ -311,9 +311,9 @@ const app = http.createServer(async (req, res) => {
           'Content-Type': 'text/html'
         });
         //const result = await storageService.getAllCats();
-        const title = 'Cat Shelter';
+        const title = 'Adopted Cats';
         const headerPlus = `
-        <h1>Cat Shelter</h1>
+        <h1>Adopted Cats</h1>
         <form action="/search">
           <input type="text">
           <button type="button">Search</button>

@@ -5,7 +5,7 @@
     "Персийска (Persian)",
     "Рагдол (Ragdoll)",
     "Майн кун (Maine Coon)",
-    "Сфинкс￼(Sphynx)",
+    "Сфинкс (Sphynx)",
     "Бомбайска (Bombay)",
     "Бенгалска (Bengal)",
     "Каракачанка (Black-cat)"
@@ -79,7 +79,7 @@
       "upload": "ctet-stream\r\n\r\n",
       "hotLink": "https://i.ytimg.com/vi/FXFoVGxrzAY/maxresdefault.jpg",
       "id": "0-20c352e1",
-      "delete": true
+      "delete": false
     },
     {
       "name": "Mirror cube",
