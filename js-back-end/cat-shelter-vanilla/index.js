@@ -24,6 +24,21 @@ const parseBody = (body) => {
     name += body[i];
   }
   index =
+    body.indexOf('Content-Disposition: form-data; name="breedN"') + 49;
+  let breedN = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r') break;
+    breedN += body[i];
+  }
+  /* index =
+    body.indexOf('breedN=') + 7;
+  let breedN = '';
+  for (let i = index; i < body.length; i++) {
+    if (body[i] == '\r') break;
+    breedN += body[i];
+  }
+  breedN = new Buffer(breedN, 'ascii').toString('utf8'); */
+  index =
     body.indexOf('Content-Disposition: form-data; name="description"') + 54;
   let description = '';
   for (let i = index; i < body.length; i++) {
@@ -61,7 +76,7 @@ const parseBody = (body) => {
       body[i + 2] == '-' && body[i + 3] == '-') break;
     upload += body[i];
   }
-  return { name, description, breed, filename, upload, hotLink };
+  return { name, description, breed, filename, upload, hotLink, breedN };
 };
 
 async function processPost(request, response, callback) {
@@ -175,7 +190,7 @@ const app = http.createServer(async (req, res) => {
         `;
       const title = 'Edit Cat';
       res.writeHead(200, { 'Content-Type': 'text/html' });
-      const result = await storageService.generatePage(content, title);
+      const result = await storageService.generatePage({ edit: true }, content, title);
 
       res.write(result);
       res.end();
@@ -274,7 +289,7 @@ const app = http.createServer(async (req, res) => {
           </ul>
         </section>
         `;
-        const result = await storageService.generatePage(content, title, headerPlus);
+        const result = await storageService.generatePage({ home: true }, content, title, headerPlus);
 
         res.write(result);
         res.end();
@@ -327,7 +342,8 @@ const app = http.createServer(async (req, res) => {
           </ul>
         </section>
         `;
-        const result = await storageService.generatePage(content, title, headerPlus);
+        const result =
+          await storageService.generatePage({ newHome: true }, content, title, headerPlus);
 
         res.write(result);
         res.end();
@@ -379,7 +395,7 @@ const app = http.createServer(async (req, res) => {
         </form>
         `;
         const title = 'Add Cat';
-        const result = await storageService.generatePage(content, title);
+        const result = await storageService.generatePage({ add: true }, content, title);
 
         res.write(result);
         res.end();
@@ -406,6 +422,39 @@ const app = http.createServer(async (req, res) => {
               }
               console.log("The file was saved!");
             }); */
+          } catch (err) {
+            console.log('err');
+            console.log(err);
+          };
+          res.writeHead(302, {
+            'Location': '/'
+          });
+          res.end();
+        });
+      }
+      break;
+    case '/cats/add-breed':
+      if (req.method == 'GET') {
+        const content = `
+        <form action="/cats/add-breed" method="POST" class="cat-form" enctype="multipart/form-data">
+            <h2>Add Cat Breed</h2>
+            <label for="breed-name">Breed Name</label>
+            <input name="breedN" type="text" id="breed-name">
+            <button type="submit">Add Breed</button>
+        </form>
+        `;
+        const title = 'Add Breed';
+        const result = await storageService.generatePage({ addBreed: true }, content, title);
+
+        res.write(result);
+        res.end();
+      } else if (req.method == 'POST') {
+
+        processPost(req, res, async () => {
+          try {
+
+            await storageService.addBreed(req.post);
+
           } catch (err) {
             console.log('err');
             console.log(err);
@@ -503,7 +552,7 @@ const app = http.createServer(async (req, res) => {
       res.writeHead(404, {
         'Content-Type': 'text/html'
       });
-      const result = await storageService.generatePage(content, title);
+      const result = await storageService.generatePage({}, content, title);
 
       res.write(result);
       res.end();

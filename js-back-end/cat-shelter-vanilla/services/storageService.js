@@ -32,6 +32,15 @@ const saveCat = async (cat) => {
   return fs.writeFile('./db.json', result);
 };
 
+const addBreed = async (breed) => {
+
+  db.breeds.push(breed.breedN);
+
+  let result = JSON.stringify(db, '', 2);
+
+  return fs.writeFile('./db.json', result);
+};
+
 const getAllCats = async () => {
   fst.readFile(PATH + '../db.json', 'utf8', (err, data) => {
     if (err) throw err;
@@ -40,7 +49,7 @@ const getAllCats = async () => {
   });
 };
 
-const generatePage = async (content, title, headerPlus) => {
+const generatePage = async (obj, content, title, headerPlus) => {
   /* res.writeHead(200, {
     'Content-Type': 'text/html'
   });
@@ -68,10 +77,10 @@ const generatePage = async (content, title, headerPlus) => {
   <header>
     <nav>
       <ul class="navigation">
-        <li><a href="/">Home Page</a></li>
-        <li><a href="/new-home">Adopted</a></li>
-        <li><a href="/cats/add-breed">Add Breed</a></li>
-        <li><a href="/cats/add-cat">Add Cat</a></li>
+        <li><a ${(obj.home) ? 'class="active"' : ''} href="/">Home Page</a></li>
+        <li><a ${(obj.newHome) ? 'class="active"' : ''} href="/new-home">Adopted</a></li>
+        <li><a ${(obj.addBreed) ? 'class="active"' : ''} href="/cats/add-breed">Add Breed</a></li>
+        <li><a ${(obj.add) ? 'class="active"' : ''} href="/cats/add-cat">Add Cat</a></li>
       </ul>
     </nav>
     ${headerPlus}
@@ -97,7 +106,8 @@ const generatePage = async (content, title, headerPlus) => {
 const storageService = {
   saveCat,
   getAllCats,
-  generatePage
+  generatePage,
+  addBreed
 };
 
 module.exports = storageService;
