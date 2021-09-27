@@ -6,13 +6,40 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cats</title>
+  <style>
+    #db {
+      width: 640px;
+      height: 800px;
+    }
+  </style>
   <script type="module">
-    import data from './db.js';
+    /* import data from './db.json';
     console.log(data);
+    db.textContent = JSON.stringify(data); */
+
+    function readTextFile(file, callback) {
+      var rawFile = new XMLHttpRequest();
+      rawFile.overrideMimeType("application/json");
+      rawFile.open("GET", file, true);
+      rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+          callback(rawFile.responseText);
+        }
+      }
+      rawFile.send(null);
+    }
+
+    //usage:
+    readTextFile("./db.json", function (text) {
+      var data = JSON.parse(text);
+      console.log(data);
+      db.textContent = JSON.stringify(data);
+    });
   </script>
 </head>
 
 <body>
+  <textarea id="db"></textarea>
 
 </body>
 

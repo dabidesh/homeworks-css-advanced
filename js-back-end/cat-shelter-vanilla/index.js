@@ -372,20 +372,44 @@ const app = http.createServer(async (req, res) => {
       res.write(content);
       res.end(); */
       break;
+    case '/db':
+      res.writeHead(200, {
+        'Content-Disposition': 'attachment; filename="db.json"'
+      });
+
+      let imageStream = fs.createReadStream('./db.json');
+
+      imageStream.pipe(res);
+      return res.end();
+
+
+      console.log('db');
+      res.writeHead(200, {
+        'Content-Type': 'text/json'
+      });
+      fs.readFile('./db.json', 'utf8', (err, result) => {
+        if (err) {
+          console.log(err);
+          res.statusCode = 404;
+          return res.end();
+        }
+        res.write(JSON.stringify(result));
+        return res.end();
+      });
     default: {
-      res.statusCode = 404;
-      res.end();
-      /* const content = `
-      <h2>404 Not Found</h2>
+      /* res.statusCode = 404;
+      res.end(); */
+      const content = `
+      <h1>404 Not Found Cat and Page</h1>
       `;
       const title = '404 Error!!!';
       res.writeHead(404, {
         'Content-Type': 'text/html'
       });
       const result = await storageService.generatePage(content, title);
-   
+
       res.write(result);
-      res.end(); */
+      res.end();
       break;
     }
   }
@@ -397,5 +421,3 @@ const PATH = __dirname;
 app.listen(PORT, HOST, () => {
   console.info(`__dirname: ${PATH}. App is listening on http://${HOST}:${PORT}`);
 });
-
-//console.log('App is listening on port 5000...');
