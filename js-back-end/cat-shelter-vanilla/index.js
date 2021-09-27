@@ -387,6 +387,7 @@ const app = http.createServer(async (req, res) => {
       res.writeHead(200, {
         'Content-Type': 'text/json'
       });
+
       fs.readFile('./db.json', 'utf8', (err, result) => {
         if (err) {
           console.log(err);
@@ -396,6 +397,33 @@ const app = http.createServer(async (req, res) => {
         res.write(JSON.stringify(result));
         return res.end();
       });
+    case '/db-show': {
+      let json = fs.readFileSync('./db.json');
+      res.writeHead(200, {
+        'Content-Type': 'text/json'
+      });
+      res.write(json);
+      return res.end();
+      console.log('db');
+      res.writeHead(200, {
+        'Content-Type': 'text/json'
+      });
+
+      let imageStream = fs.createReadStream('./db.json');
+
+      imageStream.pipe(res);
+      return res.end();
+
+      fsp.readFile('./db.json', 'utf8', (err, result) => {
+        if (err) {
+          console.log(err);
+          res.statusCode = 404;
+          return res.end();
+        }
+        res.write(result);
+      });
+      return res.end();
+    }
     default: {
       /* res.statusCode = 404;
       res.end(); */
