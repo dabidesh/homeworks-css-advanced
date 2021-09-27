@@ -112,6 +112,22 @@ const app = http.createServer(async (req, res) => {
     let result = JSON.stringify(db, '', 2);
     fsp.writeFile('./db.json', result);
     res.writeHead(302, {
+      'Location': '/new-home'
+    });
+    res.end();
+    return;
+  } else if ((/^\/back\/.+$/g).test(req.url)) {
+    //res.write('delete');
+    const path = req.url;
+    const id = path.split('/').pop();
+    console.log(id);
+    console.log(db.cats.filter(c => c.id == id));
+    db.cats.filter(c => c.id == id)[0].delete = false;
+    console.log(db);
+
+    let result = JSON.stringify(db, '', 2);
+    fsp.writeFile('./db.json', result);
+    res.writeHead(302, {
       'Location': '/'
     });
     res.end();
@@ -249,6 +265,59 @@ const app = http.createServer(async (req, res) => {
           <ul class="buttons">
             <li class="btn edit"><a href="/editCat/${c.id}">Change Info</a></li>
             <li class="btn delete"><a href="/delete/${c.id}">New Home</a></li>
+          </ul>
+        `).join('');
+        const content = `
+        <section class="cats">
+          <ul>
+          ${liCats}
+          </ul>
+        </section>
+        `;
+        const result = await storageService.generatePage(content, title, headerPlus);
+
+        res.write(result);
+        res.end();
+      } catch (err) {
+        console.log('err');
+        console.log(err);
+      };
+      res.end();
+      break;
+    }
+    case '/new-home': {
+      /* let con = fs.readFileSync('./views/home/index.html');
+      res.writeHead(200, {
+        'Content-Type': 'text/html'
+      });
+      res.write(con); */
+      try {
+        res.writeHead(200, {
+          'Content-Type': 'text/html'
+        });
+        //const result = await storageService.getAllCats();
+        const title = 'Cat Shelter';
+        const headerPlus = `
+        <h1>Cat Shelter</h1>
+        <form action="/search">
+          <input type="text">
+          <button type="button">Search</button>
+        </form>
+        `;
+
+        //console.log(db.cats);
+
+        const liCats = (db.cats)
+          .filter(c => c.delete != false && c)
+          .map(c => `
+        <li>
+          <img src="${c.hotLink}" alt="${c.name}">
+          <h3>${c.name}</h3>
+          <p><span>Breed: </span>${c.breed}</p>
+          <p><span>Description: </span>${c.description}</p>
+          <ul class="buttons">
+            <li class="btn edit"><a href="/editCat/${c.id}">Change Info</a></li>
+            <li class="btn delete"><a href="/back/${c.id}">Bring Cat Back</a></li>
           </ul>
         `).join('');
         const content = `

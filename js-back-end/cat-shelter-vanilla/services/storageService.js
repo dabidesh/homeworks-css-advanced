@@ -18,6 +18,7 @@ const saveCat = async (cat) => {
   cat.id = id;
   /* let obj = {};
   obj[id] = cat; */
+  cat.delete = false;
   db.cats.push(cat);
 
   //console.log(db);
@@ -68,6 +69,7 @@ const generatePage = async (content, title, headerPlus) => {
     <nav>
       <ul class="navigation">
         <li><a href="/">Home Page</a></li>
+        <li><a href="/new-home">Adopted</a></li>
         <li><a href="/cats/add-breed">Add Breed</a></li>
         <li><a href="/cats/add-cat">Add Cat</a></li>
       </ul>
