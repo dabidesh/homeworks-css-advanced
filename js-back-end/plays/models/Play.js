@@ -6,7 +6,8 @@ const schema = new Schema({
   title: {
     type: String, required: [true, 'Title is required!']
   },
-  description: { type: String, required: [true, ' Description is required!'], maxLength: [50, 'Max length of description is 50 symbols!'] },
+  description: { type: String, required: [true, 'Description is required!'], maxLength: [50, 'Max length of description is 50 symbols!'] },
+  private: { type: String, required: [true, 'Private Description is required!'], maxLength: [50, 'Max length of private description is 50 symbols!'] },
   imageUrl: { type: String, required: [true, 'Image url is required!'] },
   public: { type: Boolean, default: false },
   // Ако не е функция, ще се интерпретира в момента на създаване на схемата

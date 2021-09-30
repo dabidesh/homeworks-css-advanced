@@ -43,7 +43,9 @@ const getUserDetailsByUsername = async (username) => {
   const pattern = new RegExp(`^${username}$`, 'i');
   const user = await User.findOne({ username: { $regex: pattern } })
     .populate('likedPlays').lean();
-  // без populate е undefined -> т.е. попълва полетата по id-то!
+  // без populate е undefined (id.title) -> т.е. попълва полетата по id-то!
+  // С други думи: попълва данните вътре в референцията
+  // likedPlays е такова поле: масив от пиеси, сочещи към съответните документи от колекцията
   //console.log('user.js: ', user);
   return user;
 };

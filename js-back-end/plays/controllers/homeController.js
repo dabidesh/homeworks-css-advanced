@@ -29,6 +29,9 @@ router.get('/', async (req, res) => {
 router.get('/search', async (req, res) => {
   console.log('req.user->');
   console.log(req.user);
+  //console.log(req.user.ganre);
+  console.log('user->', user);
+
   const plays = await req.storage.getPlaysBySearch(req.query, req.user);
 
   res.render('home/user', { plays, query: req.query });

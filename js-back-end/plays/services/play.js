@@ -43,6 +43,7 @@ const getAllPlays = async (query) => {
               "imageUrl": 1,
               "public": 1,
               "createdAt": 1,
+              "private": 1,
               "author": 1,
               "usersLiked": 1,
               "length": { "$size": "$usersLiked" }
@@ -106,7 +107,10 @@ const getPlaysBySearch = async (query, user) => {
   if (user) {
     return Play
       .find({
-        $and: [{ $or: [{ title: regex }, { description: regex }] }]
+        $and: [{
+          $or: [{ title: regex }, { description: regex },
+          { author: user._id, private: regex }]
+        }]
       })
       .lean();
   } else {
@@ -153,6 +157,7 @@ const editPlay = async (id, playData) => {
 
   play.title = playData.title.trim();
   play.description = playData.description.trim();
+  play.private = playData.private.trim();
   play.imageUrl = playData.imageUrl.trim();
   // Без Boolean беше CastError (синктатична грешка) и нямаше properties
   // А валидационната е TypeError и си има

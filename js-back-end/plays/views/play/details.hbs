@@ -11,6 +11,10 @@
   <section class="details">
     <h3>Theater Description</h3>
     <p>{{play.description}}</p>
+    {{#if play.isAuthor}}
+    <h3>Theater Private Description</h3>
+    <p>{{play.private}}</p>
+    {{/if}}
     {{!-- Може и с {{#with play}}, за да не се пише play, но трябва да се затвори и отвори пак след реда с user
     {{/with}} --}}
     {{#if user}}

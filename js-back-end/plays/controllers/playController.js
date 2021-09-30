@@ -25,6 +25,7 @@ router.post('/create', isUser(), async (req, res) => {
     const playData = {
       title: req.body.title.trim(),
       description: req.body.description.trim(),
+      private: req.body.private.trim(),
       imageUrl: req.body.imageUrl.trim(),
       public: Boolean(req.body.public),
       // Няма нужда, защото имат стойности по подразбиране в модела Play
@@ -124,6 +125,7 @@ router.post('/edit/:id', isUser(), async (req, res) => {
         _id: req.params.id,
         title: req.body.title,
         description: req.body.description,
+        private: req.body.private,
         imageUrl: req.body.imageUrl,
         public: Boolean(req.body.public),
       }
