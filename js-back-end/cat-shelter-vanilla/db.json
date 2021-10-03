@@ -8,7 +8,8 @@
     "Сфинкс (Sphynx)",
     "Бомбайска (Bombay)",
     "Бенгалска (Bengal)",
-    "Каракачанка (Black-cat)"
+    "Каракачанка (Black-cat)",
+    "Британска късокосместа (British short fur)"
   ],
   "cats": [
     {
@@ -43,7 +44,7 @@
     },
     {
       "name": "Black Cat",
-      "description": "Lazy Black Cat!!!",
+      "description": "Lazy Women Black Cat!!!",
       "breed": "Улична превъзходна (Street Superb)",
       "filename": "",
       "upload": "ctet-stream\r\n\r\n",
@@ -82,12 +83,12 @@
       "delete": false
     },
     {
-      "name": "Mirror cube",
-      "description": "",
-      "breed": "Британска късокосместа (British Shorthair)",
+      "name": "Tom Sleep Deep",
+      "description": "Deep-sleeping Tom!!!",
+      "breed": "Британска късокосместа (British short fur)",
       "filename": "",
       "upload": "ctet-stream\r\n\r\n",
-      "hotLink": "",
+      "hotLink": "https://www.meme-arsenal.com/memes/bb2dfeb599b64155570e4a566668a912.jpg",
       "id": "0-7069635f",
       "delete": true
     }

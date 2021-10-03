@@ -154,6 +154,7 @@ const app = http.createServer(async (req, res) => {
     if (cat == undefined) {
       res.statusCode = 404;
       res.end();
+      return;
     }
     const editCat = async (post) => {
       cat.name = post.name;
@@ -194,6 +195,7 @@ const app = http.createServer(async (req, res) => {
 
       res.write(result);
       res.end();
+      return;
     } else if (req.method == 'POST') {
       processPost(req, res, async () => {
         try {
@@ -209,12 +211,21 @@ const app = http.createServer(async (req, res) => {
         res.end(); */
         return;
       });
-      res.writeHead(302, {
-        'Location': '/',
-        'Content-Type': 'text/html'
-      });
-      res.end();
-      return;
+      if (cat.delete == true) {
+        res.writeHead(302, {
+          'Location': '/new-home',
+          'Content-Type': 'text/html'
+        });
+        res.end();
+        return;
+      } else {
+        res.writeHead(302, {
+          'Location': '/',
+          'Content-Type': 'text/html'
+        });
+        res.end();
+        return;
+      }
     }
   } else if ((/^\/search\?text=.+$/g).test(req.url)) {
     const path = req.url;
