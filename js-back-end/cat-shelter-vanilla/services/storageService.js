@@ -18,6 +18,7 @@ const saveCat = async (cat) => {
   cat.id = id;
   /* let obj = {};
   obj[id] = cat; */
+  delete cat.breedN;
   cat.delete = false;
   db.cats.push(cat);
 
@@ -82,7 +83,7 @@ const generatePage = async (obj, content, title, headerPlus) => {
         <li><a ${(obj.addBreed) ? 'class="active"' : ''} href="/cats/add-breed">Add Breed</a></li>
         <li><a ${(obj.add) ? 'class="active"' : ''} href="/cats/add-cat">Add Cat</a></li>
       </ul>
-      <a href="/db-show" >Show database</a> || <a href="/db" >(download)</a>
+      <a href="/db-show" >Show database</a> || <a href="/br" >In textarea</a> || <a href="/db" >(download)</a>
     </nav>
     ${headerPlus}
   </header>

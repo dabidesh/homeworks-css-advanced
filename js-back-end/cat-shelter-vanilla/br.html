@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cats</title>
+  <title>Cats Database</title>
   <style>
     #db {
       width: 640px;
@@ -13,9 +13,6 @@
     }
   </style>
   <script type="module">
-    /* import data from './db.json';
-    console.log(data);
-    db.textContent = JSON.stringify(data); */
 
     function readTextFile(file, callback) {
       var rawFile = new XMLHttpRequest();
@@ -29,8 +26,8 @@
       rawFile.send(null);
     }
 
-    //usage:
-    readTextFile("./db.json", function (text) {
+    //usage: ./db.json for front-end
+    readTextFile("/db-show", function (text) {
       var data = JSON.parse(text);
       console.log(data);
       db.textContent = JSON.stringify(data);
@@ -39,6 +36,7 @@
 </head>
 
 <body>
+  <h1>Cats Database</h1>
   <textarea id="db"></textarea>
 
 </body>
