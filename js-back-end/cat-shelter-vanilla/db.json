@@ -49,7 +49,7 @@
       "upload": "ctet-stream\r\n\r\n",
       "hotLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsv6DiDhhgknRGjcAfetl6eooe5kh6aSHoPQ&usqp=CAU",
       "id": "0-5b920d60",
-      "delete": false
+      "delete": true
     },
     {
       "name": "Yellow Cat",

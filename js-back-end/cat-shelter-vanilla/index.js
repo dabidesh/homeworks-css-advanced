@@ -279,6 +279,69 @@ const app = http.createServer(async (req, res) => {
     };
     res.end();
     return;
+  } else if ((/^\/search\?adopted=.+$/g).test(req.url)) {
+    const path = req.url;
+    const text = decodeURI(path.split('?adopted=').pop()).toLowerCase();
+    console.log(text);
+    let cat = db.cats.filter(c =>
+      c.name.toLowerCase().includes(text) ||
+      c.description.toLowerCase().includes(text) ||
+      c.breed.toLowerCase().includes(text));
+    if (cat.length == 0) {
+      res.writeHead(200, {
+        'Content-Type': 'text/html'
+      });
+      res.write('<h1>No cats!!!</h1><a href="/">Back to Home</a>');
+      res.end();
+      return;
+    }
+    try {
+      res.writeHead(200, {
+        'Content-Type': 'text/html'
+      });
+      //const result = await storageService.getAllCats();
+      const title = 'Cat Shelter';
+      const headerPlus = `
+        <h1>Cat Shelter</h1>
+        <form action="/search" method="GET">
+          <input type="text" name="adopted" value="${text}" />
+          <button type="submit">Search</button>
+        </form>
+        `;
+
+      //console.log(db.cats);
+
+      cat = cat
+        .filter(c => c.delete != false && c)
+        .map(c => `
+        <li>
+          <img src="${c.hotLink}" alt="${c.name}">
+          <h3>${c.name}</h3>
+          <p><span>Breed: </span>${c.breed}</p>
+          <p><span>Description: </span>${c.description}</p>
+          <ul class="buttons">
+            <li class="btn edit"><a href="/editCat/${c.id}">Change Info</a></li>
+            <li class="btn delete"><a href="/delete/${c.id}">New Home</a></li>
+          </ul>
+        `).join('');
+      const content = `
+        <section class="cats">
+          <ul>
+          ${cat}
+          </ul>
+        </section>
+        `;
+      const result = await storageService.generatePage({ home: true }, content, title, headerPlus);
+
+      res.write(result);
+      res.end();
+      return;
+    } catch (err) {
+      console.log('err');
+      console.log(err);
+    };
+    res.end();
+    return;
   }
   switch (req.url) {
     case '/styles/site.css':
@@ -377,9 +440,9 @@ const app = http.createServer(async (req, res) => {
         const title = 'Adopted Cats';
         const headerPlus = `
         <h1>Adopted Cats</h1>
-        <form action="/search">
-          <input type="text">
-          <button type="button">Search</button>
+        <form action="/search" method="GET" >
+          <input type="text" name="adopted" />
+          <button type="submit">Search</button>
         </form>
         `;
 
