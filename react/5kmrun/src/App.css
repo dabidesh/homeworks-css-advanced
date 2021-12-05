@@ -1,0 +1,38 @@
+* {
+  font-size: 22px;
+  font-family: monospace;
+}
+
+input,
+select,
+button,
+li {
+  margin-bottom: 6px;
+}
+
+input {
+  width: 4ch;
+}
+
+.long {
+  width: 8ch;
+}
+
+.toLong {
+  width: 26ch;
+}
+
+button,
+summary {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  transform: scale(2.2);
+  margin-left: 1.2em;
+}
+
+a {
+  text-decoration: none;
+}
