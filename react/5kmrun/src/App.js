@@ -30,7 +30,7 @@ function App() {
   const [burgasTimeId, setBurgasTimeId] = useState();
   const [plovdivTimeId, setPlovdivTimeId] = useState();
   const [m, setM] = useState();
-  const [kmLengthId, setKmLengthId] = useState();
+  const [kmLengthId, setKmLengthId] = useState(5.00);
 
   const onWomenChange = (e) => {
     const checked = e.target.checked;
@@ -55,6 +55,7 @@ function App() {
   const onSecTimeChange = (e) => {
     setSecTime(e.target.value);
     updateAllByTimeAndDistance();
+    setRealFlatDistId(5444);
   };
 
   const onTracksIdChange = (e) => {
@@ -84,6 +85,10 @@ function App() {
   const onKmChange = (e) => {
     setKm(e.target.value);
   };
+
+  /* const onKmLengthIdChange = (e) => {
+    setKmLengthId(e.target.value);
+  }; */
 
   const onAchievementIdChange = (e) => {
     setAchievementId(e.target.value);
@@ -276,6 +281,7 @@ function App() {
   };
 
   const updateAllByTimeAndDistance = async (flag) => {
+    console.log(kmLengthId);
     if (flag == undefined) {
       flag = {};
     }
@@ -319,9 +325,12 @@ function App() {
     }
 
     const secAllOnFlat =
-      ((+hourTime) * 3600 + (+minTime) * 60 + (+secTime)) *
-      (((+kmLengthId) * 1000) /
-        ((+realFlatDistId)));
+      ((hourTime) * 3600 + (minTime) * 60 + (secTime)) *
+      (((kmLengthId) * 1000) /
+        ((realFlatDistId)));
+
+    console.log(secAllOnFlat);
+    console.log(realFlatDistId);
 
     const secAllOnZapaden2 =
       ((+hourTime) * 3600 + (+minTime) * 60 + (+secTime)) *
@@ -902,7 +911,7 @@ function App() {
         <input id="secTime" placeholder="сек" type="number" min="0" max="59" value={secTime} onChange={onSecTimeChange}
           onKeyUp={onSecTimeChange} />с време
         <br />
-        <select id="tracksId" class="toLong" value={tracksId}
+        <select id="tracksId" className="toLong" value={tracksId}
           onChange={onTracksIdChange} >
           <option value="5000">Избери трасе ...</option>
           <option id="flatId" value="5000">Равна писта</option>
@@ -932,7 +941,7 @@ function App() {
           <option value="15">80÷84</option>
           <option value="16">85÷89</option>
           <option value="17">90÷∞</option>
-        </select> <label for="women"> Жена</label><input type="checkbox" id="women" onChange={onWomenChange} /><br />
+        </select> <label htmlFor="women"> Жена</label><input type="checkbox" id="women" onChange={onWomenChange} /><br />
         <select id="zoneId" value={zoneId} onChange={onZoneIdChange} >
           <option value="0">Зона ...</option>
           <option value="0.1">10%</option>
@@ -947,41 +956,41 @@ function App() {
           <option value="0.9">90%</option>
           <option value="1">100%</option>
         </select>
-        <label for="restHR">Пулс </label>
+        <label htmlFor="restHR">Пулс </label>
         <input id="restHR" placeholder="пулс" type="number" min="0" max="200" value={restHR} onChange={onRestHRChange} />
         <br />
-        <input id="workRateId" class="long" type="text"
+        <input id="workRateId" className="long" type="text"
           value={workRateId} readOnly />
-        удара/мин <button id="helpPulsId" class="help" onClick={helpPulsId} >?</button><br />
+        удара/мин <button id="helpPulsId" className="help" onClick={helpPulsId} >?</button><br />
         <input id="min" placeholder="мин" type="number" min="0" max="59" value={min} onChange={onMinChange} onKeyUp={onMinChange} />м
         <input id="sec" placeholder="сек" type="number" min="0" max="59" value={sec} onChange={onSecChange} onKeyUp={onSecChange} />с/км темпо
         <br />
-        <input id="km" class="long" type="number" step="0.01" min="0" max="18000" value={km}
+        <input id="km" className="long" type="number" step="0.01" min="0" max="18000" value={km}
           onChange={onKmChange} onKeyUp={onKmChange} /> км/ч<br />
-        Възрастово постижение <button id="helpAchievementsId" class="help" onClick={helpAchievementsId}>?</button><br />
-        <input id="achievementId" class="long" type="number" value={achievementId} step="0.01"
+        Възрастово постижение <button id="helpAchievementsId" className="help" onClick={helpAchievementsId}>?</button><br />
+        <input id="achievementId" className="long" type="number" value={achievementId} step="0.01"
           onChange={onAchievementIdChange} onKeyUp={onAchievementIdChange} />% ÷ <input id="achievementMaxId"
-            class="long" type="number" value={achievementMaxId} readOnly />%<br />
-        <span>Ниво: </span><button id="helpLevelsId" class="help" onClick={helpLevelsId} >?</button><br />
-        <input id="percentFastestId" class="toLong" type="text" value={percentFastestId} readOnly /><br />
-        <input id="levelId" class="toLong" type="text" value={levelId} readOnly /><br />
-        <input id="levelId2" class="toLong" type="text" value={levelId2} readOnly /><br />
-        <input id="elevId" class="long" type="number" value={elevId} step="1"
+            className="long" type="number" value={achievementMaxId} readOnly />%<br />
+        <span>Ниво: </span><button id="helpLevelsId" className="help" onClick={helpLevelsId} >?</button><br />
+        <input id="percentFastestId" className="toLong" type="text" value={percentFastestId} readOnly /><br />
+        <input id="levelId" className="toLong" type="text" value={levelId} readOnly /><br />
+        <input id="levelId2" className="toLong" type="text" value={levelId2} readOnly /><br />
+        <input id="elevId" className="long" type="number" value={elevId} step="1"
           onChange={onElevIdChange} onKeyUp={onElevIdChange} /> денив./изк.<button id="helpProfileTrackId"
-            class="help" onClick={helpProfileTrackId} >?</button><br />
-        <input id="realFlatDistId" class="long" type="number" value={realFlatDistId} step="1"
+            className="help" onClick={helpProfileTrackId} >?</button><br />
+        <input id="realFlatDistId" className="long" type="number" value={realFlatDistId} step="1"
           onChange={onRealFlatDistIdChange} onKeyUp={onRealFlatDistIdChange} /> м равна писта<br />
-        <input id="flatTimeId" class="long" type="text" value={flatTimeId} readOnly /> на писта<br />
-        <input id="zapaden2TimeId" class="long" type="text" value={zapaden2TimeId} readOnly /> в Западен 2<br />
-        <input id="borisovaTimeId" class="long" type="text" value={borisovaTimeId} readOnly /> в Борисовата<br />
-        <input id="yuzhenTimeId" class="long" type="text" value={yuzhenTimeId} readOnly /> в Южен<br />
-        <input id="varnaTimeId" class="long" type="text" value={varnaTimeId} readOnly /> във Варна<br />
-        <input id="burgasTimeId" class="long" type="text" value={burgasTimeId} readOnly /> в Бургас<br />
-        <input id="plovdivTimeId" class="long" type="text" value={plovdivTimeId} readOnly /> в Пловдив<br />
+        <input id="flatTimeId" className="long" type="text" value={flatTimeId} readOnly /> на писта<br />
+        <input id="zapaden2TimeId" className="long" type="text" value={zapaden2TimeId} readOnly /> в Западен 2<br />
+        <input id="borisovaTimeId" className="long" type="text" value={borisovaTimeId} readOnly /> в Борисовата<br />
+        <input id="yuzhenTimeId" className="long" type="text" value={yuzhenTimeId} readOnly /> в Южен<br />
+        <input id="varnaTimeId" className="long" type="text" value={varnaTimeId} readOnly /> във Варна<br />
+        <input id="burgasTimeId" className="long" type="text" value={burgasTimeId} readOnly /> в Бургас<br />
+        <input id="plovdivTimeId" className="long" type="text" value={plovdivTimeId} readOnly /> в Пловдив<br />
 
-        <input id="m" class="long" type="number" step="0.01" min="0" max="5000" value={m} onChange={onMChange} onKeyUp={onMChange} /> м/с<br />
+        <input id="m" className="long" type="number" step="0.01" min="0" max="5000" value={m} onChange={onMChange} onKeyUp={onMChange} /> м/с<br />
 
-        <input id="kmLengthId" class="long" type="number" value={kmLengthId} step="0.01" readOnly /> км<br />
+        <input id="kmLengthId" className="long" type="number" value={kmLengthId} step="0.01" readOnly /> км<br />
 
         <button id="convId">Запиши</button>
         <button id="clearId">Начални</button>
