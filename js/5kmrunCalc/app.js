@@ -182,7 +182,10 @@ const setLevel = (allSec, groupIndex) => {
   }
 };
 
-const updateAllByTimeAndDistance = async (flag = {}) => {
+const updateAllByTimeAndDistance = async (flag) => {
+  if (flag == undefined) {
+    flag = {};
+  }
   if (flag.realFlatDistId == undefined) {
     flag.realFlatDistId = true;
   }
@@ -525,6 +528,7 @@ window.onload = async () => {
   summaryId.click();
   await sleepDeep(1000);
   summaryPulsId.click();
+  summaryFormulaId.click();
 };
 
 tracksId.onchange = () => {
@@ -542,6 +546,36 @@ restHR.onchange = restHR.onkeyup =
     calculateHeartRates();
     updateAllByTimeAndDistance();
   };
+
+distanceSId.onchange = () => {
+  distanceId.value = distanceSId.value;
+  setAllByTimeAndDistance();
+};
+
+daysId.onchange = daysId.onkeyup =
+  hoursId.onchange = hoursId.onkeyup =
+  minutesId.onchange = minutesId.onkeyup =
+  secondsId.onchange = secondsId.onkeyup =
+  hundredthsId.onchange = hundredthsId.onkeyup =
+  distanceId.onchange = distanceId.onkeyup = () => {
+    setAllByTimeAndDistance();
+  };
+
+const setAllByTimeAndDistance = () => {
+  console.log('setAll');
+  const hundredthsAll =
+    ((+daysId.value) * 360000 * 24 + (+hoursId.value) * 360000 + (+minutesId.value) * 6000 + (+secondsId.value) * 100 +
+      (+hundredthsId.value));
+  const hoursAll = hundredthsAll / 360000;
+  const temp = (+distanceId.value) / hoursAll;
+  speedKmhId.value = temp.toFixed(3);
+
+  const secAll = ((1 / temp) * 3600);
+  [_, minTempoForKm.value, secTempoForKm.value] =
+    totalSecondsToHMS(secAll);
+
+  secTempoFor100m.value = ((1 / temp) * (3600 / 10)).toFixed(3);
+};
 
 const calculateHeartRates = async () => {
   const MHR1 = 208 - (0.7 * achievementArray[+ageId.value]);

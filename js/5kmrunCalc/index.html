@@ -197,9 +197,9 @@
     <p><strong>Консултирайте се с лекар!</strong></p>
 
     <p>Работния пулс за търчане на 5 км трябва да бъде в аеробната зона,
-      ако искаш постижението ти да бъде силно, но и безопасно (60÷85
+      ако искаш постижението ти да бъде силно, но и безопасно (70÷85
       % от
-      максималния, според други източници 60÷80 %).</p>
+      максималния, според други източници 70÷80 %).</p>
 
     <ul>
       <li>Максимален, резерв, работен, пулс в покой [удари за минута]</li>
@@ -207,10 +207,13 @@
       <li>Зона [%]</li>
     </ul>
     <ul>
-      <li>Максимален = 208 - (0.7 * Възраст)</li>
+      <li>Максимален = 208 - (0.7 * Възраст) (Формула на Танака, Монахан и Сийлс)</li>
       <li>Резерв = Максимален - Пулс в покой</li>
-      <li>Работен = Резерв * (Зона)/100 + (Пулс в покой)</li>
+      <li>Работен = Резерв * (Зона)/100 + (Пулс в покой) (Формула на Карвонен)</li>
     </ul>
+
+    <p><strong>Внимание: </strong>това е една от най-точните формули, но грешката ѝ е <strong>±20 удара за
+        минута!</strong> Пулса в покой също варира, тъй че стойността на работния пулс е с още по-голяма грешка.</p>
 
     <p>При професионални спортисти и/или хора, които са в отлична форма,
       и/или биологичната им възраст не отговаря на
@@ -221,7 +224,39 @@
       работния/максималния пулс.</p>
     <button onclick="summaryPulsId.click();">Сгъни</button>
   </details>
+  <details id="formulaId" open>
+    <summary id="summaryFormulaId">
+      Време, темпо (за разл. разт.), скорост</summary>
+    <form id="run">
+      <input id="daysId" placeholder="дни" type="number" min="0" max="99" value="00" />д<br />
+      <input id="hoursId" placeholder="час" type="number" min="0" max="99" value="00" />ч
+      <input id="minutesId" placeholder="мин" type="number" min="0" max="59" value="22" />м
+      <input id="secondsId" placeholder="сек" type="number" min="0" max="59" value="56" />с
+      <input id="hundredthsId" placeholder="ст" type="number" min="0" max="99" value="00" />ст
+      <br />
 
+      <select id="distanceSId">
+        <option value="0.06">60 м</option>
+        <option value="0.1">100 м</option>
+        <option value="0.4">400 м</option>
+        <option value="1">1 км</option>
+        <option value="5">5 км</option>
+        <option value="10">10 км</option>
+        <option value="21.098">Полумаратон</option>
+        <option value="42.195">Маратон</option>
+        <option value="100">100</option>
+      </select>
+      <input id="distanceId" class="long" type="number" step="0.001" min="0" max="18000" value="21.098" /> км<br />
+
+      <input id="minTempoForKm" placeholder="мин" type="number" min="0" max="59" value="4" />м
+      <input id="secTempoForKm" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
+      <br />
+      <input id="secTempoFor100m" class="long" placeholder="сек" type="number" min="0" max="360000" value="" />с/100 м
+      темпо
+      <br />
+      <input id="speedKmhId" class="long" type="number" step="0.001" min="0" max="18000" value="12.900" /> км/ч<br />
+    </form>
+  </details>
   <footer>5kmrunCalc в. 0.0.1 <br /><a href="#up">↑ Най-горе</a></footer>
 </body>
 
