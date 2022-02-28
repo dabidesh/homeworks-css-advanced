@@ -22,8 +22,8 @@
     {{/if}}
     <div class="home-buttons">
       {{#if user}}
-      <a class="btn create-play" href="play/create">Create Theater</a>
-      <a class="btn create-play" href="user/{{user.username}}">{{user.username}} Profile</a>
+      <a class="btn create-play" href="/play/create">Create Theater</a>
+      <a class="btn create-play" href="/user/{{user.username}}">{{user.username}} Profile</a>
       {{/if}}
       <form action="/search" method="GET">
         <input type="text" name="search" value="{{query.search}}" placeholder="search ..." />
