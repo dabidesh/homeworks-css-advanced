@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Играта Живот, с помощта на js-dos</title>
+  <meta name="description" content="Живот – версия за ДОС, написана на асемблер и пусната в браузъра, с
+  помощта на js-dos и dosbox!" />
+  <!-- <meta name="viewport" content="width=device-width, user-scalable=no"> -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+ -->
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
+
+  <script src="./js-dos-api/js-dos.js"></script>
+  <script src="./js-dos-api/no-sound.js?v=1"></script>
+  <style>
+    html,
+    body,
+    canvas,
+    .dosbox-container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      /* overflow: hidden; */
+      overflow-y: auto;
+
+      align-items: left;
+      justify-content: left;
+    }
+
+    /* #canvas-wrap {
+      overflow: scroll;
+    } */
+
+    #extended-keys,
+    #single-keys {
+      display: none;
+    }
+
+    .scroll {
+      overflow-y: auto;
+      height: auto;
+    }
+
+    button,
+    a,
+    p,
+    select {
+      font-size: 18px;
+      padding: 0;
+      margin: 6px;
+    }
+
+    button:hover,
+    select:hover {
+      background-color: green;
+      cursor: pointer;
+    }
+
+    #flag {
+      background-color: green;
+    }
+
+    #flagBlock {
+      background-color: red;
+    }
+
+    .wrap {
+      position: relative;
+    }
+
+    .button-absolute {
+      position: absolute;
+      opacity: 0.6;
+    }
+
+    .exit {
+      left: 0;
+      top: 0;
+
+      z-index: 999999;
+    }
+
+    .desktop {
+      display: none;
+    }
+
+    #stratMessageId {
+      display: inline-block;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+    }
+
+    @media (min-width: 1025px) {
+
+      .scroll {
+        position: absolute;
+        left: 75%;
+        top: 0;
+      }
+
+      #extended-keys {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        display: block;
+      }
+
+      #single-keys {
+        display: block;
+      }
+
+      .mobile {
+        display: none;
+      }
+
+      .desktop {
+        display: inline-block;
+      }
+
+      canvas {
+        width: 50%;
+        height: 50%;
+        /* height: auto; */
+
+        /* position: absolute;
+        left: 0;
+        top: 0; */
+      }
+
+      button,
+      a,
+      p,
+      select {
+        font-size: 22px;
+        padding: 0;
+        margin: 2px;
+
+      }
+
+      button,
+      select {
+        border: none;
+        text-align: center;
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="canvas-wrap">
+      <canvas id="jsdos"></canvas>
+    </div>
+    <div class="scroll" id="main-keys">
+      <span>0</span>
+
+      <!-- <button onclick="proba()">Проба</button> -->
+      <button id="fastStartId" onclick="fastStart()">Бърз старт</button>
+      <button class="mobile" onclick="
+        document.getElementById('main-keys').style.display='none';
+        document.getElementById('extended-keys').style.display='block';
+        document.getElementById('single-keys').style.display='none';
+        ">ноти</button>
+
+      <button class="mobile" onclick="
+                document.getElementById('main-keys').style.display='none';
+                document.getElementById('extended-keys').style.display='none';
+                document.getElementById('single-keys').style.display='block';
+                ">единични</button>
+      <button onclick="full()">Цял екран</button>
+
+      <button class="desktop" onclick="ret()">Върни</button>
+
+      <button onclick="zoom()">Увеличи</button>
+      <button onclick="zoomOut()">Намали</button>
+
+      <!-- <button class="button-absolute exit" onclick="ci.exitFullscreen()">Излез</button> -->
+
+      <button onclick="ci.simulateKeyPress(107)">Разшири област</button>
+      <button onclick="ci.simulateKeyPress(109)">Смали</button>
+
+      <button onclick="ci.simulateKeyPress(20)" title="Първо разширете област">Случайни организми</button>
+      <button onclick="ci.simulateKeyPress(120)">Старт</button>
+      <button onclick="ci.simulateKeyPress(121)">стоп/1 стъпка</button>
+
+      <button onclick="ci.simulateKeyPress(53)">Стъпка ++</button>
+      <button onclick="ci.simulateKeyPress(54)">Стъпка --</button>
+
+      <button onclick="ci.simulateKeyPress(17)">По-бавно</button>
+      <button onclick="ci.simulateKeyPress(9)">По-бързо</button>
+
+      <button onclick="ci.simulateKeyPress(114)">Избрани организми</button>
+      <button onclick="ci.simulateKeyPress(115)">Сложи организъм</button>
+
+      <button onclick="ci.simulateKeyPress(113)">Сл.о. огледално</button>
+
+      <button onclick="ci.simulateKeyPress(144)">Смени режима</button>
+
+      <button onclick="ci.simulateKeyPress(16)">Изтрий блока</button>
+
+      <br />
+      <button onclick="move(36)">↖</button>
+      <button onclick="move(38)">↑</button>
+      <button onclick="move(33)">↗</button>
+      <br />
+      <button onclick="move(37)">←</button>
+      <button onclick="move(39)">→</button>
+      <br />
+      <button onclick="move(35)">↙</button>
+      <button onclick="move(40)">↓</button>
+      <button onclick="move(34)">↘</button>
+
+    </div>
+    <div id="extended-keys">
+      <span>1</span>
+      <button class="mobile" onclick="
+        document.getElementById('main-keys').style.display='block';
+        document.getElementById('extended-keys').style.display='none';
+        document.getElementById('single-keys').style.display='none';
+        ">основни</button>
+
+      <button class="mobile" onclick="
+                document.getElementById('main-keys').style.display='none';
+                document.getElementById('extended-keys').style.display='none';
+                document.getElementById('single-keys').style.display='block';
+                ">единични</button>
+
+      <!-- <button onclick="mainkeys.style.display='block';extendedkeys.style.display='none';">основни</button>
+ -->
+
+      <button onclick="full()">Цял екран</button>
+
+      <br />
+      <button onclick="note(90)">до1</button>
+      <button onclick="note(88)">ре1</button>
+      <button onclick="note(67)">ми1</button>
+      <button onclick="note(86)">фа1</button>
+      <button onclick="note(66)">сол1</button>
+      <button onclick="note(78)">ла1</button>
+      <button onclick="note(77)">си1</button>
+      <br />
+      <button onclick="note(65)">до2</button>
+      <button onclick="note(83)">ре2</button>
+      <button onclick="note(68)">ми2</button>
+      <button onclick="note(70)">фа2</button>
+      <button onclick="note(71)">сол2</button>
+      <button onclick="note(72)">ла2</button>
+      <button onclick="note(74)">си2</button>
+      <br />
+      <button onclick="note(81)">до3</button>
+      <button onclick="note(87)">ре3</button>
+      <button onclick="note(69)">ми3</button>
+      <button onclick="note(82)">фа3</button>
+      <button onclick="note(84)">сол3</button>
+      <button onclick="note(89)">ла3</button>
+      <button onclick="note(85)">си3</button>
+      <br />
+
+      <select onchange="setValue()" id="noteDelay">
+        <option value="100">0.1 с</option>
+        <option value="500">0.5 с</option>
+        <option value="1000">1 с</option>
+        <option value="1500">1.5 с</option>
+        <option value="2000">2 с</option>
+      </select>
+
+      <button onclick="melody40()">Мелодия 40</button>
+
+    </div>
+    <div id="single-keys">
+      <span>2</span>
+      <button class="mobile" onclick="
+              document.getElementById('main-keys').style.display='block';
+              document.getElementById('extended-keys').style.display='none';
+              document.getElementById('single-keys').style.display='none';
+              ">основни</button>
+
+      <button class="mobile" onclick="
+                      document.getElementById('main-keys').style.display='none';
+                      document.getElementById('extended-keys').style.display='block';
+                      document.getElementById('single-keys').style.display='none';
+                      ">ноти</button>
+      <button onclick="full()">Цял екран</button>
+
+      <button onclick="move(36)">↖</button>
+      <button onclick="move(38)">↑</button>
+      <button onclick="move(33)">↗</button>
+      <br />
+      <button onclick="move(37)">←</button>
+      <button onclick="move(39)">→</button>
+      <br />
+      <button onclick="move(35)">↙</button>
+      <button onclick="move(40)">↓</button>
+      <button onclick="move(34)">↘</button>
+
+
+      <button id="flag" onclick="changeFlag()">Флаг</button>
+      <button id="flagBlock" onclick="changeFlagBlock()">Флаг за блок</button>
+
+      <button id="flagScroll" onclick="changeFlagScroll()">Флаг за скрол</button>
+
+      <button onclick="randomOne()">Случайно 1</button>
+      <button onclick="randomTwo()">Случайно 2</button>
+
+      <button onclick="randomLines()">Случайни линии</button>
+
+      <button onclick="ci.simulateKeyPress(32)">Сложи/махни клетка</button>
+
+      <button onclick="ci.simulateKeyPress(114)">Избрани организми</button>
+      <button onclick="ci.simulateKeyPress(115)">Сложи организъм</button>
+
+      <button onclick="ci.simulateKeyPress(113)">Сложи организъм. огледално</button>
+
+      <button onclick="ci.simulateKeyPress(144)">Смени режима</button>
+      <button onclick="ci.simulateKeyPress(120)">Старт</button>
+      <button onclick="ci.simulateKeyPress(121)">стоп/1 стъпка</button>
+
+      <button onclick="ci.simulateKeyPress(53)">Стъпка ++</button>
+      <button onclick="ci.simulateKeyPress(54)">Стъпка --</button>
+
+      <button onclick="ci.simulateKeyPress(107)">Разшири област</button>
+      <button onclick="ci.simulateKeyPress(109)">Смали</button>
+
+      <button onclick="ci.simulateKeyPress(17)">По-бавно</button>
+      <button onclick="ci.simulateKeyPress(9)">По-бързо</button>
+
+      <p>С помощта на библиотеката <a href="https://js-dos.com/">js-dos</a> и
+        програмата <a href="https://www.dosbox.com/">dosbox</a>.</p>
+    </div>
+  </div>
+  <button id="startMessageId" onclick="clearStart()">Зареждане ...
+    <br />Цъкни за да го отмениш !!!</button>
+  <script>
+
+    // https://js-dos.com/6.22/current/wdosbox.js
+    // ./6.22.30/wdosbox.js
+    // https://life.rekontra.net/6.22.30/wdosbox.js
+    //https://life.rekontra.net/6.22.60/wdosbox.js
+    //https://life.kaputer.net/6.22.60/wdosbox.js
+    const startos = async () => {
+      Dos(document.getElementById("jsdos"), {
+        wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js",
+        cycles: 'max',
+        autolock: false,
+      }).ready(function (fs, main) {
+        fs.extract("life.zip").then(function () {
+          main(["-c", "life.bat"]).then(function (ci) {
+            window.ci = ci;
+          }).then(async () => {
+            startMessageId.innerHTML =
+              'Старт след 3 секунди<br />Цъкни за да го отмениш !!!'
+            await sleepDeep0(3000);
+            fastStartIdF();
+          });
+        });
+      });
+    }
+
+    //т'ва е https://www.sitepoint.com/delay-sleep-pause-wait/
+    const sleepDeep0 = ms => {
+      return new Promise(
+        resolve => setTimeout(resolve, ms)
+      )
+    }
+
+    //setTimeout(fastStartIdF, 5000);
+    const start0 = async () => {
+      await startos()
+      /* await sleepDeep0(5000)
+      fastStartIdF() */
+    }
+
+    start0()
+
+    let flag = true, flagBlock = false, deleyNote = 100, zoomFlag = false
+    flagScroll = false, flagStart = true;
+
+    let zoomCount = 100, divScroll, countLeft = 0, countTop = 0
+
+    const proba = () => {
+      ci.simulateKeyPress(53)
+      ci.simulateKeyPress(106)
+      proba1()
+      ci.simulateKeyPress(53)
+    }
+    const proba1 = () => {
+      ci.simulateKeyPress(53)
+    }
+
+    while (false)
+      ci.simulateKeyEvent(keyCode, true) //натискане на клавиш
+    // false -> отпускане
+
+
+    //т'ва е https://www.sitepoint.com/delay-sleep-pause-wait/
+    const sleepDeep = ms => {
+      return new Promise(
+        resolve => setTimeout(resolve, ms)
+      )
+    }
+
+    const divOnScroll = () => {
+      console.log('Скрол');
+    }
+
+    //async function fastStart() {
+    const fastStart = async () => {
+
+      ci.simulateKeyPress(53)
+      await sleepDeep(0)
+
+      let count = parseInt(Math.random() * 56 + 20)
+
+      for (let i = 0; i < count; i++) {
+        ci.simulateKeyPress(107)
+        await sleepDeep(0)
+      }
+
+      //await sleepDeep(1)
+      ci.simulateKeyPress(20)
+      await sleepDeep(0)
+      ci.simulateKeyPress(120)
+      await sleepDeep(0)
+
+      for (let i = 0; i < count; i++) {
+        ci.simulateKeyPress(109)
+        await sleepDeep(0)
+      }
+
+      ci.simulateKeyPress(54)
+      await sleepDeep(0)
+
+      ci.simulateKeyPress(144)
+    }
+    //sleep end
+
+    const fastStartIdF = () => {
+      document.getElementsByTagName('title')[0].textContent =
+        'Играта Живот, с помощта на js-dos'
+      startMessageId.style.display = 'none'
+      if (flagStart)
+        fastStartId.click()
+    }
+
+    const clearStart = () => {
+      flagStart = false
+      startMessageId.style.display = 'none'
+    }
+
+    //setTimeout(fastStartIdF, 5000);
+
+    //Слага продължителност на нотата
+    const setValue = () => {
+      e = document.getElementById('noteDelay')
+      deleyNote = parseInt(e.value)
+    }
+
+    const note = async (keyCode) => {
+      ci.simulateKeyEvent(keyCode, true)
+      await sleepDeep(deleyNote)
+      ci.simulateKeyEvent(keyCode, false)
+    }
+
+    //Няма нужда да е асинхронна, но за в бъдеще ...
+    const move = async (arrowKey) => {
+      if (flagScroll) {
+        switch (arrowKey) {
+          case 39:
+            countLeft += 200
+            divScroll.scrollLeft = countLeft
+            break
+          case 37:
+            countLeft -= 200
+            if (countLeft < 0) countLeft = 0
+            divScroll.scrollLeft = countLeft
+            break
+          case 40:
+            countTop += 200
+            divScroll.scrollTop = countTop
+            break
+          case 38:
+            countTop -= 200
+            if (countTop < 0) countTop = 0
+            divScroll.scrollTop = countTop
+            break
+        }
+
+      }
+      ci.simulateKeyPress(arrowKey)
+      if (flag)
+        ci.simulateKeyPress(32), await sleepDeep(1)
+      else if (flagBlock)
+        ci.simulateKeyPress(20), await sleepDeep(1)
+    }
+
+    const changeFlag = () => {
+      if (flag)
+        flag = false, document.getElementById('flag').style.backgroundColor = 'red',
+          flagBlock = true, document.getElementById('flagBlock').style.backgroundColor = 'green'
+      else
+        flag = true, document.getElementById('flag').style.backgroundColor = 'green',
+          flagBlock = false, document.getElementById('flagBlock').style.backgroundColor = 'red'
+    }
+
+    const changeFlagBlock = () => {
+      if (flagBlock)
+        flagBlock = false, document.getElementById('flagBlock').style.backgroundColor = 'red',
+          flag = true, document.getElementById('flag').style.backgroundColor = 'green'
+      else
+        flagBlock = true, document.getElementById('flagBlock').style.backgroundColor = 'green',
+          flag = false, document.getElementById('flag').style.backgroundColor = 'red'
+    }
+
+    const changeFlagScroll = () => {
+      if (flagScroll)
+        flagScroll = false, document.getElementById('flagScroll').style.backgroundColor = 'red',
+          flag = true, document.getElementById('flag').style.backgroundColor = 'green'
+      else
+        flagScroll = true, document.getElementById('flagScroll').style.backgroundColor = 'green',
+          flag = false, document.getElementById('flag').style.backgroundColor = 'red'
+      //divScroll.scrollLeft = 200
+    }
+
+    const full = () => {
+      let canvasId = document.getElementById('jsdos')
+      canvasId.style.width = '100%'
+      canvasId.style.height = '100%'
+
+      ci.fullscreen()
+    }
+
+    const ret = () => {
+      let canvasId = document.getElementById('jsdos')
+      canvasId.style.width = '50%'
+      canvasId.style.height = '50%'
+    }
+
+    // Zoom only canvas
+    const zoom = () => {
+      let canvasElement, dosboxContainer
+      canvasElement = document.getElementById('jsdos')
+      if (!zoomFlag) {
+        dosboxContainer = document.querySelector('div.dosbox-container')
+        let divElement = document.createElement('div')
+        const style = window.getComputedStyle(canvasElement)
+        const width = style.getPropertyValue('width')
+        const height = style.getPropertyValue('height')
+        divElement.style.width = width
+        divElement.style.height = height
+        divElement.style.overflow = 'auto'
+        divScroll = divElement
+        divScroll.addEventListener('scroll', divOnScroll)
+        dosboxContainer.insertAdjacentElement('afterbegin', divElement)
+        divElement.appendChild(canvasElement)
+        zoomFlag = true
+      }
+      zoomCount += 100
+      canvasElement.style.width = zoomCount + '%'
+      canvasElement.style.height = zoomCount + '%'
+
+
+    }
+
+    const zoomOut = () => {
+      let canvasElement = document.getElementById('jsdos')
+      zoomCount -= 100
+      if (zoomCount == 0) zoomCount = 100
+      canvasElement.style.width = zoomCount + '%'
+      canvasElement.style.height = zoomCount + '%'
+    }
+
+    const randomOne = async () => {
+      let count = parseInt(Math.random() * 66 + 20)
+
+      for (let i = 0; i < count; i++) {
+        move(38)
+        await sleepDeep(0)
+      }
+    }
+
+    const randomTwo = async () => {
+      let len = parseInt(Math.random() * 46 + 20)
+
+      for (let i = 0; i < len; i++) {
+        move(37)
+        await sleepDeep(0)
+      }
+
+      for (let i = 0; i < len; i++) {
+        move(38)
+        await sleepDeep(0)
+      }
+
+      for (let i = 0; i < len; i++) {
+        move(39)
+        await sleepDeep(0)
+      }
+
+      for (let i = 0; i < len; i++) {
+        move(38)
+        await sleepDeep(0)
+      }
+
+      for (let i = 0; i < len; i++) {
+        move(37)
+        await sleepDeep(0)
+      }
+    }
+
+    //async function randomLines() {
+    const randomLines = async () => {
+      let arrowKeys = [33, 34, 35, 36, 37, 38, 39, 40]
+
+      for (let i = 0; i < parseInt(Math.random() * 30 + 10); i++) {
+        let randomArrow = parseInt(Math.random() * 7)
+        for (let j = 0; j < parseInt(Math.random() * 66 + 20); j++) {
+          move(arrowKeys[randomArrow])
+          await sleepDeep(0)
+        }
+      }
+    }
+
+    const melody40 = async () => {
+      for (i = 0; i <= 2; i++) {
+        ci.simulateKeyEvent(70, true)
+        await sleepDeep(100)
+        ci.simulateKeyEvent(70, false)
+        await sleepDeep(30)
+
+        for (j = 0; j <= 1; j++) {
+          ci.simulateKeyEvent(68, true)
+          await sleepDeep(100)
+          ci.simulateKeyEvent(68, false)
+          await sleepDeep(30)
+        }
+      }
+
+      ci.simulateKeyEvent(65, true)
+      await sleepDeep(300)
+      ci.simulateKeyEvent(65, false)
+      await sleepDeep(30)
+    }
+  </script>
+</body>
+
+</html>
