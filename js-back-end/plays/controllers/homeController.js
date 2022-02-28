@@ -60,7 +60,7 @@ router.get('/page/:id', async (req, res) => {
   let allPages = 0;
   await Play.countDocuments({}, function (err, count) {
     console.log('count', count / 3);
-    allPages = Math.round(count / 3) + 1;
+    allPages = Math.ceil(count / 3);
   });
   if (page < allPages) {
     next = page + 1;
