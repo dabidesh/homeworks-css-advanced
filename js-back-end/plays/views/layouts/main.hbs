@@ -11,11 +11,13 @@
 <body>
   <div class="container">
     <nav>
-      <a>Theater</a>
+      <a>Theater {{ppp}}</a>
       <ul>
-        <li><a href="/">Home </a></li>
+        <li><a href="/page/1">Pagination</a></li>
+        <li><a href="/" {{#if home}}class="active" {{/if}}>{{#if home}}* {{/if}}Home </a></li>
         {{#if user}}
-        <li><a href="/user/{{user.username}}">{{user.username}}</a></li>
+        <li><a href="/user/{{user.username}}" {{#if username}} class=" active" {{/if}}>{{#if username}}*
+            {{/if}}{{user.username}}</a></li>
         <li><a href="/auth/logout">Logout</a></li>
         {{else}}
         <li><a href="/auth/login">Login</a></li>

@@ -48,6 +48,9 @@ router.post('/create', isUser(), async (req, res) => {
     //console.log(err.name);
     //console.log(Object.values(err.errors).map(e => e.properties.message));
 
+    /* console.log('err', parseError(err));
+    const arr = parseError(err); */
+
     const context = {
       errors: parseError(err),
       playData: {

@@ -15,7 +15,7 @@ module.exports = (app) => {
       reject(err);
     });
     db.once('open', () => {
-      console.log('Database ready!');
+      console.log('Database ready! ' + DB_CONNECTION_STRING);
       resolve();
     });
   });

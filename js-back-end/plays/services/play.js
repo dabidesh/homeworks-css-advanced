@@ -5,6 +5,9 @@
 const Play = require('../models/Play');
 const User = require('../models/User');
 
+//const mongoose = require('mongoose');
+//const mongoosePaginate = require('mongoose-paginate-v2');
+
 //const { isUser, isGuest } = require('../middlewares/guards');
 const isEmptyObj = (obj) => {
   return (obj && Object.keys(obj).length === 0 && obj.constructor === Object);
@@ -54,10 +57,18 @@ const getAllPlays = async (query) => {
       );
   }
   // Ако се напише await 'се тая, винаги връща промис
+  let play = Play.find({});
+  //връща всички, lean – за да ги подадем на шаблона, премахва функционалността, която mongoose е добавила (гетъри, сетъри), идеята е да върнем вю-модела
+  //sort {createdAt: -1}
+  play.count(function (err, count) {
+    if (err) console.log(err);
+    else console.log('Count: ', count);
+  });
   return Play.find({})
     .sort(sort)
-    .lean();  //връща всички, lean – за да ги подадем на шаблона, премахва функционалността, която mongoose е добавила (гетъри, сетъри), идеята е да върнем вю-модела
-  //sort {createdAt: -1}
+    .populate('author')
+    .populate('usersLiked')
+    .lean();
 };
 const getAllPublicPlays = async (query) => {
   let sort = '-createdAt';
@@ -87,6 +98,8 @@ const getAllPublicPlays = async (query) => {
   // Ако се напише await се тая, винаги връща промис
   return Play.find({ public: true })
     .sort(sort)
+    .populate('author')
+    .populate('usersLiked')
     .lean();  //връща всички, lean – за да ги подадем на шаблона, премахва функционалността, която mongoose е добавила (гетъри, сетъри), идеята е да върнем вю-модела
   //sort {createdAt: -1}
 };
@@ -112,6 +125,7 @@ const getPlaysBySearch = async (query, user) => {
           { author: user._id, private: regex }]
         }]
       })
+      .populate('author')
       .lean();
   } else {
     return Play
@@ -119,13 +133,15 @@ const getPlaysBySearch = async (query, user) => {
         $and: [{ $or: [{ title: regex }, { description: regex }] }],
         public: true,
       })
+      .populate('author')
       .lean();
   }
 };
 
 //.populate('usersLiked') и без и с туй рàботи!
 const getPlayById = async (id) => {
-  return Play.findById(id).populate('usersLiked').lean();
+  return Play.findById(id)
+    .lean();
 };
 
 const createPlay = async (playData) => {
@@ -187,6 +203,57 @@ const likePlay = async (id, userId) => {
   return Promise.all([user.save(), play.save()]);
 };
 
+/* const options = {
+  page: 1,
+  limit: 10,
+  collation: {
+    locale: 'en',
+  },
+};
+
+Model.paginate({}, options, function (err, result) {
+  // result.docs
+  // result.totalDocs = 100
+  // result.limit = 10
+  // result.page = 1
+  // result.totalPages = 10
+  // result.hasNextPage = true
+  // result.nextPage = 2
+  // result.hasPrevPage = false
+  // result.prevPage = null
+  // result.pagingCounter = 1
+}); */
+const getPlaysByPage = async (page) => {
+
+  const options = {
+    page,
+    limit: 2,
+    collation: {
+      locale: 'en',
+    },
+  };
+
+  Play.paginate({}, options, function (err, result) {
+    console.log(err, result);
+    return Play.find({})
+      .populate('author')
+      .populate('usersLiked')
+      .limit(3)
+      .lean();
+  });
+};
+
+const getPlaysByPageVanilla = async (skipDocuments) => {
+
+  const plays = Play.find({})
+    .lean()
+    .populate('author')
+    .populate('usersLiked')
+    .limit(3)
+    .skip(skipDocuments);
+  return plays;
+};
+
 module.exports = {
   getAllPlays,
   getAllPublicPlays,
@@ -196,4 +263,6 @@ module.exports = {
   deletePlay,
   likePlay,
   getPlaysBySearch,
+  getPlaysByPage,
+  getPlaysByPageVanilla,
 };

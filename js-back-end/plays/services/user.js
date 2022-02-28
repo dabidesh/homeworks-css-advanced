@@ -38,7 +38,7 @@ async function getUserByEmail(email) {
   const user = await User.findOne({ email: { $regex: pattern } });
   return user;
 }
-
+//.populate('likedPlays').lean()
 const getUserDetailsByUsername = async (username) => {
   const pattern = new RegExp(`^${username}$`, 'i');
   const user = await User.findOne({ username: { $regex: pattern } })

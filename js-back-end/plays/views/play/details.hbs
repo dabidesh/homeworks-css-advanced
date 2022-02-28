@@ -22,12 +22,11 @@
       {{#if play.isAuthor}}
       <a class="btn delete" href="/play/delete/{{play._id}}">Delete</a>
       <a class="btn edit" href="/play/edit/{{play._id}}">Edit</a>
-      {{else}}
-      {{#if play.liked}}
+      {{else if play.liked}}
+
       <span class="liked">You have already liked this play!</span>
       {{else}}
       <a class="btn like" href="/play/like/{{play._id}}">Like</a>
-      {{/if}}
       {{/if}}
     </div>
     {{/if}}

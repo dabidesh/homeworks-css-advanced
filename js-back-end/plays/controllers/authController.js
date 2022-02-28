@@ -112,7 +112,7 @@ router.post('/login', isGuest(), async (req, res) => {
     console.log(err.message);
     let errors = [err.message];
     if (err.type == 'credential') {
-      errors = ['Incorect username or password!'];
+      errors = ['Incorrect username or password!'];
     }
     const ctx = {
       errors,

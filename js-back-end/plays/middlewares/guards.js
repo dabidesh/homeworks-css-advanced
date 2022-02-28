@@ -11,7 +11,7 @@ function isUser() {
 }
 
 // convention all middlewares to used like factory func
-// nothing to inicialize
+// nothing to initializes
 // the idea to input parameters in now empty brackets
 function isGuest() {
   return (req, res, next) => {

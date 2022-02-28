@@ -101,6 +101,7 @@ function parseToken(req, res) {
   const token = req.cookies[COOKIE_NAME];
   if (token) {
     try {
+      // Обаче е синхронно!
       const userData = jwt.verify(token, TOKEN_SECRET);
       req.user = userData;
       // special property locals all will look in layouts

@@ -17,6 +17,8 @@ module.exports = (app) => {
   // for do not write hbs (res.render)
   app.set('view engine', 'hbs');
 
+  app.locals.ppp = 'ppp';
+
   app.use('/static/', express.static('static'));
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
