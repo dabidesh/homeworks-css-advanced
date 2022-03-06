@@ -4,8 +4,6 @@ const router = require('express').Router();
 
 const user = require('../services/user');
 
-const Play = require('../models/Play');
-
 // Екшъните са всяко едно действие
 router.get('/', async (req, res) => {
   try {
@@ -48,34 +46,19 @@ router.get('/user/:id', async (req, res) => {
 });
 
 router.get('/page/:id', async (req, res) => {
-  //const plays = await req.storage.getPlaysByPage(req.params.id);
-  let page = +req.params.id;
-  let prev, next;
-  if (page == 1) {
-    prev = false;
-  } else {
-    prev = page - 1;
+  try {
+    const page = req.params.id;
+    const [plays, allPages, prev, next] = await req.storage.getPlaysByPageVanilla(page);
+
+    console.log('plays', plays);
+    console.log('next', typeof next, next);
+    console.log('allPages', typeof allPages, allPages);
+    console.log('page', typeof page, page);
+    res.render('home/page', { plays, page, allPages, prev, next });
+  } catch (err) {
+    console.log(err);
+    res.status(404).render('404/notFound');
   }
-
-  let allPages = 0;
-  await Play.countDocuments({}, function (err, count) {
-    console.log('count', count / 3);
-    allPages = Math.ceil(count / 3);
-  });
-  if (page < allPages) {
-    next = page + 1;
-  } else {
-    next = undefined;
-  }
-  const skipDocuments = page * 3 - 3;
-
-  const plays = await req.storage.getPlaysByPageVanilla(skipDocuments);
-
-  console.log('next', typeof next, next);
-  console.log('allPages', typeof allPages, allPages);
-  console.log('page', typeof page, page);
-
-  res.render('home/page', { plays, page: req.params.id, allPages, prev, next });
 });
 
 module.exports = router;

@@ -139,11 +139,16 @@ const getPlaysBySearch = async (query, user) => {
 };
 
 //.populate('usersLiked') и без и с туй рàботи!
-const getPlayById = async (id) => {
+const getPlayByIdPopulate = async (id) => {
   return Play.findById(id)
+    .populate('author')
     .lean();
 };
-
+const getPlayById = async (id) => {
+  return Play.findById(id)
+    .populate('author')
+    .lean();
+};
 const createPlay = async (playData) => {
 
   // unique не е валидатор, можем да си направим индекс ...
@@ -243,15 +248,36 @@ const getPlaysByPage = async (page) => {
   });
 };
 
-const getPlaysByPageVanilla = async (skipDocuments) => {
+const getPlaysByPageVanilla = async (page) => {
+  let prev, next;
+  page = +page;
+  if (page == 1) {
+    prev = false;
+  } else {
+    prev = page - 1;
+  }
 
-  const plays = Play.find({})
+  let allPages = 0;
+  await Play.countDocuments({}, function (err, count) {
+    console.log('count', count / 3);
+    allPages = Math.ceil(count / 3);
+  });
+  if (page < allPages) {
+    next = page + 1;
+  } else {
+    next = undefined;
+    if (page > allPages) {
+      throw err;
+    }
+  }
+  const skipDocuments = page * 3 - 3;
+  const plays = await Play.find({})
     .lean()
     .populate('author')
     .populate('usersLiked')
     .limit(3)
     .skip(skipDocuments);
-  return plays;
+  return [plays, allPages, prev, next];
 };
 
 module.exports = {

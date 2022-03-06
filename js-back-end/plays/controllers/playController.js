@@ -79,7 +79,7 @@ router.get('/details/:id', async (req, res) => {
     // Затуй закачи hasUser за play
     //play.hasUser = Boolean(req.user);
     // Ако е автора => няма бутон
-    play.isAuthor = req.user && req.user._id == play.author;
+    play.isAuthor = req.user && req.user._id == play.author._id;
     // Ако я е харесал => пак няма ... опс - друга логика, виж сл. ред!
     //play.liked = req.user && play.usersLiked.includes(req.user._id);
     play.liked = req.user && play.usersLiked.find(u => u._id == req.user._id);
@@ -99,7 +99,7 @@ router.get('/edit/:id', isUser(), async (req, res) => {
   try {
     const play = await req.storage.getPlayById(req.params.id);
 
-    if (play.author != req.user._id) {
+    if (play.author._id != req.user._id) {
       throw new Error('You can not edit play that haven\'t created!');
     }
 
@@ -114,7 +114,7 @@ router.post('/edit/:id', isUser(), async (req, res) => {
   try {
     const play = await req.storage.getPlayById(req.params.id);
 
-    if (play.author != req.user._id) {
+    if (play.author._id != req.user._id) {
       throw new Error('You can not edit play that haven\'t created!');
     }
 
