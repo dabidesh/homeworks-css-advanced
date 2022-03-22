@@ -208,6 +208,18 @@ const likePlay = async (id, userId) => {
   return Promise.all([user.save(), play.save()]);
 };
 
+const dislikePlay = async (id, userId) => {
+  const play = await Play.findById(id);
+  const user = await User.findById(userId);
+
+  // no need ._id, mongoose will understand, т.е. може user и play
+  play.usersLiked = play.usersLiked.filter(e => e != userId);
+  user.likedPlays = user.likedPlays.filter(e => e != id);
+  play.usersLikedLength--;
+  // return за да върне промиса и да го await-не от другата страна
+  //return play.save();
+  return Promise.all([user.save(), play.save()]);
+};
 /* const options = {
   page: 1,
   limit: 10,
@@ -257,17 +269,18 @@ const getPlaysByPageVanilla = async (page) => {
     prev = page - 1;
   }
 
-  let allPages = 0;
+  let allPages = 0, error;
   await Play.countDocuments({}, function (err, count) {
     console.log('count', count / 3);
     allPages = Math.ceil(count / 3);
+    error = err;
   });
   if (page < allPages) {
     next = page + 1;
   } else {
     next = undefined;
     if (page > allPages) {
-      throw err;
+      throw error;
     }
   }
   const skipDocuments = page * 3 - 3;
@@ -288,6 +301,7 @@ module.exports = {
   editPlay,
   deletePlay,
   likePlay,
+  dislikePlay,
   getPlaysBySearch,
   getPlaysByPage,
   getPlaysByPageVanilla,

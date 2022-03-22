@@ -25,7 +25,8 @@
       <a class="btn edit" href="/play/edit/{{play._id}}">Edit</a>
       {{else if play.liked}}
 
-      <span class="liked">You have already liked this play!</span>
+      <span class="liked">You have already liked this play!
+        <a class="btn like" href="/play/dislike/{{play._id}}">DisLike</a></span>
       {{else}}
       <a class="btn like" href="/play/like/{{play._id}}">Like</a>
       {{/if}}

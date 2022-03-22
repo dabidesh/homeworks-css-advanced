@@ -159,12 +159,29 @@ router.get('/like/:id', isUser(), async (req, res) => {
   try {
     const play = await req.storage.getPlayById(req.params.id);
 
-    if (play.author == req.user._id) {
+    if (play.author._id == req.user._id) {
       throw new Error('You can not like play that you created!');
     }
     // Няма къде да я изобразим ... ще я хвърлим, логнем и върнем в details
 
     await req.storage.likePlay(req.params.id, req.user._id);
+
+    res.redirect('/play/details/' + req.params.id);
+  } catch (err) {
+    console.log(err);
+    res.redirect('/play/details/' + req.params.id);
+  }
+});
+
+router.get('/dislike/:id', isUser(), async (req, res) => {
+  try {
+    const play = await req.storage.getPlayById(req.params.id);
+
+    if (play.author._id == req.user._id) {
+      throw new Error('You can not dislike play that you created!');
+    }
+
+    await req.storage.dislikePlay(req.params.id, req.user._id);
 
     res.redirect('/play/details/' + req.params.id);
   } catch (err) {

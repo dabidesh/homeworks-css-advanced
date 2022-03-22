@@ -1,6 +1,6 @@
 // Плейсхолдер на Плей за да си създадем връзката и User да не гърми
 const { Schema, model } = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
+//const mongoosePaginate = require('mongoose-paginate-v2');
 // Mongoose schema definition
 const schema = new Schema({
   title: {
@@ -19,7 +19,7 @@ const schema = new Schema({
 });
 // public, винаги го има; посл. 3 са служебни!
 
-schema.plugin(mongoosePaginate);
+//schema.plugin(mongoosePaginate);
 const Play = model('Play', schema);
 
 
