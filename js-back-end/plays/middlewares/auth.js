@@ -47,7 +47,7 @@ async function register(username, email, gender, ganre, password) {
   // Даваше грешка Email is not defined, а аз не гледам, че е с главна ...
   const existingEmail = await userService.getUserByEmail(email);
   if (existingUsername) {
-    throw new Error('Usrname is taken!');
+    throw new Error('Username is taken!');
   } else if (existingEmail) {
     throw new Error('Email is taken!');
   }

@@ -140,11 +140,14 @@ router.post('/edit/:id', isUser(), async (req, res) => {
 
 router.get('/delete/:id', isUser(), async (req, res) => {
   try {
-    const play = await req.storage.deletePlay(req.params.id);
+    const play = await req.storage.getPlayById(req.params.id);
 
-    if (play.author != req.user._id) {
+    if (play.author._id != req.user._id) {
       throw new Error('You can not delete play that haven\'t created!');
     }
+
+    await req.storage.deletePlay(req.params.id);
+
     // Няма къде да я изобразим ... ще я хвърлим, логнем и върнем в details
 
     res.redirect('/');
