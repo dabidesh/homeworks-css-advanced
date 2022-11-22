@@ -182,6 +182,34 @@ const setLevel = (allSec, groupIndex) => {
   }
 };
 
+const setKgAchievement = (allSec) => {
+  //let woKgMin, woKgMax, manKgMin, manKgMax;  // = [50, 55, 60, 65];
+  let woKgMin = ((+heightCm.value - 110) - (+heightCm.value - 110) * 0.1).toFixed(1);
+  let woKgMax = ((+heightCm.value - 110) - (+heightCm.value - 110) * 0.05).toFixed(1);
+  let manKgMin = ((+heightCm.value - 100) - (+heightCm.value - 100) * 0.1).toFixed(1);
+  let manKgMax = ((+heightCm.value - 100) - (+heightCm.value - 100) * 0.05).toFixed(1);
+
+  if (women.checked == true) {
+    let temp1 = (allSec / Number(massaKg.value)) * woKgMin;
+    let temp2 = (allSec / Number(massaKg.value)) * woKgMax;
+    let [hh, mm, ss] = totalSecondsToHMS(temp1);
+    let time1 = `${hh}:${mm}:${ss}`;
+    [hh, mm, ss] = totalSecondsToHMS(temp2);
+    let time2 = `${hh}:${mm}:${ss}`;
+    achievementKgInfo.value = `Ако тежеше ${woKgMin}÷${woKgMax} кг:`;
+    achievementKg.value = time1 + '÷' + time2 + ' писта';
+  } else {
+    let temp1 = (allSec / Number(massaKg.value)) * manKgMin;
+    let temp2 = (allSec / Number(massaKg.value)) * manKgMax;
+    let [hh, mm, ss] = totalSecondsToHMS(temp1);
+    let time1 = `${hh}:${mm}:${ss}`;
+    [hh, mm, ss] = totalSecondsToHMS(temp2);
+    let time2 = `${hh}:${mm}:${ss}`;
+    achievementKgInfo.value = `Ако тежеше ${manKgMin}÷${manKgMax} кг:`;
+    achievementKg.value = time1 + '÷' + time2 + ' писта';
+  }
+};
+
 const updateAllByTimeAndDistance = async (flag) => {
   if (flag == undefined) {
     flag = {};
@@ -288,6 +316,7 @@ const updateAllByTimeAndDistance = async (flag) => {
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
 
   setLevel(secAllOnFlat, +(ageId.value));
+  setKgAchievement(secAllOnFlat);
 };
 
 loadId.onclick = (e) => {
@@ -315,7 +344,12 @@ loadId.onclick = (e) => {
     restHR.value = allDataObj.restHR;
     zoneId.value = allDataObj.zoneId;
   }
-
+  if (allDataObj.massaKg) {
+    massaKg.value = allDataObj.massaKg;
+  }
+  if (allDataObj.heightCm) {
+    heightCm.value = allDataObj.heightCm;
+  }
   calculateHeartRates();
   updateAllByTimeAndDistance();
 };
@@ -361,6 +395,8 @@ convId.onclick = (e) => {
       'tracksId': tracksId.value,
       'restHR': restHR.value,
       'zoneId': zoneId.value,
+      'massaKg': massaKg.value,
+      'heightCm': heightCm.value,
     };
 
     localStorage.setItem('allDataObj', JSON.stringify(allDataObj));
@@ -375,6 +411,8 @@ clearId.onclick = (e) => {
   tracksId.value = '5444';
   zoneId.value = '0.85';
   restHR.value = '56';
+  massaKg.value = '74';
+  heightCm.value = '174';
   calculateHeartRates();
   updateAllByTimeAndDistance();
 };
@@ -468,7 +506,9 @@ hourTime.onchange = minTime.onchange =
   hourTime.onkeyup = minTime.onkeyup =
   secTime.onkeyup = kmLengthId.onkeyup =
   kmLengthId.onchange =
-  elevId.onchange = elevId.onkeyup = () => {
+  elevId.onchange = elevId.onkeyup =
+  massaKg.onchange = massaKg.onkeyup =
+  heightCm.onchange = heightCm.onkeyup = () => {
     //hourTime.value = hourTime.value.padStart(2, '0');
     updateAllByTimeAndDistance();
   };
@@ -526,8 +566,8 @@ window.onload = async () => {
   await updateAllByTimeAndDistance();
 
   summaryId.click();
-  await sleepDeep(1000);
-  summaryPulsId.click();
+  //await sleepDeep(1000);
+  //summaryPulsId.click();
   summaryFormulaId.click();
 };
 
@@ -562,7 +602,6 @@ daysId.onchange = daysId.onkeyup =
   };
 
 const setAllByTimeAndDistance = () => {
-  console.log('setAll');
   const hundredthsAll =
     ((+daysId.value) * 360000 * 24 + (+hoursId.value) * 360000 + (+minutesId.value) * 6000 + (+secondsId.value) * 100 +
       (+hundredthsId.value));
@@ -571,7 +610,7 @@ const setAllByTimeAndDistance = () => {
   speedKmhId.value = temp.toFixed(3);
 
   const secAll = ((1 / temp) * 3600);
-  [_, minTempoForKm.value, secTempoForKm.value] =
+  [hourTempoForKm.value, minTempoForKm.value, secTempoForKm.value] =
     totalSecondsToHMS(secAll);
 
   secTempoFor100m.value = ((1 / temp) * (3600 / 10)).toFixed(3);

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script defer src="app.js?v=3"></script>
+  <script defer src="app.js?v=4"></script>
   <title>Търчане с 5kmrun – калкулатор</title>
   <meta name="description" content="В помощ на бегач(к)ите от 5kmrun – 
   време, трасета, възсрастова група, пол, темпо, 
@@ -16,6 +16,18 @@
     * {
       font-size: 22px;
       font-family: monospace;
+    }
+
+    html {
+      background-color: #444;
+      color: #fff;
+    }
+
+    input,
+    button,
+    select {
+      background-color: #777;
+      color: #fff;
     }
 
     input,
@@ -31,6 +43,10 @@
 
     .long {
       width: 8ch;
+    }
+
+    .middle {
+      width: 6ch;
     }
 
     .toLong {
@@ -50,6 +66,10 @@
 
     a {
       text-decoration: none;
+    }
+
+    a:visited {
+      color: darkblue;
     }
   </style>
 </head>
@@ -91,8 +111,8 @@
       <option value="16">85÷89</option>
       <option value="17">90÷∞</option>
     </select> <label for="women"> Жена</label><input type="checkbox" id="women"><br />
-    <select id="zoneId">
-      <option value="0">Зона ...</option>
+    <label for="zoneId">Зона </label><select id="zoneId">
+      <option value="0">Зона</option>
       <option value="0.1">10%</option>
       <option value="0.2">20%</option>
       <option value="0.3">30%</option>
@@ -104,10 +124,16 @@
       <option value="0.85">85%</option>
       <option value="0.9">90%</option>
       <option value="1">100%</option>
-    </select>
-    <label for="restHR">Пулс </label><input id="restHR" placeholder="пулс" type="number" min="0" max="200" value="58" />
+    </select><br />
+    <label for="massaKg">Маса </label><input id="massaKg" class="middle" placeholder="маса" type="number" min="0"
+      max="600" value="70" step="0.5" />
+    <label for="heightCm">Ръст </label><input id="heightCm" class="middle" placeholder="маса" type="number" min="0"
+      max="600" value="174" step="1" />
     <br />
-    <input id="workRateId" class="long" type="text" value="" />
+    <label for="restHR">Пулс в покой </label><input id="restHR" placeholder="пулс" type="number" min="0" max="200"
+      value="58" />
+    <br />
+    <input id="workRateId" class="long" type="text" value="" readonly />
     удара/мин <button id="helpPulsId" class="help">?</button><br />
     <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" />м
     <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
@@ -120,6 +146,8 @@
     <input id="percentFastestId" class="toLong" type="text" value="" readonly /><br />
     <input id="levelId" class="toLong" type="text" value="Среден" readonly /><br />
     <input id="levelId2" class="toLong" type="text" value="Среден" readonly /><br />
+    <input id="achievementKgInfo" class="toLong" type="text" value="" readonly /><br />
+    <input id="achievementKg" class="toLong" type="text" value="" readonly /><br />
     <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк. <button id="helpProfileTrackId"
       class="help">?</button><br />
     <input id="realFlatDistId" class="long" type="number" value="5626" step="1" /> м равна писта<br />
@@ -191,7 +219,7 @@
     <button onclick="summaryId.click();">Сгъни</button>
   </details>
 
-  <details id="pulsId" open>
+  <details id="pulsId" close>
     <summary id="summaryPulsId">
       Определяне на максимален/работен пулс</summary>
     <p><strong>Консултирайте се с лекар!</strong></p>
@@ -226,8 +254,9 @@
   </details>
   <details id="formulaId" open>
     <summary id="summaryFormulaId">
-      Време, темпо (за разл. разт.), скорост</summary>
-    <form id="run">
+      Време, темпо (за разл. разт.), скорост
+    </summary>
+    <form id="runAll">
       <input id="daysId" placeholder="дни" type="number" min="0" max="99" value="00" />д<br />
       <input id="hoursId" placeholder="час" type="number" min="0" max="99" value="00" />ч
       <input id="minutesId" placeholder="мин" type="number" min="0" max="59" value="22" />м
@@ -248,6 +277,7 @@
       </select>
       <input id="distanceId" class="long" type="number" step="0.001" min="0" max="18000" value="21.098" /> км<br />
 
+      <input id="hourTempoForKm" placeholder="час" type="number" min="0" value="0" />ч
       <input id="minTempoForKm" placeholder="мин" type="number" min="0" max="59" value="4" />м
       <input id="secTempoForKm" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
       <br />
@@ -256,6 +286,7 @@
       <br />
       <input id="speedKmhId" class="long" type="number" step="0.001" min="0" max="18000" value="12.900" /> км/ч<br />
     </form>
+    <button onclick="summaryFormulaId.click();">Сгъни</button>
   </details>
   <footer>5kmrunCalc в. 0.0.1 <br /><a href="#up">↑ Най-горе</a></footer>
 </body>
