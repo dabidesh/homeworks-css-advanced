@@ -38,7 +38,8 @@
   <textarea id="inn" height="800px"></textarea>
   <span>
     <button id="button">=></button>
-    <button onclick="inn.value=out.value='';">C</button>
+    <button onclick="this.parentElement.previousElementSibling.value='';">C</button>
+    <!-- inn.value=out.value=''; -->
   </span>
   <textarea id="out"></textarea>
   <br />
