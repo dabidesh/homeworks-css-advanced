@@ -34,3 +34,10 @@ button1.onclick = () => {
   elOut.select();
   document.execCommand('copy');
 };
+
+window.onclick = (e) => {
+  e.preventDefault();
+  if (e.target.textContent == 'C') {
+    e.target.parentElement.previousElementSibling.value = '';
+  }
+};
