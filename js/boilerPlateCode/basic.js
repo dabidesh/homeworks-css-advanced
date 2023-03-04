@@ -36,7 +36,7 @@ button1.onclick = () => {
 };
 
 window.onclick = (e) => {
-  e.preventDefault();
+  //e.preventDefault();
   if (e.target.textContent == 'C') {
     e.target.parentElement.previousElementSibling.value = '';
   }
