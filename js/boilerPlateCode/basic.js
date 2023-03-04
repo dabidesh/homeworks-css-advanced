@@ -1,7 +1,9 @@
 p = console.log;
 button.onclick = () => {
   let arr = document.getElementById('inn').value.split('\n');
-  //console.log(arr);
+  if (document.form.checkbox.checked) {
+    arr = arr.map(e => e.trim());
+  }
   let str = arr.map(e => `'${e}',`).join('\n');
   let elOut = document.getElementById('out');
   elOut.value = str;
