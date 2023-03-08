@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code generator for spiral-matrix.js</title>
+  <style>
+    html {
+      background-color: #111;
+      color: #ddd;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    input,
+    textarea,
+    button {
+      background-color: #222;
+      color: #ccc;
+    }
+
+    .dark {
+      background-color: #fff;
+      color: #000;
+    }
+
+    input[type="checkbox"] {
+      /* background-color: #fff;
+      color: #000;
+      display: grid;
+      place-content: center; */
+    }
+
+    input[type="checkbox"]:before {
+      content: "";
+      width: 0.95em;
+      height: 0.95em;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em red;
+    }
+
+    input[type="checkbox"]:checked::before {
+      transform: scale(1);
+    }
+
+    textarea {
+      height: 400px;
+    }
+
+    #out {
+      width: 600px;
+    }
+  </style>
+  <script defer src="spiral-matrix.js"></script>
+</head>
+
+<body>
+  <form name="form">
+    <p>let aXXaXX, ...</p>
+    <p><select id="varsSelectId">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="60">60</option>
+        <option value="100">100</option>
+      </select>
+      <input type="number" id="varsId" value="20" />
+    </p>
+    <textarea id="inn" height="800px"></textarea>
+    <span>
+      <button type="button" id="button">=></button>
+      <button type="button">C</button>
+    </span>
+    <textarea id="out"></textarea>
+    <br />
+  </form>
+
+  <p>else if ()</p>
+  <textarea id="in0" height="800px"></textarea>
+  <span>
+    <button id="button0">=></button>
+    <button>C</button>
+  </span>
+  <textarea id="out0"></textarea><br />
+</body>
+
+</html>
