@@ -18,9 +18,32 @@ button.onclick = () => {
 };
 
 button0.onclick = () => {
-  let arr = document.getElementById('in0').value.split('\n');
-  let str = arr.map(e => `'${e}': '${e}',`).join('\n');
+  let n = +varsId.value;
+  let str = '';
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      str += `else if (i==${i} && j==${j}) {
+        a${i}a${j}= value;
+      }`;
+    }
+  }
   let elOut = document.getElementById('out0');
+  elOut.value = str;
+  elOut.select();
+  document.execCommand('copy');
+};
+
+button1.onclick = () => {
+  let n = +varsId.value;
+  let str = '';
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      str += `else if (i==${i} && j==${j}) {
+        return a${i}a${j};
+      }`;
+    }
+  }
+  let elOut = document.getElementById('out1');
   elOut.value = str;
   elOut.select();
   document.execCommand('copy');
