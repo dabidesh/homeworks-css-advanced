@@ -11,7 +11,8 @@
       height: 400px;
     }
 
-    #out {
+    #out,
+    .out {
       width: 600px;
     }
   </style>
@@ -19,9 +20,16 @@
 </head>
 
 <body>
+  <p>var => var: req.body.var.trim(),</p>
   <textarea id="in" height="800px"></textarea>
   <button id="button">=></button>
-  <textarea id="out"></textarea>
+  <textarea id="out"></textarea><br />
+
+  <p>selectName, data, option0, option1, ...=> if's controller/hbs check</p>
+  <textarea id="in0" height="800px"></textarea>
+  <button id="button0">=></button>
+  <textarea id="outC" class="out"></textarea>
+  <textarea id="outHBS" class="out"></textarea>
 </body>
 
 </html>
