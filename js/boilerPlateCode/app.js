@@ -14,7 +14,7 @@ button.onclick = () => {
 button0.onclick = () => {
   let arr = document.getElementById('in0').value.split('\n');
   arr = arr
-    .map(e => e.trim)
+    .map(e => e.trim())
     .filter(e => e != '');
   let selectName = arr.shift();
   let data = arr.shift();
@@ -32,4 +32,14 @@ button0.onclick = () => {
   elOut.select();
   document.execCommand('copy');
   document.getElementById('outHBS').value = strHBS;
+};
+
+checkbox.onclick = () => {
+  let str = document.getElementById('outHBS').value;
+  if (checkbox.checked) {
+    str = str.replaceAll('selected', 'checked');
+  } else {
+    str = str.replaceAll('checked', 'selected');
+  }
+  document.getElementById('outHBS').value = str;
 };
