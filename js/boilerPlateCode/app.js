@@ -1,7 +1,10 @@
 button.onclick = () => {
   let arr = document.getElementById('in').value.split('\n');
-  //console.log(arr);
-  let str = arr.map(e => `${e}: req.body.${e}.trim(),`).join('\n');
+  let str = arr
+    .map(e => e.trim())
+    .filter(e => e != '')
+    .map(e => `${e}: req.body.${e}.trim(),`)
+    .join('\n');
   let elOut = document.getElementById('out');
   elOut.value = str;
   elOut.select();
