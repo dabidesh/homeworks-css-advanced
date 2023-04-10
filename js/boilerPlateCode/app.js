@@ -10,21 +10,26 @@ button.onclick = () => {
 
 button0.onclick = () => {
   let arr = document.getElementById('in0').value.split('\n');
-  let selectName = arr.shift();
-  let data = arr.shift();
-  console.log(selectName);
+  let selectName = (arr.shift()).trim();
+  let data = (arr.shift()).trim();
 
   let str = 'let o = {}\n';
   for (let i = 0; i < arr.length; i++) {
-    str += `if (req.body.${selectName} == '${arr[i]}') o.${selectName}${arr[i]} = true;\n`;
+    arr[i] = arr[i].trim();
+    if (arr[i] != '') {
+      str += `if (req.body.${selectName} == '${arr[i]}') o.${selectName}${arr[i]} = true;\n`;
+
+    }
+    let strHBS = '';
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] != '') {
+        strHBS += `{{#if ${data}.o.${selectName}${arr[i]}}}selected{{/if}}\n`;
+      }
+    }
+    let elOut = document.getElementById('outC');
+    elOut.value = str;
+    elOut.select();
+    document.execCommand('copy');
+    document.getElementById('outHBS').value = strHBS;
   }
-  let strHBS = '';
-  for (let i = 0; i < arr.length; i++) {
-    strHBS += `{{#if ${data}.o.${selectName}${arr[i]}}}selected{{/if}}\n`;
-  }
-  let elOut = document.getElementById('outC');
-  elOut.value = str;
-  elOut.select();
-  document.execCommand('copy');
-  document.getElementById('outHBS').value = strHBS;
 };
