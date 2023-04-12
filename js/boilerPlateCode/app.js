@@ -19,13 +19,15 @@ button0.onclick = () => {
   let selectName = arr.shift();
   let data = arr.shift();
 
+  let arrUpper = arr.map(e => e[0].toUpperCase() + e.slice(1));
+
   let str = 'let o = {}\n';
   for (let i = 0; i < arr.length; i++) {
-    str += `if (req.body.${selectName} == '${arr[i]}') o.${selectName}${arr[i]} = true;\n`;
+    str += `if (req.body.${selectName} == '${arr[i]}') o.${selectName}${arrUpper[i]} = true;\n`;
   }
   let strHBS = '';
   for (let i = 0; i < arr.length; i++) {
-    strHBS += `{{#if ${data}.o.${selectName}${arr[i]}}}selected{{/if}}\n`;
+    strHBS += `{{#if ${data}.o.${selectName}${arrUpper[i]}}}selected{{/if}}\n`;
   }
   let elOut = document.getElementById('outC');
   elOut.value = str;
