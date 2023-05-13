@@ -259,7 +259,7 @@ const updateAllByTimeAndDistance = async (flag) => {
     (((+kmLengthId.value) * 1000) /
       ((+realFlatDistId.value)));
 
-  delete secAllOnFlat;
+  delete secAllOnFlat;  //?
 
   const secAllOnZapaden2 =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
@@ -440,12 +440,12 @@ helpLevelsId.onclick = (e) => {
 Внимание – недовършена функционалност, нивото се определя по времето, изчислено за равна писта!`);
 };
 
-helpAchievementsId.onclick = (e) => {
+/* helpAchievementsId.onclick = (e) => {
   e.preventDefault();
   alert(`Възрастовото постижение е процента от световния рекорд в съответната възрастова група.
 
 Внимание – недовършена функционалност, втората стойност е на база удължено трасе към равна писта, т.е. взима се времето от пистата!`);
-};
+}; */
 
 helpPulsId.onclick = (e) => {
   e.preventDefault();
@@ -632,6 +632,20 @@ const calculateHeartRates = async () => {
   const workRate2 = Math.round(reserve2 * (+zoneId.value) + (+restHR.value));
 
   workRateId.value = `${workRate1}÷${workRate2}`;
+};
+
+const openButtonHelpAchievement = document.querySelector('[data-open-modal-helpAchievement');
+const closeButtonHelpAchievement =
+  document.querySelector('[data-close-modal-helpAchievement');
+const modalHelpAchievement = document.querySelector('[data-modal-helpAchievement]');
+
+openButtonHelpAchievement.onclick = (e) => {
+  e.preventDefault();
+  modalHelpAchievement.showModal();
+};
+closeButtonHelpAchievement.onclick = (e) => {
+  e.preventDefault();
+  modalHelpAchievement.close();
 };
 
 const achievementArray =
