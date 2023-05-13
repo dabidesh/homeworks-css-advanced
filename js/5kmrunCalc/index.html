@@ -142,7 +142,7 @@
     Възрастово постижение <button data-open-modal-helpAchievement id="helpAchievementsId" class="help">?</button><br />
     <input id="achievementId" class="long" type="number" value="58.21" step="0.01" />% ÷ <input id="achievementMaxId"
       class="long" type="number" value="" readonly />%<br />
-    <span>Ниво: </span><button id="helpLevelsId" class="help">?</button><br />
+    <span>Ниво: </span><button id="openButtonHelpLevels" class="help" type="button">?</button><br />
     <input id="percentFastestId" class="toLong" type="text" value="" readonly /><br />
     <input id="levelId" class="toLong" type="text" value="Среден" readonly /><br />
     <input id="levelId2" class="toLong" type="text" value="Среден" readonly /><br />
@@ -297,6 +297,21 @@
     <p>Внимание – недовършена функционалност, втората стойност е на база удължено трасе към равна писта, т.е. взима се
       времето
       от пистата!</p>
+  </dialog>
+  <dialog id="modalHelpLevels">
+    <button id="closeButtonHelpLevels">X</button>
+    <p>
+    <ul>
+      <li>Начинаещ/а: по-бърз/а от 5% от бегач(к)ите. Започнал/а е да търчи преди 1 месец.</li>
+      <li>Новак/чка: по-бърз/а от 20 % от бегач(к)ите. Започнал/а е да търчи преди 6 месеца.</li>
+      <li>Среден/а: по-бърз/а от 50 % от бегач(к)ите. Започнал/а е да търчи преди 2 години.</li>
+      <li>Напреднал: по-бърз/а от 80 % от бегач(к)ите. Започнал/а е да търчи преди 5 години.</li>
+      <li>Елитен/на: по-бърз/а от 95 % от бегач(к)ите. Започнал/а е да търчи преди повече от 5 години редовно и упорито!
+      </li>
+    </ul>
+    </p>
+
+    <p>Внимание – недовършена функционалност, нивото се определя по времето, изчислено за равна писта!</p>
   </dialog>
 </body>
 

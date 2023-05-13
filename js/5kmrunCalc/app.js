@@ -431,7 +431,7 @@ helpProfileTrackId.onclick = (e) => {
 Времената на различните трасета също ще се променят!`);
 };
 
-helpLevelsId.onclick = (e) => {
+/* helpLevelsId.onclick = (e) => {
   e.preventDefault();
   alert(`Начинаещ/а: по-бърз/а от 5% от бегач(к)ите. Започнал/а е да търчи преди 1 месец.
 Новак/чка: по-бърз/а от 20 % от бегач(к)ите. Започнал/а е  да търчи преди 6 месеца.
@@ -440,7 +440,7 @@ helpLevelsId.onclick = (e) => {
 Елитен/на: по-бърз/а от 95 % от бегач(к)ите. Започнал/а е да търчи преди повече от 5 години редовно и упорито!
 
 Внимание – недовършена функционалност, нивото се определя по времето, изчислено за равна писта!`);
-};
+}; */
 
 /* helpAchievementsId.onclick = (e) => {
   e.preventDefault();
@@ -649,6 +649,10 @@ closeButtonHelpAchievement.onclick = (e) => {
   e.preventDefault();
   modalHelpAchievement.close();
 };
+
+openButtonHelpLevels.onclick = () => modalHelpLevels.showModal();
+closeButtonHelpLevels.onclick = () => modalHelpLevels.close();
+
 
 const achievementArray =
   [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
