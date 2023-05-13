@@ -251,10 +251,15 @@ const updateAllByTimeAndDistance = async (flag) => {
     [_, min.value, sec.value] = totalSecondsToHMS(secAll);
   }
 
+  console.log(+secTime.value);
+
+
   const secAllOnFlat =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
     (((+kmLengthId.value) * 1000) /
       ((+realFlatDistId.value)));
+
+  delete secAllOnFlat;
 
   const secAllOnZapaden2 =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
