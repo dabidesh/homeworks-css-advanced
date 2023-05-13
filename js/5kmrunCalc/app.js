@@ -29,7 +29,7 @@ const HMStoSeconds = (hh, mm, ss) => {
   return hhNew * 3600 + mmNew * 60 + ssNew;
 };
 
-const updateAgeАchievement = (groupIndex) => {
+const updateAgeAchievement = (groupIndex) => {
   let min, sec;
   if (women.checked == true) {
     [min, sec] = wo[groupIndex].WR.split(':');
@@ -44,7 +44,7 @@ const updateAgeАchievement = (groupIndex) => {
   achievementId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
 };
 
-const updateAgeАchievementMax = (groupIndex, secAllOnFlat) => {
+const updateAgeAchievementMax = (groupIndex, secAllOnFlat) => {
   let min, sec;
   if (women.checked == true) {
     [min, sec] = wo[groupIndex].WR.split(':');
@@ -313,10 +313,10 @@ const updateAllByTimeAndDistance = async (flag) => {
   plovdivTimeId.value = `${hh}:${mm}:${ss}`;
 
   if (flag.achievement) {
-    updateAgeАchievement(+(ageId.value));
+    updateAgeAchievement(+(ageId.value));
   }
   if (flag.achievementMax) {
-    updateAgeАchievementMax(+(ageId.value), secAllOnFlat);
+    updateAgeAchievementMax(+(ageId.value), secAllOnFlat);
   }
   //kmLengthId.value = (+kmLengthId.value).toFixed(2);
 
@@ -476,7 +476,7 @@ min.onchange = sec.onchange =
     [hourTime.value, minTime.value, secTime.value] =
       totalSecondsToHMS(Math.round((+kmLengthId.value / temp) * 3600));
 
-    //updateAgeАchievement(Number(ageId.value));
+    //updateAgeAchievement(Number(ageId.value));
     updateAllByTimeAndDistance({ tempo: false });
   };
 
@@ -489,7 +489,7 @@ km.onchange = km.onkeyup = () => {
   [hourTime.value, minTime.value, secTime.value] =
     totalSecondsToHMS(Math.round((+kmLengthId.value / temp) * 3600));
 
-  //updateAgeАchievement(Number(ageId.value));
+  //updateAgeAchievement(Number(ageId.value));
   updateAllByTimeAndDistance({ km: false });
 };
 
@@ -502,7 +502,7 @@ m.onchange = m.onkeyup = () => {
   [hourTime.value, minTime.value, secTime.value] =
     totalSecondsToHMS(Math.round((+kmLengthId.value / temp) * 3600));
 
-  updateAgeАchievement(Number(ageId.value));
+  updateAgeAchievement(Number(ageId.value));
   updateAllByTimeAndDistance();
 };
 
@@ -965,5 +965,3 @@ const man = [
     "Elite": "40:16",
     "WR": "29:02"
   }];
-
-
