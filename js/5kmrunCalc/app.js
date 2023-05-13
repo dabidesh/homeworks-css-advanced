@@ -1,3 +1,4 @@
+//'use strict';
 const totalSecondsToHMS = (totalSeconds) => {
   const hourTime = String(Math.floor(totalSeconds / 3600))
     .padStart(2, '0');
@@ -251,7 +252,7 @@ const updateAllByTimeAndDistance = async (flag) => {
     [_, min.value, sec.value] = totalSecondsToHMS(secAll);
   }
 
-  console.log(+secTime.value);
+  //console.log(+secTime.value);
 
 
   const secAllOnFlat =
@@ -259,7 +260,8 @@ const updateAllByTimeAndDistance = async (flag) => {
     (((+kmLengthId.value) * 1000) /
       ((+realFlatDistId.value)));
 
-  delete secAllOnFlat;  //?
+  //delete secAllOnFlat;  //?
+  //console.log(secAllOnFlat);
 
   const secAllOnZapaden2 =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
