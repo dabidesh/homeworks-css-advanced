@@ -424,14 +424,14 @@ clearId.onclick = (e) => {
   updateAllByTimeAndDistance();
 };
 
-helpProfileTrackId.onclick = (e) => {
+/*helpProfileTrackId.onclick = (e) => {
   e.preventDefault();
   alert(`Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта или директно избери реалната дължина!
 
 Времената на различните трасета също ще се променят!`);
 };
 
-/* helpLevelsId.onclick = (e) => {
+helpLevelsId.onclick = (e) => {
   e.preventDefault();
   alert(`Начинаещ/а: по-бърз/а от 5% от бегач(к)ите. Започнал/а е да търчи преди 1 месец.
 Новак/чка: по-бърз/а от 20 % от бегач(к)ите. Започнал/а е  да търчи преди 6 месеца.
@@ -447,7 +447,7 @@ helpProfileTrackId.onclick = (e) => {
   alert(`Възрастовото постижение е процента от световния рекорд в съответната възрастова група.
 
 Внимание – недовършена функционалност, втората стойност е на база удължено трасе към равна писта, т.е. взима се времето от пистата!`);
-}; */
+};
 
 helpPulsId.onclick = (e) => {
   e.preventDefault();
@@ -467,7 +467,7 @@ helpPulsId.onclick = (e) => {
 
 Съществуват функционални тесове за определяне на работния/максималния пулс.`);
 };
-
+*/
 // темпо
 min.onchange = sec.onchange =
   min.onkeyup = sec.onkeyup = () => {
@@ -653,6 +653,11 @@ closeButtonHelpAchievement.onclick = (e) => {
 openButtonHelpLevels.onclick = () => modalHelpLevels.showModal();
 closeButtonHelpLevels.onclick = () => modalHelpLevels.close();
 
+openButtonHelpProfileTrack.onclick = () => modalHelpProfileTrack.showModal();
+closeButtonHelpProfileTrack.onclick = () => modalHelpProfileTrack.close();
+
+openButtonHelpPuls.onclick = () => modalHelpPuls.showModal();
+closeButtonHelpPuls.onclick = () => modalHelpPuls.close();
 
 const achievementArray =
   [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];

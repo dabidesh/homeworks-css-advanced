@@ -18,7 +18,8 @@
       font-family: monospace;
     }
 
-    html {
+    html,
+    dialog {
       background-color: #444;
       color: #fff;
     }
@@ -134,7 +135,7 @@
       value="58" />
     <br />
     <input id="workRateId" class="long" type="text" value="" readonly />
-    удара/мин <button id="helpPulsId" class="help">?</button><br />
+    удара/мин <button id="openButtonHelpPuls" class="help" type="button">?</button><br />
     <input id="min" placeholder="мин" type="number" min="0" max="59" value="4" />м
     <input id="sec" placeholder="сек" type="number" min="0" max="59" value="39" />с/км темпо
     <br />
@@ -148,8 +149,8 @@
     <input id="levelId2" class="toLong" type="text" value="Среден" readonly /><br />
     <input id="achievementKgInfo" class="toLong" type="text" value="" readonly /><br />
     <input id="achievementKg" class="toLong" type="text" value="" readonly /><br />
-    <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк. <button id="helpProfileTrackId"
-      class="help">?</button><br />
+    <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк.
+    <button id="openButtonHelpProfileTrack" class="help" type="button">?</button><br />
     <input id="realFlatDistId" class="long" type="number" value="5626" step="1" /> м равна писта<br />
     <input id="flatTimeId" class="long" type="text" value="" readonly /> на писта<br />
     <input id="zapaden2TimeId" class="long" type="text" value="" readonly /> в Западен 2<br />
@@ -312,6 +313,45 @@
     </p>
 
     <p>Внимание – недовършена функционалност, нивото се определя по времето, изчислено за равна писта!</p>
+  </dialog>
+  <dialog id="modalHelpProfileTrack">
+    <button id="closeButtonHelpProfileTrack">X</button>
+    <p>
+      Опитай се да оцениш профила и трудността на трасето! Можеш да видиш с колко се удължава ако беше равна писта или
+      директно избери реалната дължина!
+    </p>
+    <p>Времената на различните трасета също ще се променят!</p>
+  </dialog>
+  <dialog id="modalHelpPuls">
+    <button id="closeButtonHelpPuls">X</button>
+    <p>
+      Консултирайте се с лекар!
+    </p>
+    <p>
+      Работния пулс за търчане на 5 км трябва да бъде в аеробната зона, ако искаш постижението ти да бъде силно, но и
+      безопасно (60÷85 % от максималния, според други източници 60÷80 %)(виж формулата).
+    </p>
+    <ul>
+      <li>
+        Максимален, резерв, работен, пулс в покой [удари за минута]
+      </li>
+      <li>
+        Възраст [години]
+      </li>
+      <li>Зона [%]</li>
+    </ul>
+    <p>
+      При професионални спортисти и/или хора, които са в отлична форма, и/или биологичната им възраст не отговаря на
+      действителната формулите не важат!
+    </p>
+    <p>
+      Съществуват функционални тесове за определяне на работния/максималния пулс.
+    </p>
+    <ul>
+      <li>Максимален = 208 - (0.7 * Възраст)</li>
+      <li>Резерв = Максимален - Пулс в покой</li>
+      <li>Работен = Резерв * (Зона)/100 + (Пулс в покой)</li>
+    </ul>
   </dialog>
 </body>
 
