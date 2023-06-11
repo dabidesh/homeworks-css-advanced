@@ -11,3 +11,7 @@ closeButtonHelpAchievement.onclick = (e) => {
   e.preventDefault();
   modalHelpAchievement.close();
 };
+
+openButtonHelpPuls.onclick = () => modalHelpPuls.showModal();
+closeButtonHelpPuls.onclick = () => modalHelpPuls.close();
+closeButtonHelpPulsText.onclick = () => modalHelpPuls.close();

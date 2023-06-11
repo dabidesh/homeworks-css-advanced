@@ -9,7 +9,8 @@
 </head>
 
 <body>
-  Възрастово постижение <button data-open-modal-helpAchievement id="helpAchievementsId" class="help">?</button>
+  Възрастово постижение <button data-open-modal-helpAchievement id="helpAchievementsId" class="help">?</button><br />
+  удара/мин <button id="openButtonHelpPuls" class="help" type="button">?</button>
   <dialog data-modal-helpAchievement>
     <button data-close-modal-helpAchievement>X</button>
     <p>Възрастовото постижение е процента от световния рекорд в съответната възрастова група.</p>
@@ -18,6 +19,39 @@
       времето
       от пистата!</p>
   </dialog>
+  <dialog id="modalHelpPuls">
+    <button id="closeButtonHelpPuls" type="button">X</button>
+    <p>
+      Консултирайте се с лекар!
+    </p>
+    <p>
+      Работния пулс за търчане на 5 км трябва да бъде в аеробната зона, ако искаш постижението ти да бъде силно, но и
+      безопасно (60÷85 % от максималния, според други източници 60÷80 %)(виж формулата).
+    </p>
+    <ul>
+      <li>
+        Максимален, резерв, работен, пулс в покой [удари за минута]
+      </li>
+      <li>
+        Възраст [години]
+      </li>
+      <li>Зона [%]</li>
+    </ul>
+    <p>
+      При професионални спортисти и/или хора, които са в отлична форма, и/или биологичната им възраст не отговаря на
+      действителната формулите не важат!
+    </p>
+    <p>
+      Съществуват функционални тесове за определяне на работния/максималния пулс.
+    </p>
+    <ul>
+      <li>Максимален = 208 - (0.7 * Възраст)</li>
+      <li>Резерв = Максимален - Пулс в покой</li>
+      <li>Работен = Резерв * (Зона)/100 + (Пулс в покой)</li>
+    </ul>
+    <button id="closeButtonHelpPulsText" type="button">X Затвори</button>
+  </dialog>
+
 </body>
 
 </html>
