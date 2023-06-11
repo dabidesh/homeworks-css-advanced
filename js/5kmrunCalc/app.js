@@ -658,6 +658,7 @@ closeButtonHelpAchievement.onclick = (e) => {
 
 openButtonHelpLevels.onclick = () => modalHelpLevels.showModal();
 closeButtonHelpLevels.onclick = () => modalHelpLevels.close();
+closeButtonHelpLevelsText.onclick = () => modalHelpLevels.close();
 
 openButtonHelpProfileTrack.onclick = () => modalHelpProfileTrack.showModal();
 closeButtonHelpProfileTrack.onclick = () => modalHelpProfileTrack.close();
