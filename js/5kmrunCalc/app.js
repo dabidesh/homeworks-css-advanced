@@ -381,6 +381,12 @@ const loadNoAlert = async () => {
       restHR.value = allDataObj.restHR;
       zoneId.value = allDataObj.zoneId;
     }
+    if (allDataObj.massaKg) {
+      massaKg.value = allDataObj.massaKg;
+    }
+    if (allDataObj.heightCm) {
+      heightCm.value = allDataObj.heightCm;
+    }
 
     updateAllByTimeAndDistance();
   }
