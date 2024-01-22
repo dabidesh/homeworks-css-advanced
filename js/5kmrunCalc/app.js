@@ -211,6 +211,44 @@ const setKgAchievement = (allSec) => {
   }
 };
 
+const setTimesByFantasyAge = () => {
+  let min, sec;
+  if (women.checked == true) {
+    [min, sec] = wo[1].WR.split(':');
+  } else {
+    [min, sec] = man[1].WR.split(':');
+  }
+
+  let allSec = Number(min) * 60 + Number(sec);
+
+  let ageSec = ((Number(achievementId.value) / 100) + 1) * allSec;
+
+  let [hh, mm, ss] = totalSecondsToHMS(ageSec);
+
+  age1014.value = `${hh}:${mm}:${ss}`;
+
+  let ageArray = [0, 0, 'age1519', 'age2024', 'age2529', 'age3034', 'age3539', 'age4044',
+    'age4549', 'age5054', 'age5559', 'age6064', 'age6569', 'age7074', 'age7579', 'age8084',
+    'age8589', 'age90'];
+
+  for (let i = 2; i <= 17; i++) {
+
+    if (women.checked == true) {
+      [min, sec] = wo[i].WR.split(':');
+    } else {
+      [min, sec] = man[i].WR.split(':');
+    }
+
+    allSec = Number(min) * 60 + Number(sec);
+
+    ageSec = ((Number(achievementId.value) / 100) + 1) * allSec;
+
+    [hh, mm, ss] = totalSecondsToHMS(ageSec);
+
+    eval(`${ageArray[i]}.value = '${hh}:${mm}:${ss}';`);
+  }
+};
+
 const updateAllByTimeAndDistance = async (flag) => {
   if (flag == undefined) {
     flag = {};
@@ -324,6 +362,7 @@ const updateAllByTimeAndDistance = async (flag) => {
 
   setLevel(secAllOnFlat, +(ageId.value));
   setKgAchievement(secAllOnFlat);
+  setTimesByFantasyAge();
 };
 
 loadId.onclick = (e) => {
@@ -666,6 +705,10 @@ closeButtonHelpProfileTrack.onclick = () => modalHelpProfileTrack.close();
 openButtonHelpPuls.onclick = () => modalHelpPuls.showModal();
 closeButtonHelpPuls.onclick = () => modalHelpPuls.close();
 closeButtonHelpPulsText.onclick = () => modalHelpPuls.close();
+
+openButtonAge.onclick = () => modalAge.showModal();
+closeButtonAge.onclick = () => modalAge.close();
+closeButtonAgeText.onclick = () => modalAge.close();
 
 const achievementArray =
   [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];

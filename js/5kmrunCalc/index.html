@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script defer src="app.js?v=10"></script>
+  <script defer src="app.js?v=14"></script>
   <title>Търчане с 5kmrun – калкулатор</title>
   <meta name="description" content="В помощ на бегач(к)ите от 5kmrun –
   време, трасета, възсрастова група, пол, темпо,
@@ -149,6 +149,7 @@
     <input id="levelId2" class="toLong" type="text" value="Среден" readonly /><br />
     <input id="achievementKgInfo" class="toLong" type="text" value="" readonly /><br />
     <input id="achievementKg" class="toLong" type="text" value="" readonly /><br />
+    <button id="openButtonAge" type="button">Ако беше друга възраст</button><br />
     <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк.
     <button id="openButtonHelpProfileTrack" class="help" type="button">?</button><br />
     <input id="realFlatDistId" class="long" type="number" value="5626" step="1" /> м равна писта<br />
@@ -354,6 +355,28 @@
       <li>Работен = Резерв * (Зона)/100 + (Пулс в покой)</li>
     </ul>
     <button id="closeButtonHelpPulsText" type="button">X Затвори</button>
+  </dialog>
+  <dialog id="modalAge">
+    <button id="closeButtonAge" type="button">X</button>
+    <h2>Ако беше друга възраст</h2>
+    <input id="age1014" class="long" type="text" value="" readonly /> 10÷14<br />
+    <input id="age1519" class="long" type="text" value="" readonly /> 15÷19<br />
+    <input id="age2024" class="long" type="text" value="" readonly /> 20÷24<br />
+    <input id="age2529" class="long" type="text" value="" readonly /> 25÷29<br />
+    <input id="age3034" class="long" type="text" value="" readonly /> 30÷34<br />
+    <input id="age3539" class="long" type="text" value="" readonly /> 35÷39<br />
+    <input id="age4044" class="long" type="text" value="" readonly /> 40÷44<br />
+    <input id="age4549" class="long" type="text" value="" readonly /> 45÷49<br />
+    <input id="age5054" class="long" type="text" value="" readonly /> 50÷54<br />
+    <input id="age5559" class="long" type="text" value="" readonly /> 55÷59<br />
+    <input id="age6064" class="long" type="text" value="" readonly /> 60÷64<br />
+    <input id="age6569" class="long" type="text" value="" readonly /> 65÷69<br />
+    <input id="age7074" class="long" type="text" value="" readonly /> 70÷74<br />
+    <input id="age7579" class="long" type="text" value="" readonly /> 75÷79<br />
+    <input id="age8084" class="long" type="text" value="" readonly /> 80÷84<br />
+    <input id="age8589" class="long" type="text" value="" readonly /> 85÷89<br />
+    <input id="age90" class="long" type="text" value="" readonly /> 90÷∞<br /><br />
+    <button id="closeButtonAgeText" type="button">X Затвори</button>
   </dialog>
 </body>
 
