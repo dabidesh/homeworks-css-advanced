@@ -43,6 +43,8 @@ const updateAgeAchievement = (groupIndex) => {
     (+secTime.value);
 
   achievementId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
+
+  return (allSecWR / allSecTemp);
 };
 
 const updateAgeAchievementMax = (groupIndex, secAllOnFlat) => {
@@ -221,7 +223,9 @@ const setTimesByFantasyAge = () => {
 
   let allSec = Number(min) * 60 + Number(sec);
 
-  let ageSec = ((Number(achievementId.value) / 100) + 1) * allSec;
+  let ageAchievement = updateAgeAchievement(+(ageId.value));
+
+  let ageSec = ((ageAchievement) + 1) * allSec;
 
   let [hh, mm, ss] = totalSecondsToHMS(ageSec);
 
@@ -241,7 +245,7 @@ const setTimesByFantasyAge = () => {
 
     allSec = Number(min) * 60 + Number(sec);
 
-    ageSec = ((Number(achievementId.value) / 100) + 1) * allSec;
+    ageSec = (((ageAchievement + 1) * 100) * allSec) / 100;
 
     [hh, mm, ss] = totalSecondsToHMS(ageSec);
 
