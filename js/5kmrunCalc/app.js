@@ -278,11 +278,10 @@ const updateAllByTimeAndDistance = async (flag) => {
     const temp = +km.value;
     m.value = (temp * (1000 / 3600)).toFixed(2);
     const secAll = ((1 / temp) * 3600);
-    [_, min.value, sec.value] = totalSecondsToHMS(secAll);
+    [hour.value, min.value, sec.value] = totalSecondsToHMS(secAll);
   }
 
   //console.log(+secTime.value);
-
 
   const secAllOnFlat =
     ((+hourTime.value) * 3600 + (+minTime.value) * 60 + (+secTime.value)) *
@@ -505,9 +504,10 @@ helpPulsId.onclick = (e) => {
 };
 */
 // темпо
-min.onchange = sec.onchange =
+hour.onchange = hour.onkeyup =
+  min.onchange = sec.onchange =
   min.onkeyup = sec.onkeyup = () => {
-    const temp = (1 / ((+sec.value) / 60 + (+min.value))) * 60;
+    const temp = (1 / ((+sec.value) / 60 + (+min.value) + (+hour.value) * 60)) * 60;
     km.value = temp.toFixed(2);
     m.value = (temp * (1000 / 3600)).toFixed(2);
 
