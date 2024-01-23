@@ -215,27 +215,14 @@ const setKgAchievement = (allSec) => {
 
 const setTimesByFantasyAge = () => {
   let min, sec;
-  if (women.checked == true) {
-    [min, sec] = wo[1].WR.split(':');
-  } else {
-    [min, sec] = man[1].WR.split(':');
-  }
-
-  let allSec = Number(min) * 60 + Number(sec);
 
   let ageAchievement = updateAgeAchievement(+(ageId.value));
 
-  let ageSec = ((ageAchievement) + 1) * allSec;
+  let ageArray = [0, 'age1014', 'age1519', 'age2024', 'age2529', 'age3034', 'age3539',
+    'age4044', 'age4549', 'age5054', 'age5559', 'age6064', 'age6569', 'age7074', 'age7579',
+    'age8084', 'age8589', 'age90'];
 
-  let [hh, mm, ss] = totalSecondsToHMS(ageSec);
-
-  age1014.value = `${hh}:${mm}:${ss}`;
-
-  let ageArray = [0, 0, 'age1519', 'age2024', 'age2529', 'age3034', 'age3539', 'age4044',
-    'age4549', 'age5054', 'age5559', 'age6064', 'age6569', 'age7074', 'age7579', 'age8084',
-    'age8589', 'age90'];
-
-  for (let i = 2; i <= 17; i++) {
+  for (let i = 1; i <= 17; i++) {
 
     if (women.checked == true) {
       [min, sec] = wo[i].WR.split(':');
@@ -245,7 +232,7 @@ const setTimesByFantasyAge = () => {
 
     allSec = Number(min) * 60 + Number(sec);
 
-    ageSec = (((ageAchievement + 1) * 100) * allSec) / 100;
+    ageSec = (((ageAchievement + 1) * 1000000) * allSec) / 1000000;
 
     [hh, mm, ss] = totalSecondsToHMS(ageSec);
 
