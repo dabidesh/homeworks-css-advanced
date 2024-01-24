@@ -232,7 +232,7 @@ const setTimesByFantasyAge = () => {
 
     allSec = Number(min) * 60 + Number(sec);
 
-    ageSec = (((ageAchievement + 1) * 1000000) * allSec) / 1000000;
+    ageSec = (allSec / ageAchievement);
 
     [hh, mm, ss] = totalSecondsToHMS(ageSec);
 
