@@ -154,11 +154,11 @@ const setLevel = (allSec, groupIndex) => {
   } else if (allSec > allSecIntermediate) {
     levelId.value = 'Новак/чка,';
     levelId2.value =
-      `${Math.round(allSec - allSecIntermediate)} с до „среден/а“!`;
+      `${Math.round(allSec - allSecIntermediate)} с до „среден/на“!`;
     percentFastestId.value =
       `${str0}${((30 - tempSec1 * 30) + 20).toFixed(2)}%!`;
   } else if (allSec > allSecAdvanced) {
-    levelId.value = 'Среден/а,';
+    levelId.value = 'Среден/на,';
     levelId2.value =
       `${Math.round(allSec - allSecAdvanced)} с до „напр.“!`;
     percentFastestId.value =
@@ -166,11 +166,11 @@ const setLevel = (allSec, groupIndex) => {
   } else if (allSec > allSecElite) {
     levelId.value = 'Напреднал/а,';
     levelId2.value =
-      `${Math.round(allSec - allSecElite)} с до „елитен/а“!`;
+      `${Math.round(allSec - allSecElite)} с до „елитен/на“!`;
     percentFastestId.value =
       `${str0}${((15 - tempSec3 * 15) + 80).toFixed(2)}%!`;
   } else if (allSec > allSecWR) {
-    levelId.value = 'Елитен/а,';
+    levelId.value = 'Елитен/на,';
     levelId2.value = `${Math.round(allSec - allSecWR)} с до св. р.!`;
     percentFastestId.value =
       `${str0}${((5 - tempSec4 * 5) + 95).toFixed(2)}%!`;
