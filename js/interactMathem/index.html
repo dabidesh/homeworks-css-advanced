@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+  <meta charset="UTF-8" />
+  <script defer src="app.js?v=0"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Фундаменти в математиката</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #eee;
+    }
+
+    input,
+    button {
+      background-color: #333;
+      color: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Фундаменти в математиката</h1>
+    <h2>Бройни системи</h2>
+    <h3>Двоична в десетична</h3>
+    <p>Случайно двоично: <input type="number" id="randomBinId" readonly /><button type="button" id="getRandomBin">Дай
+        друго!</button></p>
+    <p><button type="button" id="restoreCopy">Възтанови</button> копието!</p>
+    <p>Трийте цифри за по-лесна работа: <input type="number" id="randomBinEditableCopyId" /></p>
+    <p><button type="button" id="getDigitsButton">Сложи</button> цифрите в отделни клетки (слага се минус)</p>
+    <p id="digitsIdp"></p>
+    <ol>
+      <li>Пребройте позициите: <input type="number" id="positionsId" />
+        <button type="button" id="generateElementsAndPositions">Нататък!</button>
+        <p id="corectPositionsId" class="ok"></p>
+        <p id="inCorectPositionsId" class="err"></p>
+      </li>
+      <li>Попълнете цифрите и позициите (цифра<sup>позиция</sup>)(печелиш плюс, ако позициите са поредни):</li>
+      <p id="elementsAndPositionsId"></p>
+      <li>Напишете израза (* – умножение, ^ – степенуване): <input type="string" id="expressionBinToDecId" /><button
+          type="button" id="verifyBinToDecButton">Готово!</button></li>
+    </ol>
+  </main>
+</body>
+
+</html>
