@@ -6,22 +6,39 @@ let randomBinArray = [];
 let expressionBinToDec = '';
 let collectableArrayBinToDec = [];
 
-generateElementsAndPositions.onclick = () => {
-  let positions = Number(positionsId.value);
-  for (let i = 0; i < positions; i++) {
-    inputElement = document.createElement('input');
-    elementsAndPositionsId.appendChild(inputElement);
-    inputElement.type = 'number';
-    inputElement.id = 'elementNumber' + i.toString();
-    supElement = document.createElement('sup');
-    elementsAndPositionsId.appendChild(supElement);
-    inputElement = document.createElement('input');
-    supElement.appendChild(inputElement);
-    inputElement.type = 'number';
-    inputElement.id = 'position' + i.toString();
+positionsId.onchange = positionsId.onkeyup =
+  generateElementsAndPositions.onclick = () => {
+    let positions = Number(positionsId.value);
+    if (randomBinString.length !== positions) {
+      elementsAndPositionsId.innerHTML = '';
+      messageInCorrectPositionsId.innerText = '';
+      messageCorrectPositionsId.style.display = 'none';
+      messageInCorrectPositionsId.style.display = 'block';
+      const node = document.createTextNode('Грешка!');
+      messageInCorrectPositionsId.appendChild(node);
+      return;
+    }
 
-  }
-};
+    messageCorrectPositionsId.innerText = '';
+    messageCorrectPositionsId.style.display = 'block';
+    messageInCorrectPositionsId.style.display = 'none';
+    const node = document.createTextNode('Правилно!');
+    messageCorrectPositionsId.appendChild(node);
+
+    elementsAndPositionsId.innerHTML = '';
+    for (let i = 0; i < positions; i++) {
+      inputElement = document.createElement('input');
+      elementsAndPositionsId.appendChild(inputElement);
+      inputElement.type = 'number';
+      inputElement.id = 'elementNumber' + i.toString();
+      supElement = document.createElement('sup');
+      elementsAndPositionsId.appendChild(supElement);
+      inputElement = document.createElement('input');
+      supElement.appendChild(inputElement);
+      inputElement.type = 'number';
+      inputElement.id = 'position' + i.toString();
+    }
+  };
 
 getDigitsButton.onclick = () => {
   for (let i = 0; i < randomBinString.length; i++) {
@@ -57,6 +74,7 @@ getRandomBin.onclick = () => {
   restoreCopy.click();
   let exp = start();
   p('exp:', exp);
+  document.querySelector('.display-none').style.display = 'none';
 };
 
 restoreCopy.onclick = () => {

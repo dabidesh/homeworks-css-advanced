@@ -18,6 +18,19 @@
       background-color: #333;
       color: #ddd;
     }
+
+    .ok,
+    .err {
+      display: none;
+    }
+
+    .err {
+      color: red;
+    }
+
+    .ok {
+      color: green;
+    }
   </style>
 </head>
 
@@ -26,8 +39,9 @@
     <h1>Фундаменти в математиката</h1>
     <h2>Бройни системи</h2>
     <h3>Двоична в десетична</h3>
-    <p>Случайно двоично: <input type="number" id="randomBinId" readonly /><button type="button" id="getRandomBin">Дай
-        друго!</button></p>
+    <p>Случайно двоично: <input type="number" id="randomBinId" readonly />
+      <button type="button" id="getRandomBin">Дай друго!</button>
+    </p>
     <p><button type="button" id="restoreCopy">Възтанови</button> копието!</p>
     <p>Трийте цифри за по-лесна работа: <input type="number" id="randomBinEditableCopyId" /></p>
     <p><button type="button" id="getDigitsButton">Сложи</button> цифрите в отделни клетки (слага се минус)</p>
@@ -35,13 +49,15 @@
     <ol>
       <li>Пребройте позициите: <input type="number" id="positionsId" />
         <button type="button" id="generateElementsAndPositions">Нататък!</button>
-        <p id="corectPositionsId" class="ok"></p>
-        <p id="inCorectPositionsId" class="err"></p>
+        <p id="messageCorrectPositionsId" class="ok display-none"></p>
+        <p id="messageInCorrectPositionsId" class="err display-none"></p>
       </li>
       <li>Попълнете цифрите и позициите (цифра<sup>позиция</sup>)(печелиш плюс, ако позициите са поредни):</li>
-      <p id="elementsAndPositionsId"></p>
-      <li>Напишете израза (* – умножение, ^ – степенуване): <input type="string" id="expressionBinToDecId" /><button
-          type="button" id="verifyBinToDecButton">Готово!</button></li>
+      <p id="elementsAndPositionsId" class="display-none"></p>
+      <li>Напишете израза (* – умножение, ^ – степенуване):
+        <input type="string" id="expressionBinToDecId" />
+        <button type="button" id="verifyBinToDecButton">Готово!</button>
+      </li>
     </ol>
   </main>
 </body>
