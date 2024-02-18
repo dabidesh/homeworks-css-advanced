@@ -70,11 +70,11 @@ window.onload = start = () => {
 };
 
 getRandomBin.onclick = () => {
-  randomBinId.value = parseInt(Math.random() * 0xffff).toString(2);
+  randomBinId.value = parseInt(Math.random() * MAX_BIN).toString(2);
   restoreCopy.click();
-  let exp = start();
-  p('exp:', exp);
-  document.querySelector('.display-none').style.display = 'none';
+  start();
+  let elP = document.querySelectorAll('.display-none');
+  elP.forEach(e => e.style.display = 'none');
 };
 
 restoreCopy.onclick = () => {
