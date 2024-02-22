@@ -32,10 +32,6 @@
     }
   }
 
-  let colNoElements = colAchievement.map(function (i) {
-    return i == 'Няма' ? '-' : parseFloat(i);
-  });
-
   let colNumbers = colAchievement.map(function (i) {
     return i == 'Няма' ? 0 : parseFloat(i);
   });
