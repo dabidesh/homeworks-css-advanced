@@ -41,9 +41,11 @@ positionsId.onchange = positionsId.onkeyup =
       inputElement.type = 'number';
       inputElement.id = 'position' + i.toString();
     }
+    elementsAndPositionsId.style.display = 'block';
   };
 
 getDigitsButton.onclick = () => {
+  digitsIdp.innerHTML = '';
   for (let i = 0; i < randomBinString.length; i++) {
     inputElement = document.createElement('input');
     digitsIdp.appendChild(inputElement);
@@ -51,6 +53,7 @@ getDigitsButton.onclick = () => {
     inputElement.type = 'number';
     inputElement.value = randomBinArray[i];
   }
+  digitsIdp.style.display = 'block';
 };
 
 window.onload = start = () => {
@@ -79,6 +82,8 @@ getRandomBin.onclick = () => {
   start();
   let elP = document.querySelectorAll('.display-none');
   elP.forEach(e => e.style.display = 'none');
+  positionsId.value = '';
+  expressionBinToDecId.value = '';
 };
 
 restoreCopy.onclick = () => {
