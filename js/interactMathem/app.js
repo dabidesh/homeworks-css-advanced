@@ -2,7 +2,10 @@
 let p = console.log;
 const MAX_BIN = 0xf;
 let randomBinString;
+let len;
 let randomBinArray = [];
+let digitsBinArray = [];
+let positionsBinArray = [];
 let expressionBinToDec = '';
 let collectableArrayBinToDec = [];
 
@@ -53,12 +56,12 @@ getDigitsButton.onclick = () => {
 window.onload = start = () => {
   randomBinString = randomBinId.value = parseInt(Math.random() * MAX_BIN).toString(2);
   restoreCopy.click();
-  let len = randomBinString.length;
+  len = randomBinString.length;
   for (let i = 0; i < len; i++) {
     randomBinArray[i] = randomBinString[i];
+    digitsBinArray[i] = Number(randomBinString[i]);
+    positionsBinArray[i] = len - 1 - i;
   }
-
-  console.log(randomBinArray);
 
   for (let i = 0, j = len - 1; i < len; i++, j--) {
     expressionBinToDec += `${randomBinString[i]}*2^${j}+`;
@@ -66,6 +69,7 @@ window.onload = start = () => {
   expressionBinToDec = expressionBinToDec.substring(0, expressionBinToDec.length - 1);
   collectableArrayBinToDec = expressionBinToDec.split('+');
   p(expressionBinToDec, collectableArrayBinToDec);
+  p(digitsBinArray, positionsBinArray);
   return expressionBinToDec;
 };
 
@@ -80,6 +84,61 @@ getRandomBin.onclick = () => {
 restoreCopy.onclick = () => {
   randomBinEditableCopyId.value = randomBinId.value;
 };
+
+elementsAndPositionsId.onkeyup =
+  elementsAndPositionsId.onchange = () => {
+    let countMatching = 0;
+    let countErrors = 0;
+    let matchingArray = [];
+    for (let i = 0; i < len; i++) {
+      matchingArray[i] = 0;
+    }
+    for (let i = 0; i < len; i++) {
+      let digit = eval(`elementNumber${i}.value`);
+      let position = eval(`position${i}.value`);
+      p('dp', digit, position);
+      if (digit == undefined || digit == '') {
+        digit = 2;
+      } else {
+        digit = Number(digit);
+      }
+      if (position == undefined || position == '') {
+        position = 666;
+      } else {
+        position = Number(position);
+      }
+      let indexPosition = positionsBinArray.indexOf(position);
+      if (indexPosition != -1) {
+        if (digit == digitsBinArray[indexPosition]) {
+          // have matching?
+          matchingArray[indexPosition]++;
+          if (matchingArray[indexPosition] == 1) {
+            countMatching++;
+          } else {
+            countErrors++;
+          }
+        } else {
+          countErrors++;
+        }
+      } else {
+        countErrors++;
+      }
+      p(countErrors, countMatching, len);
+    }
+    if (countMatching == len) {
+      messageCorrectMatchingId.innerText = '';
+      messageCorrectMatchingId.style.display = 'block';
+      messageInCorrectMatchingId.style.display = 'none';
+      const node = document.createTextNode('Правилно!');
+      messageCorrectMatchingId.appendChild(node);
+    } else {
+      messageInCorrectMatchingId.innerText = '';
+      messageCorrectMatchingId.style.display = 'none';
+      messageInCorrectMatchingId.style.display = 'block';
+      const node = document.createTextNode(`${countErrors} грешки!`);
+      messageInCorrectMatchingId.appendChild(node);
+    }
+  };
 
 //expressionBinToDecId.onchange =
 verifyBinToDecButton.onclick = () => {
