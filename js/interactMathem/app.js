@@ -101,7 +101,6 @@ elementsAndPositionsId.onkeyup =
     for (let i = 0; i < len; i++) {
       let digit = eval(`elementNumber${i}.value`);
       let position = eval(`position${i}.value`);
-      p('dp', digit, position);
       if (digit == undefined || digit == '') {
         digit = 2;
       } else {
@@ -128,7 +127,6 @@ elementsAndPositionsId.onkeyup =
       } else {
         countErrors++;
       }
-      p(countErrors, countMatching, len);
     }
     if (countMatching == len) {
       messageCorrectMatchingId.innerText = '';
@@ -145,14 +143,50 @@ elementsAndPositionsId.onkeyup =
     }
   };
 
-//expressionBinToDecId.onchange =
-verifyBinToDecButton.onclick = () => {
-  let str = expressionBinToDecId.value;
-  str = str.split('').filter(e => e != ' ').join('');
-  if (str == expressionBinToDec) {
-    p('Да!');
-  } else {
-    p('Не!');
-  }
-  p(str);
-};
+verifyBinToDecButton.onclick =
+  expressionBinToDecId.onchange =
+  expressionBinToDecId.onkeyup = () => {
+    let str = expressionBinToDecId.value;
+    let arr = str.split('').filter(e => e != ' ').join('').split('+');
+    let countMatching = 0;
+    let countErrors = 0;
+    let matchingArray = [];
+    for (let i = 0; i < len; i++) {
+      matchingArray[i] = 0;
+    }
+    for (let i = 0; i < len; i++) {
+      let collectable = arr[i];
+      let index = collectableArrayBinToDec.indexOf(collectable);
+      if (index != -1) {
+        matchingArray[index]++;
+        if (matchingArray[index] == 1) {
+          countMatching++;
+        } else {
+          countErrors++;
+        }
+      } else {
+        countErrors++;
+      }
+    }
+    if (countMatching == len) {
+      messageCorrectExpressionId.innerText = '';
+      messageCorrectExpressionId.style.display = 'block';
+      messageInCorrectExpressionId.style.display = 'none';
+      const node = document.createTextNode('Правилно!');
+      messageCorrectExpressionId.appendChild(node);
+    } else {
+      messageInCorrectExpressionId.innerText = '';
+      messageCorrectExpressionId.style.display = 'none';
+      messageInCorrectExpressionId.style.display = 'block';
+      const node = document.createTextNode(`${countErrors} грешки!`);
+      messageInCorrectExpressionId.appendChild(node);
+    }
+
+    /* str = str.split('').filter(e => e != ' ').join('');
+    if (str == expressionBinToDec) {
+      p('Да!');
+    } else {
+      p('Не!');
+    }
+    p(str); */
+  };
