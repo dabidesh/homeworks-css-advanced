@@ -52,6 +52,7 @@ getDigitsButton.onclick = () => {
     inputElement.id = 'elementDigit' + i.toString();
     inputElement.type = 'number';
     inputElement.value = randomBinArray[i];
+    inputElement.setAttribute('readonly', '');
   }
   digitsIdp.style.display = 'block';
 };
