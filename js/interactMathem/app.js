@@ -81,6 +81,10 @@ window.onload = start = () => {
 getRandomBin.onclick = () => {
   randomBinId.value = parseInt(Math.random() * MAX_BIN).toString(2);
   restoreCopy.click();
+  digitsBinArray = [];
+  positionsBinArray = [];
+  expressionBinToDec = '';
+  collectableArrayBinToDec = [];
   start();
   let elP = document.querySelectorAll('.display-none');
   elP.forEach(e => e.style.display = 'none');
