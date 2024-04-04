@@ -58,6 +58,7 @@ getDigitsButton.onclick = () => {
 };
 
 window.onload = start = () => {
+  general();
   randomBinString = randomBinId.value = parseInt(Math.random() * MAX_BIN).toString(2);
   restoreCopy.click();
   len = randomBinString.length;

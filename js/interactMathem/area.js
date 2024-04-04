@@ -39,5 +39,8 @@ getCoordinates.onclick = () => {
     );
   }
   p(area);
+};
 
+window.onload = () => {
+  general();
 };
