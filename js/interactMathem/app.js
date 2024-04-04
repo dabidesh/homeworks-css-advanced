@@ -31,12 +31,14 @@ positionsId.onchange = positionsId.onkeyup =
     elementsAndPositionsId.innerHTML = '';
     for (let i = 0; i < positions; i++) {
       inputElement = document.createElement('input');
+      inputElement.style.width = inputElement.value.length + 2 + 'ch';
       elementsAndPositionsId.appendChild(inputElement);
       inputElement.type = 'number';
       inputElement.id = 'elementNumber' + i.toString();
       supElement = document.createElement('sup');
       elementsAndPositionsId.appendChild(supElement);
       inputElement = document.createElement('input');
+      inputElement.style.width = inputElement.value.length + 2 + 'ch';
       supElement.appendChild(inputElement);
       inputElement.type = 'number';
       inputElement.id = 'position' + i.toString();
@@ -53,6 +55,7 @@ getDigitsButton.onclick = () => {
     inputElement.type = 'number';
     inputElement.value = randomBinArray[i];
     inputElement.setAttribute('readonly', '');
+    inputElement.style.width = inputElement.value.length + 2 + 'ch';
   }
   digitsIdp.style.display = 'block';
 };
@@ -60,6 +63,7 @@ getDigitsButton.onclick = () => {
 window.onload = start = () => {
   general();
   randomBinString = randomBinId.value = parseInt(Math.random() * MAX_BIN).toString(2);
+  randomBinId.style.width = randomBinId.value.length + 2 + 'ch';
   restoreCopy.click();
   len = randomBinString.length;
   for (let i = 0; i < len; i++) {
@@ -80,6 +84,7 @@ window.onload = start = () => {
 
 getRandomBin.onclick = () => {
   randomBinId.value = parseInt(Math.random() * MAX_BIN).toString(2);
+  randomBinId.style.width = randomBinId.value.length + 2 + 'ch';
   restoreCopy.click();
   digitsBinArray = [];
   positionsBinArray = [];
@@ -97,7 +102,8 @@ restoreCopy.onclick = () => {
 };
 
 elementsAndPositionsId.onkeyup =
-  elementsAndPositionsId.onchange = () => {
+  elementsAndPositionsId.onchange = (e) => {
+    e.target.style.width = e.target.value.length + 2 + 'ch';
     let countMatching = 0;
     let countErrors = 0;
     let matchingArray = [];
@@ -152,6 +158,7 @@ elementsAndPositionsId.onkeyup =
 verifyBinToDecButton.onclick =
   expressionBinToDecId.onchange =
   expressionBinToDecId.onkeyup = () => {
+    expressionBinToDecId.style.width = expressionBinToDecId.value.length + 6 + 'ch';
     let str = expressionBinToDecId.value;
     let arr = str.split('').filter(e => e != ' ').join('').split('+');
     let countMatching = 0;
