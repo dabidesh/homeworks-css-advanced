@@ -1,5 +1,6 @@
 function general() {
-  html = `<a href="/">numbers</a> || <a href="area.html">area</a> ||
-    <a href="complex.html">complex</a> `;
+  html = `<a href="/">бр. системи</a> || <a href="area.html">площ</a> ||
+    <a href="complex.html">компл.</a> ||
+    <a href="stat.html">стат.</a>`;
   links.innerHTML = html;
 };
