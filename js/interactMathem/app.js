@@ -7,7 +7,9 @@ let randomBinArray = [];
 let digitsBinArray = [];
 let positionsBinArray = [];
 let expressionBinToDec = '';
+let expressionBinToDecForJsEval = '';
 let collectableArrayBinToDec = [];
+let finalResultDec;
 
 positionsId.onchange = positionsId.onkeyup =
   generateElementsAndPositions.onclick = () => {
@@ -74,11 +76,17 @@ window.onload = start = () => {
 
   for (let i = 0, j = len - 1; i < len; i++, j--) {
     expressionBinToDec += `${randomBinString[i]}*2^${j}+`;
+    expressionBinToDecForJsEval += `${randomBinString[i]}*Math.pow(2, ${j})+`;
   }
   expressionBinToDec = expressionBinToDec.substring(0, expressionBinToDec.length - 1);
+  expressionBinToDecForJsEval = expressionBinToDecForJsEval.substring(0,
+    expressionBinToDecForJsEval.length - 1);
   collectableArrayBinToDec = expressionBinToDec.split('+');
   p(expressionBinToDec, collectableArrayBinToDec);
   p(digitsBinArray, positionsBinArray);
+  p(`forEval: ${expressionBinToDecForJsEval}`);
+  finalResultDec = eval(expressionBinToDecForJsEval);
+  p(finalResultDec);
   return expressionBinToDec;
 };
 
@@ -89,6 +97,7 @@ getRandomBin.onclick = () => {
   digitsBinArray = [];
   positionsBinArray = [];
   expressionBinToDec = '';
+  expressionBinToDecForJsEval = '';
   collectableArrayBinToDec = [];
   start();
   let elP = document.querySelectorAll('.display-none');
