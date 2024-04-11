@@ -1,0 +1,21 @@
+{
+  "name": "simple-site-3",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo 'Error: no test specified' && exit 666"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "NONE",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2"
+  },
+  "devDependencies": {
+    "jshint": "^2.13.4",
+    "nodemon": "^2.0.15"
+  }
+}

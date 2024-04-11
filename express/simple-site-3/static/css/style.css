@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Amaranth|Courgette');
+
+body {
+  margin: 10px;
+  padding: 0;
+  background-color: #111;
+  color: #fff;
+}
+
+* {
+  font-family: Amaranth;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+  background-color: #fff;
+}
+
+.active {
+  color: #fff;
+  background-color: blue;
+}
