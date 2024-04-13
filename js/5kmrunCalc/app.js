@@ -570,6 +570,7 @@ women.onchange = () => {
 
 achievementId.onchange = achievementId.onkeyup =
   () => {
+    achievementId.setAttribute('readonly', '');
     setTimeByAgeAchievement(+ageId.value);
 
     const timeHours = +secTime.value / 3600 + (+minTime.value) / 60 +
@@ -589,6 +590,7 @@ achievementId.onchange = achievementId.onkeyup =
     flatTimeId.value = `${hh}:${mm}:${ss}`;
 
     updateAllByTimeAndDistance({ achievement: false });
+    achievementId.removeAttribute('readonly');
   };
 
 const sleepDeep = ms => {
