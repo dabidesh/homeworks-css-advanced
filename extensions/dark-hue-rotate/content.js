@@ -78,7 +78,8 @@ const switchStyle = () => {
   }
 };
 
-vButton.onclick = () => {
+vButton.onclick = (e) => {
+  e.preventDefault();
   rangeDiv.style.display = 'block';
   switchStyle();
 };
@@ -92,7 +93,7 @@ window.onclick = (event) => {
   const element = event.target;
   if (element.id != 'videoId' && element.id != 'rangeDiv' &&
     element.id != 'rangeHueRotate' && element.id != 'plusId' && element.id != 'minusId' &&
-    element.id != 'plusId' && element.id != 'xId') {
+    element.id != 'plusId' && element.id != 'xId' && element.id != 'vButton') {
     rangeDiv.style.display = 'none';
   }
 };
