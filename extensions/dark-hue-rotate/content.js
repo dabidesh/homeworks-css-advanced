@@ -75,6 +75,8 @@ const switchStyle = () => {
   } else {
     style.remove();
     flag = false;
+    //document.querySelector('html.r666').style =
+    //'filter: invert(0) contrast(0) hue-rotate(0)';
   }
 };
 
