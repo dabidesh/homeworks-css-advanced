@@ -9,6 +9,10 @@
       ],
       "js": [
         "content.js"
+      ],
+      "exclude_matches": [
+        "*://*.replit.com/*",
+        "*://*.google.com/*"
       ]
     }
   ]
