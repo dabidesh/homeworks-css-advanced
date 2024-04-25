@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>OpenLayers Map Center</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      flex-grow: 1;
+    }
+
+    #inputs {
+      padding: 10px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.4.3/css/ol.css"
+    type="text/css">
+</head>
+
+<body>
+  <div id="inputs">
+    <label for="longitude">Longitude:</label>
+    <input type="number" id="longitude" name="longitude" step="any">
+    <label for="latitude">Latitude:</label>
+    <input type="number" id="latitude" name="latitude" step="any">
+    <label for="altitude">Altitude:</label>
+    <input type="number" id="altitude" name="altitude" step="any">
+    <button id="updateButton">Update Map</button>
+  </div>
+  <div id="map"></div>
+  <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.4.3/build/ol.js"></script>
+  <script src="main-cdn.js"></script>
+</body>
+
+</html>
