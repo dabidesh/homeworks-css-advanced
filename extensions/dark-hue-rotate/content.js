@@ -1,13 +1,15 @@
 let flag = false;
 
 let css = `
-html {
+*:not(img):not(canvas):not(figure),
+*:not(img):not(canvas):not(figure)::before,
+*:not(img):not(canvas):not(figure)::after {
     filter: invert(98%) contrast(90%) hue-rotate(100deg);
 }
-body {
+/*body {
     background-color: #ddd;
     color: #111;
-}
+}*/
 `;
 const html = `
   <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
