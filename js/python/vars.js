@@ -2,6 +2,7 @@
 let p = console.log;
 
 vars.onchange = () => {
+//vars.onclick = () => {
 
   let str = vars.value
     .trim()
@@ -15,6 +16,8 @@ vars.onchange = () => {
   out.value = str;
 
   p(str);
+
+  copyE();
 };
 
 document.querySelector('button').addEventListener('click', () => {
@@ -28,5 +31,19 @@ const copyE = () => {
   }, function (err) {
     console.error('Could not copy text: ', err);
   });
-
 };
+
+clear.onclick = () => {
+  vars.value = '';
+  out.value = '';
+}
+
+py.onclick = () => {
+  out.value = out.value + '.py';
+  copyE();
+}
+
+nulli.onclick = () => {
+  out.value = out.value + ' = 0';
+  copyE();
+}

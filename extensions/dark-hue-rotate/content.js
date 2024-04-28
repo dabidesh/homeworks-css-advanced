@@ -1,15 +1,16 @@
 let flag = false;
 
 let css = `
-*:not(img):not(canvas):not(figure),
+/* *:not(img):not(canvas):not(figure),
 *:not(img):not(canvas):not(figure)::before,
-*:not(img):not(canvas):not(figure)::after {
+*:not(img):not(canvas):not(figure)::after { */
+html {
     filter: invert(98%) contrast(90%) hue-rotate(100deg);
 }
-/*body {
+body {
     background-color: #ddd;
     color: #111;
-}*/
+}
 `;
 const html = `
   <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
@@ -33,7 +34,7 @@ const html = `
   `;
 const styleBbDiv = `
   #videoId {
-    position: fixed;
+    position: fixed !important;
     left: 10px;
     top: 60px;
     opacity: 0.8;
