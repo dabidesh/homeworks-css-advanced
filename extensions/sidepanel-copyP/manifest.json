@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "copyP",
+  "version": "0.0.1",
+  "description": "Clipboard Menager copyP",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "permissions": ["sidePanel", "activeTab"]
+}
