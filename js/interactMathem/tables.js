@@ -53,7 +53,27 @@ getTable.onclick = () => {
     }
   }
 
-  let matrixString = matrix.map(row => row.join('  ')).join('\n');  //\t
+  // Намиране на максималната дължина за всяка колона
+  let maxLengths = new Array(p).fill(0);
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < p; j++) {
+      if (matrix[i][j].length > maxLengths[j]) {
+        maxLengths[j] = matrix[i][j].length;
+      }
+    }
+  }
+
+  // Допълване на елементите с интервали до максималната дължина
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < p; j++) {
+      while (matrix[i][j].length < maxLengths[j]) {
+        matrix[i][j] += ' ';
+      }
+    }
+  }
+
+  let matrixString = matrix.map(row => row.join('  ')).join('\n');
   outTable.value = matrixString;
   autoResize.call(outTable);
+
 };
