@@ -4,7 +4,7 @@ let css = `
 /* *:not(img):not(canvas):not(figure),
 *:not(img):not(canvas):not(figure)::before,
 *:not(img):not(canvas):not(figure)::after { */
-html {
+html, video {
     filter: invert(98%) contrast(90%) hue-rotate(100deg);
 }
 body {
@@ -86,6 +86,11 @@ const switchStyle = () => {
 vButton.onclick = (e) => {
   e.preventDefault();
   rangeDiv.style.display = 'block';
+  switchStyle();
+};
+
+window.oncontextmenu = (e) => {
+  //e.preventDefault();
   switchStyle();
 };
 
