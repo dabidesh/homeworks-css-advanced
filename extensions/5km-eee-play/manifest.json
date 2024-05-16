@@ -21,7 +21,8 @@
     },
     {
       "js": [
-        "scripts/5kmrun-age.js"
+        "scripts/5kmrun-age.js",
+        "scripts/fix-img.js"
       ],
       "matches": [
         "https://5kmrun.bg/5kmrun/result/*"
