@@ -61,7 +61,7 @@ const updateAgeAchievementMax = (groupIndex, secAllOnFlat) => {
   achievementMaxId.value = ((allSecWR / allSecTemp) * 100).toFixed(2);
 };
 
-const setTimeByAgeAchievement = (groupIndex) => {
+const setTimeByAgeAchievement = async (groupIndex) => {
   let min, sec;
   if (women.checked == true) {
     [min, sec] = wo[groupIndex].WR.split(':');
@@ -241,9 +241,11 @@ const setTimesByFantasyAge = () => {
 };
 
 const updateAllByTimeAndDistance = async (flag) => {
+
   if (flag == undefined) {
     flag = {};
   }
+
   if (flag.realFlatDistId == undefined) {
     flag.realFlatDistId = true;
   }
@@ -569,9 +571,9 @@ women.onchange = () => {
 };
 
 achievementId.onchange = achievementId.onkeyup =
-  () => {
+  async () => {
     achievementId.setAttribute('readonly', '');
-    setTimeByAgeAchievement(+ageId.value);
+    await setTimeByAgeAchievement(+ageId.value);
 
     const timeHours = +secTime.value / 3600 + (+minTime.value) / 60 +
       (+hourTime.value);
@@ -589,7 +591,7 @@ achievementId.onchange = achievementId.onkeyup =
     const [hh, mm, ss] = totalSecondsToHMS(secAllOnFlat);
     flatTimeId.value = `${hh}:${mm}:${ss}`;
 
-    updateAllByTimeAndDistance({ achievement: false });
+    await updateAllByTimeAndDistance({ achievement: false });
     achievementId.removeAttribute('readonly');
   };
 
