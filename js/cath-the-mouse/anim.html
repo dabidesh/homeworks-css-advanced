@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     }
   </style>
 </head>
+
 <body>
   <img id="image" src="mouse.jpg" alt="Random Image">
 
@@ -23,13 +25,15 @@
     let dy = Math.random() * 10 - 5; // Random vertical speed between -5 and 5
 
     function animate() {
+
+      let speed = 2;
       // Update image position
       let r = Math.round(Math.random() * 5);
       if (r) x += dx;
-      else x-= dx;
+      else x -= dx;
       r = Math.round(Math.random() * 5);
       if (r) y += dy;
-      else y-= dy;
+      else y -= dy;
 
       // Reverse direction if image hits the edges
       if (x < 0 || x > window.innerWidth - image.width) {
@@ -45,10 +49,29 @@
 
       // Request the next animation frame
       requestAnimationFrame(animate);
+
+      // Add keyboard control
+      document.addEventListener('keydown', (event) => {
+        switch (event.code) {
+          case 'ArrowUp':
+            dy = -speed;
+            break;
+          case 'ArrowDown':
+            dy = speed;
+            break;
+          case 'ArrowLeft':
+            dx = -speed;
+            break;
+          case 'ArrowRight':
+            dx = speed;
+            break;
+        }
+      });
     }
 
     // Start the animation
     requestAnimationFrame(animate);
   </script>
 </body>
+
 </html>
