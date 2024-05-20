@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Image Animation</title>
+  <style>
+    #image {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <img id="image" src="mouse.jpg" alt="Random Image">
+
+  <script>
+    const image = document.getElementById('image');
+    let x = 0;
+    let y = 0;
+    let dx = Math.random() * 10 - 5; // Random horizontal speed between -5 and 5
+    let dy = Math.random() * 10 - 5; // Random vertical speed between -5 and 5
+
+    function animate() {
+      // Update image position
+      let r = Math.round(Math.random() * 5);
+      if (r) x += dx;
+      else x-= dx;
+      r = Math.round(Math.random() * 5);
+      if (r) y += dy;
+      else y-= dy;
+
+      // Reverse direction if image hits the edges
+      if (x < 0 || x > window.innerWidth - image.width) {
+        dx = -dx;
+      }
+      if (y < 0 || y > window.innerHeight - image.height) {
+        dy = -dy;
+      }
+
+      // Set the image position
+      image.style.left = `${x}px`;
+      image.style.top = `${y}px`;
+
+      // Request the next animation frame
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
