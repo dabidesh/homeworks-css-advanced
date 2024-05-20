@@ -572,6 +572,7 @@ women.onchange = () => {
 
 achievementId.onchange = achievementId.onkeyup =
   async () => {
+    //debugger;
     achievementId.setAttribute('readonly', '');
     await setTimeByAgeAchievement(+ageId.value);
 
