@@ -396,18 +396,63 @@ const loadNoAlert = async () => {
 
   const allDataObj = await JSON.parse(localStorage.getItem('allDataObj'));
 
-  if (allDataObj) {
-    hourTime.value = allDataObj.hourTime;
-    minTime.value = allDataObj.minTime;
-    secTime.value = allDataObj.secTime;
-    kmLengthId.value = allDataObj.kmLengthId;
-    elevId.value = allDataObj.elevId;
-    women.checked = allDataObj.women;
-    ageId.value = allDataObj.ageId;
-    // tmp
-    if (allDataObj.tracksId) {
-      tracksId.value = allDataObj.tracksId;
+  const params = new URLSearchParams(window.location.search);
+
+    if (params.has('time') || params.has('време')) {
+      const timeString = params.get('time') || params.get('време');
+      const timeArray = timeString.split(':');
+      const lenTime = timeArray.length;
+      if (lenTime == 3) {
+        hourTime.value = timeArray[0];
+        minTime.value = timeArray[1];
+        secTime.value = timeArray[2];
+      } else if (lenTime == 2){
+        hourTime.value = '00';
+        minTime.value = timeArray[0];
+        secTime.value = timeArray[1];
+      } else {
+        hourTime.value = '00';
+        minTime.value = timeArray[0];
+        secTime.value = '00';
+      }
+    } else if (allDataObj.hourTime) {
+      hourTime.value = allDataObj.hourTime;
+      minTime.value = allDataObj.minTime;
+      secTime.value = allDataObj.secTime;
+    } else {
+      hourTime.value = '00';
+      minTime.value = 23;
+      secTime.value = '00';
     }
+
+    //kmLengthId.value = allDataObj.kmLengthId;
+    if (allDataObj.elevId) {
+      elevId.value = allDataObj.elevId;
+    }
+    if (params.has('women') || params.has('жена')) {
+      women.checked = true;
+    } else if (allDataObj.women) {
+      women.checked = allDataObj.women;
+    }
+    if (params.has('age')) {
+      ageId.value = achievementArray.indexOf(Number(params.get('age')));
+    } else if (params.has('възраст')) {
+      ageId.value = achievementArray.indexOf(Number(params.get('възраст')));
+    } else if (allDataObj.ageId) {
+      ageId.value = allDataObj.ageId;
+    }
+
+    // tmp
+    if (params.has('track')) {
+      //debugger;
+      const trackString = params.get('track');
+      tracksId.value = arrayTracks[trackString];
+    } else if (params.has('трасе')) {
+      const trackString = params.get('трасе');
+      tracksId.value = arrayTracks[trackString];
+    } else if (allDataObj.tracksId) {
+        tracksId.value = allDataObj.tracksId;
+      }
     if (allDataObj.restHR) {
       restHR.value = allDataObj.restHR;
       zoneId.value = allDataObj.zoneId;
@@ -421,7 +466,6 @@ const loadNoAlert = async () => {
 
     updateAllByTimeAndDistance();
   }
-};
 
 convId.onclick = (e) => {
   e.preventDefault();
@@ -705,6 +749,22 @@ closeButtonHelpPulsText.onclick = () => modalHelpPuls.close();
 openButtonAge.onclick = () => modalAge.showModal();
 closeButtonAge.onclick = () => modalAge.close();
 closeButtonAgeText.onclick = () => modalAge.close();
+
+let arrayTracks = [];
+arrayTracks['равна'] = 5000;
+arrayTracks['западен2'] = 5444;
+arrayTracks['борисова'] = 5364;
+arrayTracks['южен'] = 5238;
+arrayTracks['варна'] = 5182;
+arrayTracks['бургас'] = 5158;
+arrayTracks['пловдив'] = 5008;
+arrayTracks['flat'] = 5000;
+arrayTracks['zapaden2'] = 5444;
+arrayTracks['borisova'] = 5364;
+arrayTracks['yuzhen'] = 5238;
+arrayTracks['varna'] = 5182;
+arrayTracks['burgas'] = 5158;
+arrayTracks['plovdiv'] = 5008;
 
 const achievementArray =
   [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
