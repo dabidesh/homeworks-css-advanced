@@ -76,7 +76,7 @@
 </head>
 
 <body>
-  <h1 id="up">Търчане с <a href="https://5kmrun.bg/" title="Свободно, но организирано бягане ...">5kmrun</a></h1>
+  <h1 id="up">Търчане с <a href="https://5kmrun.bg/" title="Свободно, но организирано бягане ...">5kmrun</a><button id="openButtonShare" class="help" type="button">Сп.</button></h1>
   <form id="run">
     <input id="hourTime" placeholder="час" type="number" min="0" max="99" value="00" />ч
     <input id="minTime" placeholder="мин" type="number" min="0" max="59" value="23" />м
@@ -379,6 +379,17 @@
     <input id="age8589" class="long" type="text" value="" readonly /> 85÷89<br />
     <input id="age90" class="long" type="text" value="" readonly /> 90÷∞<br /><br />
     <button id="closeButtonAgeText" type="button">X Затвори</button>
+  </dialog>
+  <dialog id="modalShare">
+    <button id="closeButtonShare" type="button">X</button>
+    <h2>Споделяне</h2>
+    <input id="linkEng" class="long" type="text" value="" readonly />
+    <button id="copyEngParam" type="button">Копирай</button>
+    <br>
+    <h3>Кирилица</h3>
+    <input id="linkBul" class="long" type="text" value="" readonly />
+    <button id="copyBulParam" type="button">Копирай</button>
+    <br>
   </dialog>
 </body>
 

@@ -398,74 +398,82 @@ const loadNoAlert = async () => {
 
   const params = new URLSearchParams(window.location.search);
 
-    if (params.has('time') || params.has('време')) {
-      const timeString = params.get('time') || params.get('време');
-      const timeArray = timeString.split(':');
-      const lenTime = timeArray.length;
-      if (lenTime == 3) {
-        hourTime.value = timeArray[0];
-        minTime.value = timeArray[1];
-        secTime.value = timeArray[2];
-      } else if (lenTime == 2){
-        hourTime.value = '00';
-        minTime.value = timeArray[0];
-        secTime.value = timeArray[1];
-      } else {
-        hourTime.value = '00';
-        minTime.value = timeArray[0];
-        secTime.value = '00';
-      }
-    } else if (allDataObj.hourTime) {
-      hourTime.value = allDataObj.hourTime;
-      minTime.value = allDataObj.minTime;
-      secTime.value = allDataObj.secTime;
-    } else {
+  if (params.has('time') || params.has('време')) {
+    const timeString = params.get('time') || params.get('време');
+    const timeArray = timeString.split(':');
+    const lenTime = timeArray.length;
+    if (lenTime == 3) {
+      hourTime.value = timeArray[0];
+      minTime.value = timeArray[1];
+      secTime.value = timeArray[2];
+    } else if (lenTime == 2) {
       hourTime.value = '00';
-      minTime.value = 23;
+      minTime.value = timeArray[0];
+      secTime.value = timeArray[1];
+    } else if (lenTime == 1) {
+      hourTime.value = '00';
+      minTime.value = timeArray[0];
       secTime.value = '00';
     }
-
-    //kmLengthId.value = allDataObj.kmLengthId;
-    if (allDataObj.elevId) {
-      elevId.value = allDataObj.elevId;
-    }
-    if (params.has('women') || params.has('жена')) {
-      women.checked = true;
-    } else if (allDataObj.women) {
-      women.checked = allDataObj.women;
-    }
-    if (params.has('age')) {
-      ageId.value = achievementArray.indexOf(Number(params.get('age')));
-    } else if (params.has('възраст')) {
-      ageId.value = achievementArray.indexOf(Number(params.get('възраст')));
-    } else if (allDataObj.ageId) {
-      ageId.value = allDataObj.ageId;
-    }
-
-    // tmp
-    if (params.has('track')) {
-      //debugger;
-      const trackString = params.get('track');
-      tracksId.value = arrayTracks[trackString];
-    } else if (params.has('трасе')) {
-      const trackString = params.get('трасе');
-      tracksId.value = arrayTracks[trackString];
-    } else if (allDataObj.tracksId) {
-        tracksId.value = allDataObj.tracksId;
-      }
-    if (allDataObj.restHR) {
-      restHR.value = allDataObj.restHR;
-      zoneId.value = allDataObj.zoneId;
-    }
-    if (allDataObj.massaKg) {
-      massaKg.value = allDataObj.massaKg;
-    }
-    if (allDataObj.heightCm) {
-      heightCm.value = allDataObj.heightCm;
-    }
-
-    updateAllByTimeAndDistance();
+  } else if (allDataObj && allDataObj.hourTime) {
+    hourTime.value = allDataObj.hourTime;
+    minTime.value = allDataObj.minTime;
+    secTime.value = allDataObj.secTime;
+  } else {
+    hourTime.value = '00';
+    minTime.value = 23;
+    secTime.value = '00';
   }
+
+  //kmLengthId.value = allDataObj.kmLengthId;
+  if (allDataObj && allDataObj.elevId) {
+    elevId.value = allDataObj.elevId;
+  }
+  if (params.has('women') || params.has('жена')) {
+    women.checked = true;
+  } else if (allDataObj && allDataObj.women) {
+    women.checked = allDataObj.women;
+  }
+  if (params.has('age')) {
+    ageId.value = achievementArray.indexOf(Number(params.get('age')));
+  } else if (params.has('възраст')) {
+    ageId.value = achievementArray.indexOf(Number(params.get('възраст')));
+  } else if (allDataObj && allDataObj.ageId) {
+    ageId.value = allDataObj.ageId;
+  }
+
+  // tmp
+  if (params.has('track') || params.has('трасе')) {
+    //debugger;
+    const trackString = params.get('track') || params.get('трасе');
+    tracksId.value = arrayTracks[trackString];
+  } else if (allDataObj && allDataObj.tracksId) {
+    tracksId.value = allDataObj.tracksId;
+  }
+  if (params.has('restHR') || params.has('пулсВпокой')) {
+    restHR.value = params.get('restHR') || params.get('пулсВпокой');
+  } else if (allDataObj && allDataObj.restHR) {
+    restHR.value = allDataObj.restHR;
+  }
+  if (params.has('zone') || params.has('зона')) {
+    zoneId.value = params.get('zone') || params.get('зона');
+  } else if (allDataObj && allDataObj.restHR) {
+    zoneId.value = allDataObj.zoneId;
+  }
+  if (params.has('massa') || params.has('маса')) {
+    massaKg.value = params.get('massa') || params.get('маса');
+  } else if (allDataObj && allDataObj.massaKg) {
+    massaKg.value = allDataObj.massaKg;
+  }
+  if (params.has('height') || params.has('височина') || params.has('ръст')) {
+    heightCm.value = params.get('height') || params.get('височина')
+      || params.get('ръст');
+  } else if (allDataObj && allDataObj.heightCm) {
+    heightCm.value = allDataObj.heightCm;
+  }
+
+  updateAllByTimeAndDistance();
+};
 
 convId.onclick = (e) => {
   e.preventDefault();
@@ -750,6 +758,19 @@ openButtonAge.onclick = () => modalAge.showModal();
 closeButtonAge.onclick = () => modalAge.close();
 closeButtonAgeText.onclick = () => modalAge.close();
 
+openButtonShare.onclick = () => {
+  modalShare.showModal();
+  const mainUrl = 'https://dabidesh.github.io/homeworks/js/5kmrunCalc/';
+  linkEng.value = mainUrl + `?time=${hourTime.value}:${minTime.value}:${secTime.value}&age=${achievementArray[+ageId.value]}&track=${arrayTracks.indexOf(tracksId.value)}&restHR=${restHR.value}&zone=${zoneId.value}&massa=${massaKg.value}&height=${heightCm.value}`;
+  linkBul.value = mainUrl + `?време=${hourTime.value}:${minTime.value}:${secTime.value}&възраст=${achievementArray[+ageId.value]}&трасе=${arrayTracks.indexOf(tracksId.value)}&пулсВпокой=${restHR.value}&зона=${zoneId.value}&маса=${massaKg.value}&височина=${heightCm.value}`;
+};
+closeButtonShare.onclick = () => modalShare.close();
+
+copyEngParam.onclick = copyBulParam.onclick = async (e) => {
+  const element = e.target.previousElementSibling;
+  element.select();
+  await navigator.clipboard.writeText(element.value);
+};
 let arrayTracks = [];
 arrayTracks['равна'] = 5000;
 arrayTracks['западен2'] = 5444;
