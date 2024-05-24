@@ -761,13 +761,13 @@ closeButtonAgeText.onclick = () => modalAge.close();
 openButtonShare.onclick = () => {
   modalShare.showModal();
   const mainUrl = 'https://dabidesh.github.io/homeworks/js/5kmrunCalc/';
-  const women = '';
-  const womenBul = '';
+  let womenEng = '';
+  let womenBul = '';
   if (women.checked == true) {
-    women = 'women';
+    womenEng = 'women';
     womenBul = 'жена';
   }
-  linkEng.value = mainUrl + `?time=${hourTime.value}:${minTime.value}:${secTime.value}&age=${achievementArray[+ageId.value]}&track=${Object.keys(arrayTracks).find(key => arrayTracks[key] === +tracksId.value)}&restHR=${restHR.value}&zone=${zoneId.value}&massa=${massaKg.value}&height=${heightCm.value}&${women}`;
+  linkEng.value = mainUrl + `?time=${hourTime.value}:${minTime.value}:${secTime.value}&age=${achievementArray[+ageId.value]}&track=${Object.keys(arrayTracks).find(key => arrayTracks[key] === +tracksId.value)}&restHR=${restHR.value}&zone=${zoneId.value}&massa=${massaKg.value}&height=${heightCm.value}&${womenEng}`;
   linkBul.value = mainUrl + `?време=${hourTime.value}:${minTime.value}:${secTime.value}&възраст=${achievementArray[+ageId.value]}&трасе=${Object.keys(arrayTracks).find(key => arrayTracks[key] === +tracksId.value)}&пулсВпокой=${restHR.value}&зона=${zoneId.value}&маса=${massaKg.value}&височина=${heightCm.value}&${womenBul}`;
 };
 closeButtonShare.onclick = () => modalShare.close();
@@ -777,6 +777,7 @@ copyEngParam.onclick = copyBulParam.onclick = async (e) => {
   element.select();
   await navigator.clipboard.writeText(element.value);
 };
+
 let arrayTracks = [];
 arrayTracks['равна'] = 5000;
 arrayTracks['западен2'] = 5444;
