@@ -4,13 +4,13 @@ let css = `
 /* *:not(img):not(canvas):not(figure),
 *:not(img):not(canvas):not(figure)::before,
 *:not(img):not(canvas):not(figure)::after { */
-html, video {
-    filter: invert(98%) contrast(90%) hue-rotate(100deg);
+html.r666, video {
+    filter: invert(98%) contrast(90%);
 }
-body {
+/* body {
     background-color: #ddd;
     color: #111;
-}
+} */
 `;
 const html = `
   <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
@@ -44,7 +44,7 @@ const styleBbDiv = `
   }
   #videoId button {
     padding: 0;
-    background-color: green;
+    background-color: green !important;
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -52,10 +52,6 @@ const styleBbDiv = `
   #videoId button:hover {
     cursor: pointer;
   }
-  /* #rangeHueRotate {
-    rotate: 90deg;
-    width: 360px;
-  } */
 `;
 
 document.body.insertAdjacentHTML('beforeend', html);
@@ -78,8 +74,6 @@ const switchStyle = () => {
   } else {
     style.remove();
     flag = false;
-    //document.querySelector('html.r666').style =
-    //'filter: invert(0) contrast(0) hue-rotate(0)';
   }
 };
 
