@@ -79,6 +79,8 @@ const switchStyle = () => {
     flag = true;
   } else {
     style.remove();
+    document.querySelector('html.r666').style =
+    `filter: hue-rotate(0deg)`;
     flag = false;
   }
 };
@@ -96,8 +98,7 @@ window.oncontextmenu = (e) => {
 
 rangeHueRotate.onchange = () => {
   document.querySelector('html.r666').style =
-    `filter: invert(98%) contrast(90%)
-    hue-rotate(${rangeHueRotate.value}deg)`;
+    `filter: hue-rotate(${rangeHueRotate.value}deg)`;
 };
 
 window.onclick = (event) => {
