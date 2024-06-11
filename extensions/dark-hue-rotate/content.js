@@ -14,19 +14,25 @@ html.r666, video {
 `;
 const html = `
   <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
-    <button id="vButton" onmouseover="rangeDiv.style.display='block'">P</button>
+    <button id="vButton"
+    onmouseover="rangeDiv.style.display='block'">P</button>
   <div id="rangeDiv">
   <label for="rangeHueRotate">hue-rotate<br />
-        [0<input type="range" id="rangeHueRotate" value="100" min="0" max="360"
+        [0<input type="range" id="rangeHueRotate"
+        value="100" min="0" max="360"
           oninput="xId.value=parseInt(rangeHueRotate.value)" />360]
       </label>
-      <button id="minusId" class="butForRange" onmousedown="if (xId.value>0) {rangeHueRotate.value--;xId.value--;}">
+      <button id="minusId" class="butForRange"
+      onmousedown="if (xId.value>0)
+      {rangeHueRotate.value--;xId.value--;}">
         --
       </button>
       <label for="xId">
         <output id="xId" name="x" for="rangeHueRotate">100</output> hue
       </label>
-      <button id="plusId" class="butForRange" onmousedown="if (xId.value<360) {rangeHueRotate.value++;xId.value++;}">
+      <button id="plusId" class="butForRange"
+      onmousedown="if (xId.value<360)
+      {rangeHueRotate.value++;xId.value++;}">
         ++
       </button>
   </div>
@@ -90,14 +96,17 @@ window.oncontextmenu = (e) => {
 
 rangeHueRotate.onchange = () => {
   document.querySelector('html.r666').style =
-    `filter: invert(98%) contrast(90%) hue-rotate(${rangeHueRotate.value}deg)`;
+    `filter: invert(98%) contrast(90%)
+    hue-rotate(${rangeHueRotate.value}deg)`;
 };
 
 window.onclick = (event) => {
   const element = event.target;
   if (element.id != 'videoId' && element.id != 'rangeDiv' &&
-    element.id != 'rangeHueRotate' && element.id != 'plusId' && element.id != 'minusId' &&
-    element.id != 'plusId' && element.id != 'xId' && element.id != 'vButton') {
+    element.id != 'rangeHueRotate' && element.id != 'plusId' &&
+    element.id != 'minusId' &&
+    element.id != 'plusId' && element.id != 'xId' &&
+    element.id != 'vButton') {
     rangeDiv.style.display = 'none';
   }
 };
