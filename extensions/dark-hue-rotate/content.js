@@ -7,10 +7,10 @@ let css = `
 html.r666, video {
     filter: invert(98%) contrast(90%);
 }
-body {
+/*body {
     background-color: #ddd;
     color: #111;
-}
+}*/
 `;
 const html = `
   <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
