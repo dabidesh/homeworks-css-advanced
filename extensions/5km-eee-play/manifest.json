@@ -35,6 +35,14 @@
       "matches": [
         "https://eee.bg/*"
       ]
+    },
+    {
+      "js": [
+        "scripts/milena-fix.js"
+      ],
+      "matches": [
+        "https://www.mihaylova-milena.com/*"
+      ]
     }
   ],
   "action": {
