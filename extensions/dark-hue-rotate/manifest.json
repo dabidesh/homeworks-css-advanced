@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Dark and hue-rotate",
+  "name": "InvertHueRotateVideo",
+  "description": "Invert and hue-rotate for videos, images, and canvases",
   "version": "0.0.1",
   "content_scripts": [
     {
@@ -9,10 +10,6 @@
       ],
       "js": [
         "content.js"
-      ],
-      "exclude_matches": [
-        "*://*.replit.com/*",
-        "*://*.google.com/*"
       ]
     }
   ]
