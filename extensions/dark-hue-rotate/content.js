@@ -18,9 +18,8 @@ video, img, canvas, svg {
 `;
 
 const html = `
-  <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
-    <button id="vButton"
-    onmouseover="rangeDiv.style.display='block'">P</button>
+  <div id="videoId">
+    <button id="vButton">P</button>
   <div id="rangeDiv">
   <label for="rangeHueRotate">hue-rotate<br />
         [0<input type="range" id="rangeHueRotate"
@@ -74,6 +73,14 @@ document.body.appendChild(styleElementDiv);
 const element = document.querySelector('html');
 element.classList.add('r666');
 
+/* const vButton = document.getElementById('vButton');
+const rangeDiv = document.getElementById('rangeDiv');
+const rangeHueRotate = document.getElementById('rangeHueRotate');
+const videoId = document.getElementById('videoId');
+const xId = document.getElementById('xId');
+const plusId = document.getElementById('plusId');
+const minusId = document.getElementById('minusId'); */
+
 let style = document.createElement("style");
 style.innerHTML = css;
 let style0 = document.createElement("style");
@@ -107,6 +114,16 @@ vButton.onclick = (e) => {
   //e.preventDefault(); // e.stopPropagation();
   rangeDiv.style.display = 'block';
   switchStyle();
+};
+
+vButton.onmouseover = (e) => {
+  //e.preventDefault();
+  rangeDiv.style.display='block';
+};
+
+videoId.onmouseleave = (e) => {
+  //e.preventDefault();
+  rangeDiv.style.display='none';
 };
 
 window.oncontextmenu = (e) => {
