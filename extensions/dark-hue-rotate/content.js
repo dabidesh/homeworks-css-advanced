@@ -135,6 +135,8 @@ rangeHueRotate.onchange = () => {
   document.querySelector('html.r666').style =
     `filter: hue-rotate(${rangeHueRotate.value}deg)`;
   oldHueRotate = rangeHueRotate.value;
+  xId.value = oldHueRotate;
+  //xId.value = oldHueRotate = rangeHueRotate.value;  // от дясно на ляво
 };
 
 window.onclick = (event) => {
