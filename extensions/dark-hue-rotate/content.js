@@ -23,20 +23,15 @@ const html = `
   <div id="rangeDiv">
   <label for="rangeHueRotate">hue-rotate<br />
         [0<input type="range" id="rangeHueRotate"
-        value="0" min="0" max="360"
-          oninput="xId.value=parseInt(rangeHueRotate.value)" />360]
+        value="0" min="0" max="360" />360]
       </label>
-      <button id="minusId" class="butForRange"
-      onmousedown="if (xId.value>0)
-      {rangeHueRotate.value--;xId.value--;}">
+      <button id="minusId" class="butForRange">
         --
       </button>
       <label for="xId">
         <output id="xId" name="x" for="rangeHueRotate">0</output> hue
       </label>
-      <button id="plusId" class="butForRange"
-      onmousedown="if (xId.value<360)
-      {rangeHueRotate.value++;xId.value++;}">
+      <button id="plusId" class="butForRange">
         ++
       </button>
   </div>
@@ -138,6 +133,28 @@ rangeHueRotate.onchange = () => {
   xId.value = oldHueRotate;
   //xId.value = oldHueRotate = rangeHueRotate.value;  // от дясно на ляво
 };
+
+plusId.onmousedown = () => {
+  if (xId.value < 360) {
+    rangeHueRotate.value++;
+    xId.value++;
+    document.querySelector('html.r666').style =
+      `filter: hue-rotate(${rangeHueRotate.value}deg)`;
+    oldHueRotate = rangeHueRotate.value;
+  }
+}
+
+minusId.onmousedown = () => {
+  if (xId.value > 0) {
+    rangeHueRotate.value--;
+    xId.value--;
+    document.querySelector('html.r666').style =
+      `filter: hue-rotate(${rangeHueRotate.value}deg)`;
+    oldHueRotate = rangeHueRotate.value;
+  }
+}
+
+
 
 window.onclick = (event) => {
   const element = event.target;
