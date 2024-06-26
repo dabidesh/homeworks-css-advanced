@@ -33,7 +33,7 @@ const html = `
         --
       </button>
       <label for="xId">
-        <output id="xId" name="x" for="rangeHueRotate">100</output> hue
+        <output id="xId" name="x" for="rangeHueRotate">0</output> hue
       </label>
       <button id="plusId" class="butForRange"
       onmousedown="if (xId.value<360)
@@ -86,17 +86,19 @@ const switchStyle = () => {
     style.innerHTML = css;
     document.querySelector('html.r666').style = `
       filter: hue-rotate(${oldHueRotate}deg)`;
-    rangeHueRotate.value = oldHueRotate + 'deg';
+    rangeHueRotate.value = oldHueRotate;
+    xId.value= oldHueRotate;
     flag = true;
   } else {
     style0 = document.createElement("style");
     document.body.appendChild(style0);
     style.remove();
     style0.innerHTML = css0;
-    oldHueRotate = rangeHueRotate.value;
+    oldHueRotate = parseInt(rangeHueRotate.value);
     document.querySelector('html.r666').style = `
       filter: hue-rotate(0deg)`;
     rangeHueRotate.value = 0;
+    xId.value= 0;
     flag = false;
   }
 };
