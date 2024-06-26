@@ -91,6 +91,7 @@ const switchStyle = () => {
     style0.innerHTML = css0;
     document.querySelector('html.r666').style = `
       filter: hue-rotate(0deg)`;
+    rangeHueRotate.value = 0;
     flag = false;
   }
 };
