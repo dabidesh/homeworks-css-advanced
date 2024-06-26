@@ -1,4 +1,5 @@
 let flag = false;
+let oldHueRotate = 0;
 
 let css = `
 video, img, canvas, svg {
@@ -23,7 +24,7 @@ const html = `
   <div id="rangeDiv">
   <label for="rangeHueRotate">hue-rotate<br />
         [0<input type="range" id="rangeHueRotate"
-        value="100" min="0" max="360"
+        value="0" min="0" max="360"
           oninput="xId.value=parseInt(rangeHueRotate.value)" />360]
       </label>
       <button id="minusId" class="butForRange"
@@ -83,12 +84,16 @@ const switchStyle = () => {
     document.body.appendChild(style);
     style0.remove();
     style.innerHTML = css;
+    document.querySelector('html.r666').style = `
+      filter: hue-rotate(${oldHueRotate}deg)`;
+    rangeHueRotate.value = oldHueRotate + 'deg';
     flag = true;
   } else {
     style0 = document.createElement("style");
     document.body.appendChild(style0);
     style.remove();
     style0.innerHTML = css0;
+    oldHueRotate = rangeHueRotate.value;
     document.querySelector('html.r666').style = `
       filter: hue-rotate(0deg)`;
     rangeHueRotate.value = 0;
@@ -110,6 +115,7 @@ window.oncontextmenu = (e) => {
 rangeHueRotate.onchange = () => {
   document.querySelector('html.r666').style =
     `filter: hue-rotate(${rangeHueRotate.value}deg)`;
+  oldHueRotate = rangeHueRotate.value;
 };
 
 window.onclick = (event) => {
