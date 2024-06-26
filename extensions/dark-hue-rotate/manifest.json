@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "DarkHueRotateSites",
+  "description": "Dark and hue-rotate for all elements",
+  "version": "0.0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}
