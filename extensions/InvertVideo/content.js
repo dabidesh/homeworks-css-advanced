@@ -1,21 +1,19 @@
 let flag = false;
 let oldHueRotate = 0;
+//let newHueRotate = 0;
 
-let css = `
-video, img, canvas, svg {
-    filter: invert(98%) contrast(90%);
-}
-body {
-    background-color: #ddd;
-    color: #111;
-}
-`;
+let css = `video, img, canvas, svg {
+  filter: invert(98%) contrast(90%) hue-rotate(${oldHueRotate}deg);
+}`;
 
-let css0 = `
+let css0 = `video, img, canvas, svg {
+  filter: invert(0) contrast(100%) hue-rotate(${oldHueRotate}deg);
+}`;
+
+let cssHueRotate = `
 video, img, canvas, svg {
-    filter: invert(0);
-}
-`;
+  filter: hue-rotate(${oldHueRotate}deg);
+}`;
 
 const html = `
   <div id="videoId">
@@ -51,12 +49,12 @@ const styleBbDiv = `
   #videoId button {
     padding: 0;
     background-color: green !important;
-    cursor: pointer;
+    cursor: pointer !important;
     width: 30px;
     height: 30px;
   }
   #videoId button:hover {
-    cursor: pointer;
+    cursor: pointer !important;
   }
 `;
 
@@ -68,40 +66,34 @@ document.body.appendChild(styleElementDiv);
 const element = document.querySelector('html');
 element.classList.add('r666');
 
-/* const vButton = document.getElementById('vButton');
+// опит да тръгне в discord
+const vButton = document.getElementById('vButton');
 const rangeDiv = document.getElementById('rangeDiv');
 const rangeHueRotate = document.getElementById('rangeHueRotate');
 const videoId = document.getElementById('videoId');
 const xId = document.getElementById('xId');
 const plusId = document.getElementById('plusId');
-const minusId = document.getElementById('minusId'); */
+const minusId = document.getElementById('minusId');
 
-let style = document.createElement("style");
-style.innerHTML = css;
-let style0 = document.createElement("style");
+let style, style0, styleHueRotate = document.createElement('style');
 
 const switchStyle = () => {
   rangeDiv.style.display = 'block';
   if (flag == false) {
-    style = document.createElement("style");
-    document.body.appendChild(style);
-    style0.remove();
+    style = document.createElement('style');
     style.innerHTML = css;
-    document.querySelector('html.r666').style = `
-      filter: hue-rotate(${oldHueRotate}deg)`;
+    document.head.appendChild(style);
     rangeHueRotate.value = oldHueRotate;
-    xId.value= oldHueRotate;
+    xId.value = oldHueRotate;
     flag = true;
   } else {
-    style0 = document.createElement("style");
-    document.body.appendChild(style0);
+    style0 = document.createElement('style');
+    style0.innerHTML = css;
     style.remove();
     style0.innerHTML = css0;
-    oldHueRotate = parseInt(rangeHueRotate.value);
-    document.querySelector('html.r666').style = `
-      filter: hue-rotate(0deg)`;
+    document.head.appendChild(style0);
     rangeHueRotate.value = 0;
-    xId.value= 0;
+    xId.value = 0;
     flag = false;
   }
 };
@@ -113,12 +105,12 @@ vButton.onclick = (e) => {
 
 vButton.onmouseover = (e) => {
   //e.preventDefault();
-  rangeDiv.style.display='block';
+  rangeDiv.style.display = 'block';
 };
 
 videoId.onmouseleave = (e) => {
   //e.preventDefault();
-  rangeDiv.style.display='none';
+  rangeDiv.style.display = 'none';
 };
 
 window.oncontextmenu = (e) => {
@@ -126,33 +118,41 @@ window.oncontextmenu = (e) => {
   switchStyle();
 };
 
-rangeHueRotate.onchange = () => {
-  document.querySelector('html.r666').style =
-    `filter: hue-rotate(${rangeHueRotate.value}deg)`;
+rangeHueRotate.onchange = (e) => {
+  //styleHueRotate.remove();
   oldHueRotate = rangeHueRotate.value;
+   //xId.value = oldHueRotate = rangeHueRotate.value;  // от дясно на ляво
   xId.value = oldHueRotate;
-  //xId.value = oldHueRotate = rangeHueRotate.value;  // от дясно на ляво
+  styleHueRotate = document.createElement('style');
+  styleHueRotate.innerHTML = cssHueRotate;
+  document.head.appendChild(styleHueRotate);
 };
 
 plusId.onmousedown = () => {
   if (xId.value < 360) {
     rangeHueRotate.value++;
     xId.value++;
-    document.querySelector('html.r666').style =
-      `filter: hue-rotate(${rangeHueRotate.value}deg)`;
     oldHueRotate = rangeHueRotate.value;
+    styleHueRotate.remove();
+    styleHueRotate = document.createElement('style');
+    styleHueRotate.innerHTML = cssHueRotate;
+    document.head.appendChild(styleHueRotate);
+
   }
-}
+};
 
 minusId.onmousedown = () => {
   if (xId.value > 0) {
     rangeHueRotate.value--;
     xId.value--;
-    document.querySelector('html.r666').style =
-      `filter: hue-rotate(${rangeHueRotate.value}deg)`;
-    oldHueRotate = rangeHueRotate.value;
+    newHueRotate = rangeHueRotate.value;
+    oldHueRotate = newHueRotate++;
+    styleHueRotate.remove();
+    styleHueRotate = document.createElement('style');
+    styleHueRotate.innerHTML = cssHueRotate;
+    document.head.appendChild(styleHueRotate);
   }
-}
+};
 
 window.onclick = (event) => {
   const element = event.target;
