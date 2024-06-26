@@ -128,16 +128,14 @@ window.oncontextmenu = (e) => {
 rangeHueRotate.onchange = (e) => {
   oldHueRotate = rangeHueRotate.value;
   xId.value = oldHueRotate;
-  cssHueRotate = `
-video, img, canvas, svg {
-  filter: hue-rotate(${oldHueRotate}deg);
+  cssHueRotate = `video, img, canvas, svg {
+    filter: hue-rotate(${oldHueRotate}deg);
 }`;
   oldHueRotate = rangeHueRotate.value;
   xId.value = oldHueRotate;
 
   styleHueRotate.remove();
   styleHueRotate = document.createElement('style');
-  //styleHueRotate.id = 'styleHueRotate'; // Set the ID for the style element
   styleHueRotate.innerHTML = cssHueRotate;
   document.head.appendChild(styleHueRotate);
 };
@@ -149,9 +147,11 @@ plusId.onmousedown = () => {
     oldHueRotate = rangeHueRotate.value;
     styleHueRotate.remove();
     styleHueRotate = document.createElement('style');
+    cssHueRotate = `video, img, canvas, svg {
+      filter: hue-rotate(${oldHueRotate}deg);
+  }`;
     styleHueRotate.innerHTML = cssHueRotate;
     document.head.appendChild(styleHueRotate);
-
   }
 };
 
@@ -159,10 +159,12 @@ minusId.onmousedown = () => {
   if (xId.value > 0) {
     rangeHueRotate.value--;
     xId.value--;
-    newHueRotate = rangeHueRotate.value;
-    oldHueRotate = newHueRotate++;
+    oldHueRotate = rangeHueRotate.value;
     styleHueRotate.remove();
     styleHueRotate = document.createElement('style');
+    cssHueRotate = `video, img, canvas, svg {
+      filter: hue-rotate(${oldHueRotate}deg);
+  }`;
     styleHueRotate.innerHTML = cssHueRotate;
     document.head.appendChild(styleHueRotate);
   }
