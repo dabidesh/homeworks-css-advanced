@@ -1,10 +1,7 @@
 let flag = false;
 
 let css = `
-/* *:not(img):not(canvas):not(figure),
-*:not(img):not(canvas):not(figure)::before,
-*:not(img):not(canvas):not(figure)::after { */
-html.r666, video {
+video, img, canvas, svg {
     filter: invert(98%) contrast(90%);
 }
 body {
@@ -12,6 +9,13 @@ body {
     color: #111;
 }
 `;
+
+let css0 = `
+video, img, canvas, svg {
+    filter: invert(0);
+}
+`;
+
 const html = `
   <div id="videoId" onmouseleave="rangeDiv.style.display='none'">
     <button id="vButton"
@@ -38,6 +42,7 @@ const html = `
   </div>
   </div>
   `;
+
 const styleBbDiv = `
   #videoId {
     position: fixed !important;
@@ -70,23 +75,28 @@ element.classList.add('r666');
 
 let style = document.createElement("style");
 style.innerHTML = css;
+let style0 = document.createElement("style");
 
 const switchStyle = () => {
   if (flag == false) {
     style = document.createElement("style");
     document.body.appendChild(style);
+    style0.remove();
     style.innerHTML = css;
     flag = true;
   } else {
+    style0 = document.createElement("style");
+    document.body.appendChild(style0);
     style.remove();
-    document.querySelector('html.r666').style =
-    `filter: hue-rotate(0deg)`;
+    style0.innerHTML = css0;
+    document.querySelector('html.r666').style = `
+      filter: hue-rotate(0deg)`;
     flag = false;
   }
 };
 
 vButton.onclick = (e) => {
-  e.preventDefault();
+  //e.preventDefault(); // e.stopPropagation();
   rangeDiv.style.display = 'block';
   switchStyle();
 };
