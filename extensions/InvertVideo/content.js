@@ -2,17 +2,14 @@ let flag = false;
 let oldHueRotate = 0;
 //let newHueRotate = 0;
 
+let p = console.log;
+
 let css = `video, img, canvas, svg {
   filter: invert(98%) contrast(90%) hue-rotate(${oldHueRotate}deg);
 }`;
 
 let css0 = `video, img, canvas, svg {
   filter: invert(0) contrast(100%) hue-rotate(${oldHueRotate}deg);
-}`;
-
-let cssHueRotate = `
-video, img, canvas, svg {
-  filter: hue-rotate(${oldHueRotate}deg);
 }`;
 
 const html = `
@@ -63,9 +60,6 @@ let styleElementDiv = document.createElement('style');
 styleElementDiv.innerHTML = styleBbDiv;
 document.body.appendChild(styleElementDiv);
 
-const element = document.querySelector('html');
-element.classList.add('r666');
-
 // опит да тръгне в discord
 const vButton = document.getElementById('vButton');
 const rangeDiv = document.getElementById('rangeDiv');
@@ -75,13 +69,26 @@ const xId = document.getElementById('xId');
 const plusId = document.getElementById('plusId');
 const minusId = document.getElementById('minusId');
 
-let style, style0, styleHueRotate = document.createElement('style');
+let style;
+
+let style0 = document.createElement('style');
+
+let styleHueRotate = document.createElement('style');
+
+style0.innerHTML = css0;
+document.head.appendChild(style0);
+
+let cssHueRotate = `
+video, img, canvas, svg {
+  filter: hue-rotate(${rangeHueRotate.value}deg);
+}`;
 
 const switchStyle = () => {
   rangeDiv.style.display = 'block';
   if (flag == false) {
     style = document.createElement('style');
     style.innerHTML = css;
+    style0.remove();
     document.head.appendChild(style);
     rangeHueRotate.value = oldHueRotate;
     xId.value = oldHueRotate;
@@ -119,11 +126,18 @@ window.oncontextmenu = (e) => {
 };
 
 rangeHueRotate.onchange = (e) => {
-  //styleHueRotate.remove();
   oldHueRotate = rangeHueRotate.value;
-   //xId.value = oldHueRotate = rangeHueRotate.value;  // от дясно на ляво
   xId.value = oldHueRotate;
+  cssHueRotate = `
+video, img, canvas, svg {
+  filter: hue-rotate(${oldHueRotate}deg);
+}`;
+  oldHueRotate = rangeHueRotate.value;
+  xId.value = oldHueRotate;
+
+  styleHueRotate.remove();
   styleHueRotate = document.createElement('style');
+  //styleHueRotate.id = 'styleHueRotate'; // Set the ID for the style element
   styleHueRotate.innerHTML = cssHueRotate;
   document.head.appendChild(styleHueRotate);
 };
