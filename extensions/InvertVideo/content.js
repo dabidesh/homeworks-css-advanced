@@ -81,6 +81,7 @@ style.innerHTML = css;
 let style0 = document.createElement("style");
 
 const switchStyle = () => {
+  rangeDiv.style.display = 'block';
   if (flag == false) {
     style = document.createElement("style");
     document.body.appendChild(style);
@@ -107,7 +108,6 @@ const switchStyle = () => {
 
 vButton.onclick = (e) => {
   //e.preventDefault(); // e.stopPropagation();
-  rangeDiv.style.display = 'block';
   switchStyle();
 };
 
@@ -153,8 +153,6 @@ minusId.onmousedown = () => {
     oldHueRotate = rangeHueRotate.value;
   }
 }
-
-
 
 window.onclick = (event) => {
   const element = event.target;

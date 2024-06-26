@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "InvertHueRotateVideo",
-  "description": "Invert and hue-rotate for videos, images, and canvases",
+  "name": "InvertVideo",
+  "description": "Invert for videos, images, and canvases, hue-rotate for all elements",
   "version": "0.0.1",
   "content_scripts": [
     {
