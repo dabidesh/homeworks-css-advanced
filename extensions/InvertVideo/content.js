@@ -78,8 +78,7 @@ let styleHueRotate = document.createElement('style');
 style0.innerHTML = css0;
 document.head.appendChild(style0);
 
-let cssHueRotate = `
-video, img, canvas, svg {
+let cssHueRotate = `video, img, canvas, svg {
   filter: hue-rotate(${rangeHueRotate.value}deg);
 }`;
 
