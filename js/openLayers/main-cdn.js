@@ -23,6 +23,11 @@ var Style = ol.style.Style;
 var Icon = ol.style.Icon;
 var toLonLat = ol.proj.toLonLat;
 var fromLonLat = ol.proj.fromLonLat;
+let Text = ol.style.Text;
+let Fill = ol.style.Fill;
+let Stroke = ol.style.Stroke;
+let geom = ol.geom;
+let proj = ol.proj;
 
 // Initialize map
 const map = new Map({
@@ -72,3 +77,51 @@ function updateMapCenter(lon, lat) {
 }
 
 updateButton.onclick = () => updateMapCenter(longitude.value, latitude.value);
+
+// Define a style with increased text size
+let textSize = 16; // Initial text size
+const textStyle = new Style({
+  text: new Text({
+    font: `bold ${textSize}px Arial`, // Use the textSize variable
+    fill: new Fill({
+      color: '#000'
+    }),
+    stroke: new Stroke({
+      color: '#fff',
+      width: 2
+    })
+  })
+});
+
+// Apply the style to a feature (example feature)
+const feature = new Feature({
+  geometry: new Point(ol.proj.fromLonLat([0, 0])),
+  name: 'Center'
+});
+feature.setStyle(textStyle);
+
+// Add the feature to a vector layer
+vectorSource.addFeature(feature);
+
+// Function to update the text size in the style
+function updateTextSize(newSize) {
+  textStyle.getText().setFont(`bold ${newSize}px Arial`);
+  vectorSource.changed(); // Refresh the vector source to apply the new style
+}
+
+// Add event listeners to the buttons
+document.getElementById('increaseTextSize').addEventListener('click', function () {
+  textSize += 8; // Increase text size
+  updateTextSize(textSize);
+});
+
+document.getElementById('decreaseTextSize').addEventListener('click', function () {
+  textSize -= 2; // Decrease text size
+  updateTextSize(textSize);
+});
+
+// Add event listener to the zoom level select element
+document.getElementById('zoomLevel').addEventListener('change', function () {
+  const zoomLevel = parseInt(this.value, 10);
+  map.getView().setZoom(zoomLevel);
+});
