@@ -89,8 +89,8 @@ const switchStyle = () => {
     style.innerHTML = css;
     style0.remove();
     document.head.appendChild(style);
-    rangeHueRotate.value = oldHueRotate;
-    xId.value = oldHueRotate;
+    //rangeHueRotate.value = oldHueRotate;
+    //xId.value = oldHueRotate;
     flag = true;
   } else {
     style0 = document.createElement('style');
@@ -98,8 +98,8 @@ const switchStyle = () => {
     style.remove();
     style0.innerHTML = css0;
     document.head.appendChild(style0);
-    rangeHueRotate.value = 0;
-    xId.value = 0;
+    //rangeHueRotate.value = 0;
+    //xId.value = 0;
     flag = false;
   }
 };
@@ -127,16 +127,8 @@ window.oncontextmenu = (e) => {
 rangeHueRotate.onchange = (e) => {
   oldHueRotate = rangeHueRotate.value;
   xId.value = oldHueRotate;
-  cssHueRotate = `video, img, canvas, svg {
-    filter: hue-rotate(${oldHueRotate}deg);
-}`;
-  oldHueRotate = rangeHueRotate.value;
-  xId.value = oldHueRotate;
 
-  styleHueRotate.remove();
-  styleHueRotate = document.createElement('style');
-  styleHueRotate.innerHTML = cssHueRotate;
-  document.head.appendChild(styleHueRotate);
+  switchStyle();
 };
 
 plusId.onmousedown = () => {
