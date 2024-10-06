@@ -330,4 +330,316 @@ const man =
     }
   ];
 
-export { wo, man };
+const man21 = [
+  {
+    "Age": "10",
+    "Beginner": "02:53:28",
+    "Novice": "02:25:01",
+    "Intermediate": "02:03:56",
+    "Advanced": "01:48:22",
+    "Elite": "01:36:56",
+    "WR": "01:09:26"
+  },
+  {
+    "Age": "15",
+    "Beginner": "02:30:07",
+    "Novice": "02:05:30",
+    "Intermediate": "01:47:15",
+    "Advanced": "01:33:47",
+    "Elite": "01:23:53",
+    "WR": "01:00:05"
+  },
+  {
+    "Age": "20",
+    "Beginner": "02:24:57",
+    "Novice": "02:01:11",
+    "Intermediate": "01:43:33",
+    "Advanced": "01:30:33",
+    "Elite": "01:21:00",
+    "WR": "58:01"
+  },
+  {
+    "Age": "25",
+    "Beginner": "02:24:57",
+    "Novice": "02:01:11",
+    "Intermediate": "01:43:33",
+    "Advanced": "01:30:33",
+    "Elite": "01:21:00",
+    "WR": "58:01"
+  },
+  {
+    "Age": "30",
+    "Beginner": "02:24:57",
+    "Novice": "02:01:11",
+    "Intermediate": "01:43:33",
+    "Advanced": "01:30:33",
+    "Elite": "01:21:00",
+    "WR": "58:01"
+  },
+  {
+    "Age": "35",
+    "Beginner": "02:25:45",
+    "Novice": "02:01:51",
+    "Intermediate": "01:44:08",
+    "Advanced": "01:31:03",
+    "Elite": "01:21:26",
+    "WR": "58:20"
+  },
+  {
+    "Age": "40",
+    "Beginner": "02:29:29",
+    "Novice": "02:04:59",
+    "Intermediate": "01:46:48",
+    "Advanced": "01:33:24",
+    "Elite": "01:23:32",
+    "WR": "59:50"
+  },
+  {
+    "Age": "45",
+    "Beginner": "02:35:40",
+    "Novice": "02:10:09",
+    "Intermediate": "01:51:13",
+    "Advanced": "01:37:15",
+    "Elite": "01:26:59",
+    "WR": "01:02:19"
+  },
+  {
+    "Age": "50",
+    "Beginner": "02:42:28",
+    "Novice": "02:15:49",
+    "Intermediate": "01:56:04",
+    "Advanced": "01:41:30",
+    "Elite": "01:30:47",
+    "WR": "01:05:02"
+  },
+  {
+    "Age": "55",
+    "Beginner": "02:49:52",
+    "Novice": "02:22:01",
+    "Intermediate": "02:01:22",
+    "Advanced": "01:46:07",
+    "Elite": "01:34:55",
+    "WR": "01:07:59"
+  },
+  {
+    "Age": "60",
+    "Beginner": "02:57:59",
+    "Novice": "02:28:48",
+    "Intermediate": "02:07:09",
+    "Advanced": "01:51:12",
+    "Elite": "01:39:27",
+    "WR": "01:11:14"
+  },
+  {
+    "Age": "65",
+    "Beginner": "03:06:54",
+    "Novice": "02:36:16",
+    "Intermediate": "02:13:32",
+    "Advanced": "01:56:46",
+    "Elite": "01:44:26",
+    "WR": "01:14:49"
+  },
+  {
+    "Age": "70",
+    "Beginner": "03:16:47",
+    "Novice": "02:44:31",
+    "Intermediate": "02:20:35",
+    "Advanced": "02:02:56",
+    "Elite": "01:49:57",
+    "WR": "01:18:46"
+  },
+  {
+    "Age": "75",
+    "Beginner": "03:30:19",
+    "Novice": "02:55:50",
+    "Intermediate": "02:30:15",
+    "Advanced": "02:11:24",
+    "Elite": "01:57:31",
+    "WR": "01:24:11"
+  },
+  {
+    "Age": "80",
+    "Beginner": "03:52:02",
+    "Novice": "03:13:59",
+    "Intermediate": "02:45:46",
+    "Advanced": "02:24:57",
+    "Elite": "02:09:39",
+    "WR": "01:32:52"
+  },
+  {
+    "Age": "85",
+    "Beginner": "04:26:50",
+    "Novice": "03:43:05",
+    "Intermediate": "03:10:39",
+    "Advanced": "02:46:42",
+    "Elite": "02:29:06",
+    "WR": "01:46:48"
+  },
+  {
+    "Age": "90",
+    "Beginner": "05:26:01",
+    "Novice": "04:32:34",
+    "Intermediate": "03:52:55",
+    "Advanced": "03:23:41",
+    "Elite": "03:02:10",
+    "WR": "02:10:30"
+  }
+];
+
+const wo21 = [
+  {
+    "Age": "10",
+    "Beginner": "03:24:32",
+    "Novice": "02:54:12",
+    "Intermediate": "02:30:51",
+    "Advanced": "02:13:09",
+    "Elite": "01:59:51",
+    "WR": "01:20:58"
+  },
+  {
+    "Age": "15",
+    "Beginner": "02:58:13",
+    "Novice": "02:31:46",
+    "Intermediate": "02:11:26",
+    "Advanced": "01:56:01",
+    "Elite": "01:44:26",
+    "WR": "01:10:33"
+  },
+  {
+    "Age": "20",
+    "Beginner": "02:44:14",
+    "Novice": "02:19:52",
+    "Intermediate": "02:01:07",
+    "Advanced": "01:46:54",
+    "Elite": "01:36:14",
+    "WR": "01:05:01"
+  },
+  {
+    "Age": "25",
+    "Beginner": "02:42:59",
+    "Novice": "02:18:48",
+    "Intermediate": "02:00:12",
+    "Advanced": "01:46:06",
+    "Elite": "01:35:30",
+    "WR": "01:04:31"
+  },
+  {
+    "Age": "30",
+    "Beginner": "02:43:02",
+    "Novice": "02:18:50",
+    "Intermediate": "02:00:14",
+    "Advanced": "01:46:08",
+    "Elite": "01:35:32",
+    "WR": "01:04:32"
+  },
+  {
+    "Age": "35",
+    "Beginner": "02:44:34",
+    "Novice": "02:20:09",
+    "Intermediate": "02:01:22",
+    "Advanced": "01:47:07",
+    "Elite": "01:36:26",
+    "WR": "01:05:09"
+  },
+  {
+    "Age": "40",
+    "Beginner": "02:48:23",
+    "Novice": "02:23:24",
+    "Intermediate": "02:04:11",
+    "Advanced": "01:49:37",
+    "Elite": "01:38:40",
+    "WR": "01:06:39"
+  },
+  {
+    "Age": "45",
+    "Beginner": "02:54:51",
+    "Novice": "02:28:55",
+    "Intermediate": "02:08:57",
+    "Advanced": "01:53:49",
+    "Elite": "01:42:28",
+    "WR": "01:09:13"
+  },
+  {
+    "Age": "50",
+    "Beginner": "03:04:28",
+    "Novice": "02:37:06",
+    "Intermediate": "02:16:03",
+    "Advanced": "02:00:05",
+    "Elite": "01:48:06",
+    "WR": "01:13:01"
+  },
+  {
+    "Age": "55",
+    "Beginner": "03:16:00",
+    "Novice": "02:46:55",
+    "Intermediate": "02:24:34",
+    "Advanced": "02:07:36",
+    "Elite": "01:54:51",
+    "WR": "01:17:35"
+  },
+  {
+    "Age": "60",
+    "Beginner": "03:29:05",
+    "Novice": "02:58:04",
+    "Intermediate": "02:34:12",
+    "Advanced": "02:16:06",
+    "Elite": "02:02:31",
+    "WR": "01:22:46"
+  },
+  {
+    "Age": "65",
+    "Beginner": "03:44:02",
+    "Novice": "03:10:47",
+    "Intermediate": "02:45:14",
+    "Advanced": "02:25:50",
+    "Elite": "02:11:16",
+    "WR": "01:28:41"
+  },
+  {
+    "Age": "70",
+    "Beginner": "04:01:16",
+    "Novice": "03:25:28",
+    "Intermediate": "02:57:57",
+    "Advanced": "02:37:04",
+    "Elite": "02:21:23",
+    "WR": "01:35:31"
+  },
+  {
+    "Age": "75",
+    "Beginner": "04:21:24",
+    "Novice": "03:42:37",
+    "Intermediate": "03:12:47",
+    "Advanced": "02:50:10",
+    "Elite": "02:33:10",
+    "WR": "01:43:29"
+  },
+  {
+    "Age": "80",
+    "Beginner": "04:48:34",
+    "Novice": "04:05:45",
+    "Intermediate": "03:32:49",
+    "Advanced": "03:07:51",
+    "Elite": "02:49:05",
+    "WR": "01:54:14"
+  },
+  {
+    "Age": "85",
+    "Beginner": "05:35:00",
+    "Novice": "04:45:18",
+    "Intermediate": "04:07:04",
+    "Advanced": "03:38:05",
+    "Elite": "03:16:18",
+    "WR": "02:12:37"
+  },
+  {
+    "Age": "90",
+    "Beginner": "06:59:50",
+    "Novice": "05:57:32",
+    "Intermediate": "05:09:38",
+    "Advanced": "04:33:18",
+    "Elite": "04:06:01",
+    "WR": "02:46:12"
+  }
+];
+
+export { wo, man, wo21, man21 };

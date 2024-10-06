@@ -1,4 +1,4 @@
-import { man, wo } from './data.js';
+import { man, wo, man21, wo21 } from './data.js';
 //'use strict';
 //@ts-nocheck
 
