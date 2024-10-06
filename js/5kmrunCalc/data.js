@@ -332,6 +332,15 @@ const man =
 
 const man21 = [
   {
+    "Age": "0",
+    "Beginner": "02:53:28",
+    "Novice": "02:25:01",
+    "Intermediate": "02:03:56",
+    "Advanced": "01:48:22",
+    "Elite": "01:36:56",
+    "WR": "01:09:26"
+  },
+  {
     "Age": "10",
     "Beginner": "02:53:28",
     "Novice": "02:25:01",
@@ -487,6 +496,15 @@ const man21 = [
 ];
 
 const wo21 = [
+  {
+    "Age": "0",
+    "Beginner": "03:24:32",
+    "Novice": "02:54:12",
+    "Intermediate": "02:30:51",
+    "Advanced": "02:13:09",
+    "Elite": "01:59:51",
+    "WR": "01:20:58"
+  },
   {
     "Age": "10",
     "Beginner": "03:24:32",
