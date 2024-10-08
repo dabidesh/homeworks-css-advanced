@@ -736,6 +736,9 @@ copyEngParam.onclick = copyBulParam.onclick = async (e) => {
   await navigator.clipboard.writeText(element.value);
 };
 
+openAnotherDistances.onclick = () => modalAnotherDistances.showModal();
+closeAnotherDistances.onclick = () => modalAnotherDistances.close();
+
 let arrayTracks = [];
 arrayTracks['равна'] = 5000;
 arrayTracks['западен2'] = 5444;

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script defer type="module" src="app.js?v=25"></script>
+  <script defer type="module" src="app.js?v=26"></script>
   <title>Търчане с 5kmrun – калкулатор</title>
   <meta name="description" content="В помощ на бегач(к)ите от 5kmrun –
   време, трасета, възрастова група, пол, темпо,
@@ -152,6 +152,7 @@
     <input id="achievementKgInfo" class="toLong" type="text" value="" readonly /><br />
     <input id="achievementKg" class="toLong" type="text" value="" readonly /><br />
     <button id="openButtonAge" type="button">Ако беше друга възраст</button><br />
+    <button id="openAnotherDistances" type="button">Други разтояния</button><br />
     <input id="elevId" class="long" type="number" value="56" step="1" /> денив./изк.
     <button id="openButtonHelpProfileTrack" class="help" type="button">?</button><br />
     <input id="realFlatDistId" class="long" type="number" value="5626" step="1" /> м равна писта<br />
@@ -393,6 +394,11 @@
     <input id="linkBul" class="long" type="text" value="" readonly />
     <button id="copyBulParam" type="button">Копирай</button>
     <br>
+  </dialog>
+  <dialog id="modalAnotherDistances">
+    <button id="closeAnotherDistances" type="button">X</button>
+    <h2>Предсказание за други разтояния</h2>
+    <input id="time21" class="long" type="text" value="" readonly /> Полум. (21.098 км)<br />
   </dialog>
 </body>
 
