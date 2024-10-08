@@ -2,6 +2,8 @@ import { man, wo, man21, wo21 } from './data.js';
 //'use strict';
 //@ts-nocheck
 
+let p = console.log;
+
 const totalSecondsToHMS = (totalSeconds) => {
   const hourTime = String(Math.floor(totalSeconds / 3600))
     .padStart(2, '0');
@@ -217,7 +219,7 @@ const setKgAchievement = (allSec) => {
 };
 
 const setTimesByFantasyAge = () => {
-  let min, sec;
+  let min, sec, allSec, ageSec, hh, mm, ss;
 
   let ageAchievement = updateAgeAchievement(+(ageId.value));
 
@@ -241,6 +243,35 @@ const setTimesByFantasyAge = () => {
 
     eval(`${ageArray[i]}.value = '${hh}:${mm}:${ss}';`);
   }
+};
+
+const setAnotherDistances = () => {
+
+  let record21;
+
+  let ageAchievement = Number(achievementMaxId.value);
+
+  p('ageAchievement:', ageAchievement);
+
+  if (women.checked == true) {
+    record21 = wo21[+ageId.value].WR;
+  } else {
+    record21 = man21[+ageId.value].WR;
+  }
+
+  p(record21);
+
+  let [hh, mm, ss] = record21.split(':')
+
+  let allSec = HMStoSeconds(hh, mm, ss);
+
+  let time21Sec = allSec * (ageAchievement/100);
+
+  p(time21Sec);
+
+  [hh, mm, ss] = totalSecondsToHMS(time21Sec);
+
+  time21.value = `${hh}:${mm}:${ss}`;
 };
 
 const updateAllByTimeAndDistance = async (flag) => {
@@ -358,6 +389,7 @@ const updateAllByTimeAndDistance = async (flag) => {
   setLevel(secAllOnFlat, +(ageId.value));
   setKgAchievement(secAllOnFlat);
   setTimesByFantasyAge();
+  setAnotherDistances();
 };
 
 loadId.onclick = (e) => {
