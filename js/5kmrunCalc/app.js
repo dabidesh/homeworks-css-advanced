@@ -268,9 +268,7 @@ const setAnotherDistances = () => {
 
   let record21;
 
-  let ageAchievement = Number(achievementId.value);
-
-  p('ageAchievement:', ageAchievement);
+  let ageAchievement = Number(achievementMaxId.value);
 
   if (women.checked == true) {
     record21 = wo21[+ageId.value].WR;
@@ -278,15 +276,11 @@ const setAnotherDistances = () => {
     record21 = man21[+ageId.value].WR;
   }
 
-  p(record21);
-
   let [hh, mm, ss] = record21.split(':')
 
   let allSec = HMStoSeconds2(hh, mm, ss);
 
   let time21Sec = allSec / (ageAchievement/100);
-
-  p(time21Sec);
 
   [hh, mm, ss] = totalSecondsToHMS(time21Sec);
 
