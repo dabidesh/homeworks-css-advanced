@@ -35,6 +35,25 @@ const HMStoSeconds = (hh, mm, ss) => {
   return hhNew * 3600 + mmNew * 60 + ssNew;
 };
 
+const HMStoSeconds2 = (hh, mm, ss) => {
+  let hhNew, mmNew, ssNew;
+  if (ss == undefined) {
+    hhNew = 0;
+    mmNew = +hh;
+    ssNew = +mm;
+  } else {
+    hhNew = +hh;
+    mmNew = +mm;
+    ssNew = +ss;
+  }
+
+  //console.log(('01:02:03'.match(/:/g) || []).length);
+  //logs 2
+  //mm,ss,hh
+
+  return hhNew * 3600 + mmNew * 60 + ssNew;
+};
+
 const updateAgeAchievement = (groupIndex) => {
   let min, sec;
   if (women.checked == true) {
@@ -249,7 +268,7 @@ const setAnotherDistances = () => {
 
   let record21;
 
-  let ageAchievement = Number(achievementMaxId.value);
+  let ageAchievement = Number(achievementId.value);
 
   p('ageAchievement:', ageAchievement);
 
@@ -263,9 +282,9 @@ const setAnotherDistances = () => {
 
   let [hh, mm, ss] = record21.split(':')
 
-  let allSec = HMStoSeconds(hh, mm, ss);
+  let allSec = HMStoSeconds2(hh, mm, ss);
 
-  let time21Sec = allSec * (ageAchievement/100);
+  let time21Sec = allSec / (ageAchievement/100);
 
   p(time21Sec);
 
