@@ -1,4 +1,4 @@
-import { man, wo, man21, wo21 } from './data.js';
+import { man, wo, man21, wo21, wo42, man42 } from './data.js';
 //'use strict';
 //@ts-nocheck
 
@@ -266,14 +266,16 @@ const setTimesByFantasyAge = () => {
 
 const setAnotherDistances = () => {
 
-  let record21;
+  let record21, record42;
 
   let ageAchievement = Number(achievementMaxId.value);
 
   if (women.checked == true) {
     record21 = wo21[+ageId.value].WR;
+    record42 = wo42[+ageId.value].WR;
   } else {
     record21 = man21[+ageId.value].WR;
+    record42 = man42[+ageId.value].WR;
   }
 
   let [hh, mm, ss] = record21.split(':')
@@ -285,6 +287,14 @@ const setAnotherDistances = () => {
   [hh, mm, ss] = totalSecondsToHMS(time21Sec);
 
   time21.value = `${hh}:${mm}:${ss}`;
+
+  [hh, mm, ss] = record42.split(':')
+  allSec = HMStoSeconds2(hh, mm, ss);
+
+  let time42Sec = allSec / (ageAchievement/100);
+  [hh, mm, ss] = totalSecondsToHMS(time42Sec);
+
+  time42.value = `${hh}:${mm}:${ss}`;
 };
 
 const updateAllByTimeAndDistance = async (flag) => {
